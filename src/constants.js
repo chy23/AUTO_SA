@@ -1,37 +1,37 @@
 export const SEAT_MAP = [
-  // Group 1 (獨立座位 3, 相連: 17, 24, 13, 14)
-  { id: 3, groupId: 1, x: 70, y: 15 },
-  { id: 17, groupId: 1, x: 85, y: 10 },
-  { id: 24, groupId: 1, x: 85, y: 25 },
-  { id: 14, groupId: 1, x: 85, y: 40 },
-  { id: 13, groupId: 1, x: 70, y: 40 },
+  // Group 5
+  { id: 4, groupId: 5, col: 1, row: 1 },
+  { id: 1, groupId: 5, col: 2, row: 1 },
+  { id: 10, groupId: 5, col: 1, row: 2 },
+  { id: 22, groupId: 5, col: 1, row: 3 },
+  { id: 23, groupId: 5, col: 2, row: 3 },
 
-  // Group 2 (獨立座位 21, 相連: 19, 11, 25, 9)
-  { id: 21, groupId: 2, x: 70, y: 55 },
-  { id: 19, groupId: 2, x: 85, y: 55 },
-  { id: 11, groupId: 2, x: 85, y: 70 },
-  { id: 25, groupId: 2, x: 85, y: 85 },
-  { id: 9, groupId: 2, x: 70, y: 85 },
+  // Group 4
+  { id: 12, groupId: 4, col: 1, row: 4 },
+  { id: 15, groupId: 4, col: 2, row: 4 },
+  { id: 20, groupId: 4, col: 1, row: 5 },
+  { id: 16, groupId: 4, col: 1, row: 6 },
+  { id: 7, groupId: 4, col: 2, row: 6 },
 
-  // Group 3 (相連: 2, 8, 6, 18)
-  { id: 2, groupId: 3, x: 40, y: 45 },
-  { id: 8, groupId: 3, x: 55, y: 45 },
-  { id: 6, groupId: 3, x: 40, y: 65 },
-  { id: 18, groupId: 3, x: 55, y: 65 },
+  // Group 3
+  { id: 2, groupId: 3, col: 3, row: 4 },
+  { id: 8, groupId: 3, col: 4, row: 4 },
+  { id: 6, groupId: 3, col: 3, row: 5 },
+  { id: 18, groupId: 3, col: 4, row: 5 },
 
-  // Group 4 (獨立座位 15, 相連: 12, 20, 16, 7)
-  { id: 15, groupId: 4, x: 25, y: 50 },
-  { id: 12, groupId: 4, x: 10, y: 50 },
-  { id: 20, groupId: 4, x: 10, y: 65 },
-  { id: 16, groupId: 4, x: 10, y: 80 },
-  { id: 7, groupId: 4, x: 25, y: 80 },
+  // Group 1
+  { id: 3, groupId: 1, col: 5, row: 1 },
+  { id: 17, groupId: 1, col: 6, row: 1 },
+  { id: 24, groupId: 1, col: 6, row: 2 },
+  { id: 13, groupId: 1, col: 5, row: 3 },
+  { id: 14, groupId: 1, col: 6, row: 3 },
 
-  // Group 5 (獨立座位 1, 相連: 4, 10, 22, 23)
-  { id: 1, groupId: 5, x: 25, y: 15 },
-  { id: 4, groupId: 5, x: 10, y: 10 },
-  { id: 10, groupId: 5, x: 10, y: 25 },
-  { id: 22, groupId: 5, x: 10, y: 40 },
-  { id: 23, groupId: 5, x: 25, y: 40 },
+  // Group 2
+  { id: 21, groupId: 2, col: 5, row: 4 },
+  { id: 19, groupId: 2, col: 6, row: 4 },
+  { id: 11, groupId: 2, col: 6, row: 5 },
+  { id: 9, groupId: 2, col: 5, row: 6 },
+  { id: 25, groupId: 2, col: 6, row: 6 },
 ];
 
 export const GROUPS = [

@@ -233,8 +233,8 @@ function App() {
       const seat = SEAT_MAP.find(s => s.id === ass.seatId);
       if (!seat) return;
 
-      const px = (seat.x / 100) * 10; 
-      const py = (seat.y / 100) * 5.625; 
+      const px = (seat.col - 1) * 1.5 + 0.5; 
+      const py = (seat.row - 1) * 0.8 + 1.2; 
       
       let text = `${seat.id}`;
       if (ass.student) {
@@ -337,7 +337,7 @@ function App() {
                 <div 
                   key={seat.id} 
                   className={`seat group-${seat.groupId}`}
-                  style={{ left: `${seat.x}%`, top: `${seat.y}%` }}
+                  style={{ gridColumn: seat.col, gridRow: seat.row }}
                   draggable
                   onDragStart={(e) => handleDragStart(e, seat.id)}
                   onDragOver={handleDragOver}
