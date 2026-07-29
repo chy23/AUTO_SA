@@ -305,7 +305,7 @@ function App() {
             <ul className="rule-list">
               {rules.map(r => (
                 <li key={r.id}>
-                  <span>{r.students.join(', ')} 
+                  <span>{r.students ? r.students.join(', ') : (r.student1 + ' 與 ' + r.student2)} 
                     {r.type === 'NOT_SAME_GROUP' && " 不能同組"}
                     {r.type === 'NOT_ADJACENT' && " 不能相鄰"}
                     {r.type === 'SAME_GROUP' && " 必須同組"}
