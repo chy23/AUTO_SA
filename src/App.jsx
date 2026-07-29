@@ -30,24 +30,32 @@ const evaluateAssignment = (assignment, rules) => {
   });
 
   rules.forEach(rule => {
-    const { type, student1, student2 } = rule;
-    // 找出這兩個學生的座位
-    const item1 = assignment.find(a => a.student?.name === student1 || a.student?.id === student1);
-    const item2 = assignment.find(a => a.student?.name === student2 || a.student?.id === student2);
+    const { type, students: ruleStudents } = rule;
     
-    if (!item1 || !item2 || !item1.student || !item2.student) return;
+    // 找出這些學生目前的座位
+    const items = ruleStudents.map(studentId => 
+      assignment.find(a => a.student?.id === studentId)
+    ).filter(Boolean);
 
-    const s1 = SEAT_MAP.find(s => s.id === item1.seatId);
-    const s2 = SEAT_MAP.find(s => s.id === item2.seatId);
-    if (!s1 || !s2) return;
+    // 如果沒有找到足夠的學生，就不算分數
+    if (items.length < 2) return;
 
-    const isSameGroup = s1.groupId === s2.groupId;
-    const isAdjacent = ADJACENCY_LIST[s1.id].includes(s2.id);
+    // 兩兩比較
+    for (let i = 0; i < items.length; i++) {
+      for (let j = i + 1; j < items.length; j++) {
+        const s1 = SEAT_MAP.find(s => s.id === items[i].seatId);
+        const s2 = SEAT_MAP.find(s => s.id === items[j].seatId);
+        if (!s1 || !s2) continue;
 
-    if (type === 'NOT_SAME_GROUP' && isSameGroup) penalty += 100;
-    if (type === 'NOT_ADJACENT' && isAdjacent) penalty += 100;
-    if (type === 'SAME_GROUP' && !isSameGroup) penalty += 50;
-    if (type === 'ADJACENT' && !isAdjacent) penalty += 50;
+        const isSameGroup = s1.groupId === s2.groupId;
+        const isAdjacent = ADJACENCY_LIST[s1.id].includes(s2.id);
+
+        if (type === 'NOT_SAME_GROUP' && isSameGroup) penalty += 100;
+        if (type === 'NOT_ADJACENT' && isAdjacent) penalty += 100;
+        if (type === 'SAME_GROUP' && !isSameGroup) penalty += 50;
+        if (type === 'ADJACENT' && !isAdjacent) penalty += 50;
+      }
+    }
   });
 
   return penalty;
@@ -112,14 +120,22 @@ function App() {
 
   // --- 規則設定相關 ---
   const [ruleType, setRuleType] = useState('NOT_SAME_GROUP');
-  const [ruleS1, setRuleS1] = useState('');
-  const [ruleS2, setRuleS2] = useState('');
+  const [ruleInputs, setRuleInputs] = useState(['', '', '', '', '']);
+
+  const handleRuleInputChange = (index, value) => {
+    const newInputs = [...ruleInputs];
+    newInputs[index] = value;
+    setRuleInputs(newInputs);
+  };
 
   const handleAddRule = () => {
-    if (!ruleS1 || !ruleS2 || ruleS1 === ruleS2) return;
-    setRules([...rules, { id: Date.now(), type: ruleType, student1: ruleS1, student2: ruleS2 }]);
-    setRuleS1('');
-    setRuleS2('');
+    const validStudents = ruleInputs.map(v => v.trim()).filter(v => v !== '');
+    if (validStudents.length < 2) {
+      alert("請至少輸入兩個座號");
+      return;
+    }
+    setRules([...rules, { id: Date.now(), type: ruleType, students: validStudents }]);
+    setRuleInputs(['', '', '', '', '']);
   };
 
   const removeRule = (id) => {
@@ -271,9 +287,17 @@ function App() {
                 <option value="SAME_GROUP">坐同一組</option>
                 <option value="ADJACENT">坐隔壁</option>
               </select>
-              <div className="rule-inputs">
-                <input type="text" placeholder="學生 A (姓名)" value={ruleS1} onChange={e => setRuleS1(e.target.value)} />
-                <input type="text" placeholder="學生 B (姓名)" value={ruleS2} onChange={e => setRuleS2(e.target.value)} />
+              <div className="rule-inputs" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem' }}>
+                {ruleInputs.map((val, idx) => (
+                  <input 
+                    key={idx}
+                    type="text" 
+                    placeholder={`座號 ${idx + 1}`} 
+                    value={val} 
+                    onChange={e => handleRuleInputChange(idx, e.target.value)} 
+                    style={idx === 4 ? { gridColumn: '1 / -1' } : {}}
+                  />
+                ))}
               </div>
               <button className="add-rule-btn" onClick={handleAddRule}>新增條件</button>
             </div>
@@ -281,7 +305,7 @@ function App() {
             <ul className="rule-list">
               {rules.map(r => (
                 <li key={r.id}>
-                  <span>{r.student1} 與 {r.student2} 
+                  <span>{r.students.join(', ')} 
                     {r.type === 'NOT_SAME_GROUP' && " 不能同組"}
                     {r.type === 'NOT_ADJACENT' && " 不能相鄰"}
                     {r.type === 'SAME_GROUP' && " 必須同組"}
