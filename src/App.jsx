@@ -183,13 +183,15 @@ export default function App() {
   useEffect(() => {
     const onMouseMove = (e) => {
       if (!draggingStatic.current || !classroomRef.current) return;
+      // Capture ref fields immediately to avoid race condition with mouseup
+      const { id, offsetX, offsetY } = draggingStatic.current;
       const cr = classroomRef.current.getBoundingClientRect();
-      let x = ((e.clientX - cr.left - draggingStatic.current.offsetX) / cr.width) * 100;
-      let y = ((e.clientY - cr.top - draggingStatic.current.offsetY) / cr.height) * 100;
+      let x = ((e.clientX - cr.left - offsetX) / cr.width) * 100;
+      let y = ((e.clientY - cr.top - offsetY) / cr.height) * 100;
       x = Math.max(0, Math.min(100, x));
       y = Math.max(0, Math.min(100, y));
       setStaticItems(prev => prev.map(item =>
-        item.id === draggingStatic.current.id ? { ...item, x, y } : item
+        item.id === id ? { ...item, x, y } : item
       ));
     };
     const onMouseUp = () => { draggingStatic.current = null; };
@@ -489,6 +491,8 @@ export default function App() {
           <div 
             ref={classroomRef}
             className={`classroom ${layoutMode === 'GROUP' ? 'horizontal-layout' : 'vertical-layout'}`}
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={(e) => e.preventDefault()}
           >
             <div className="blackboard">黑板</div>
             
