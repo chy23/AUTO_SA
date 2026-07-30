@@ -1,9 +1,4 @@
-import React, { useState, useCallback, useRef, useEffect } from 'react';
-import * as Papa from 'papaparse';
-import * as XLSX from 'xlsx';
-import pptxgen from 'pptxgenjs';
-import { Upload, Shuffle, Download, Settings2, Trash2, MapPin, X } from 'lucide-react';
-import { useMemo } from 'react';
+import React, { useState, useCallback, useRef, useEffect, useMemo } from 'react';
 import { LAYOUT_HORIZONTAL, LAYOUT_VERTICAL, GROUPS, ADJACENCY_LIST } from './constants';
 import './App.css';
 
@@ -166,14 +161,47 @@ export default function App() {
   });
   
   const [isAssigning, setIsAssigning] = useState(false);
+  const classroomRef = useRef(null);
 
+  // --- Static item drag via mouse events (not HTML5 drag API) ---
+  const draggingStatic = useRef(null); // { id, offsetX, offsetY }
+
+  const handleStaticMouseDown = (e, itemId) => {
+    e.preventDefault();
+    const rect = e.currentTarget.getBoundingClientRect();
+    draggingStatic.current = {
+      id: itemId,
+      offsetX: e.clientX - rect.left,
+      offsetY: e.clientY - rect.top,
+    };
+  };
+
+  useEffect(() => {
+    const onMouseMove = (e) => {
+      if (!draggingStatic.current || !classroomRef.current) return;
+      const cr = classroomRef.current.getBoundingClientRect();
+      let x = ((e.clientX - cr.left - draggingStatic.current.offsetX) / cr.width) * 100;
+      let y = ((e.clientY - cr.top - draggingStatic.current.offsetY) / cr.height) * 100;
+      x = Math.max(0, Math.min(100, x));
+      y = Math.max(0, Math.min(100, y));
+      setStaticItems(prev => prev.map(item =>
+        item.id === draggingStatic.current.id ? { ...item, x, y } : item
+      ));
+    };
+    const onMouseUp = () => { draggingStatic.current = null; };
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+    return () => {
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+    };
+  }, []);
   useEffect(() => {
     setStaticItems(layoutMode === 'GROUP' ? LAYOUT_HORIZONTAL.staticItems : 
                    layoutMode === 'EXAM' ? LAYOUT_VERTICAL.staticItems : 
                    LAYOUT_VERTICAL.staticItems);
   }, [layoutMode]);
 
-  // --- 規則設定相關 ---
   const [ruleType, setRuleType] = useState('NOT_SAME_GROUP');
   const [ruleStudentIDs, setRuleStudentIDs] = useState('');
 
@@ -221,69 +249,32 @@ export default function App() {
     setAssignments(result);
   };
 
-  // --- Drag and Drop Handlers ---
-  const handleDragStart = (e, itemType, id) => {
-    e.dataTransfer.setData('text/plain', JSON.stringify({ itemType, id }));
-    const rect = e.target.getBoundingClientRect();
-    e.dataTransfer.setData('offsetX', e.clientX - rect.left);
-    e.dataTransfer.setData('offsetY', e.clientY - rect.top);
-  };
-
-  const handleCanvasDrop = (e) => {
-    e.preventDefault();
-    try {
-      const data = JSON.parse(e.dataTransfer.getData('text/plain'));
-      
-      if (data.itemType === 'static') {
-        const classroomRect = e.currentTarget.getBoundingClientRect();
-        const offsetX = parseFloat(e.dataTransfer.getData('offsetX')) || 25;
-        const offsetY = parseFloat(e.dataTransfer.getData('offsetY')) || 25;
-        
-        let x = ((e.clientX - classroomRect.left - offsetX) / classroomRect.width) * 100;
-        let y = ((e.clientY - classroomRect.top - offsetY) / classroomRect.height) * 100;
-        
-        setStaticItems(prev => prev.map(item => 
-          item.id === data.id ? { ...item, x, y } : item
-        ));
-      } else if (data.itemType === 'seat') {
-        const classroomRect = e.currentTarget.getBoundingClientRect();
-        const offsetX = parseFloat(e.dataTransfer.getData('offsetX')) || 25;
-        const offsetY = parseFloat(e.dataTransfer.getData('offsetY')) || 25;
-        
-        let x = ((e.clientX - classroomRect.left - offsetX) / classroomRect.width) * 100;
-        let y = ((e.clientY - classroomRect.top - offsetY) / classroomRect.height) * 100;
-
-        // Custom dragged coordinate offset per layout needs a custom state if we were to save it. 
-        // But the user didn't explicitly ask for seats to be freely dragged out of predefined layout, 
-        // only environmental markers. 
-        // Wait, "座位要照我給你的格式排 ... 同時也要讓使用者選擇後可以在頁面上拖移調整" refers to the static markers.
-        // I will not save custom seat X/Y coordinates right now unless they drop it on another seat.
-      }
-    } catch (err) {}
+  // --- Seat-only Drag and Drop ---
+  const handleSeatDragStart = (e, seatId) => {
+    e.dataTransfer.setData('text/plain', JSON.stringify({ itemType: 'seat', id: seatId }));
   };
 
   const handleSeatDrop = (e, targetSeatId) => {
     e.preventDefault();
+    e.stopPropagation();
     try {
       const data = JSON.parse(e.dataTransfer.getData('text/plain'));
-      if (data.itemType === 'seat') {
-        e.stopPropagation(); // Prevent canvas drop only for seats
-        if (data.id !== targetSeatId) {
-          setAssignments(prev => {
-            const newAss = [...prev];
-            const idx1 = newAss.findIndex(a => a.seatId === data.id);
-            const idx2 = newAss.findIndex(a => a.seatId === targetSeatId);
-            if (idx1 !== -1 && idx2 !== -1) {
-              const temp = newAss[idx1].student;
-              newAss[idx1].student = newAss[idx2].student;
-              newAss[idx2].student = temp;
-            }
-            return newAss;
-          });
-        }
+      if (data.itemType === 'seat' && data.id !== targetSeatId) {
+        setAssignments(prev => {
+          const newAss = [...prev];
+          const idx1 = newAss.findIndex(a => a.seatId === data.id);
+          const idx2 = newAss.findIndex(a => a.seatId === targetSeatId);
+          if (idx1 !== -1 && idx2 !== -1) {
+            const temp = newAss[idx1].student;
+            newAss[idx1].student = newAss[idx2].student;
+            newAss[idx2].student = temp;
+          }
+          return newAss;
+        });
       }
     } catch {}
   };
+
 
   // --- PPTX Export ---
   const handleExportPPTX = () => {
@@ -492,9 +483,8 @@ export default function App() {
 
         <section className="classroom-area">
           <div 
+            ref={classroomRef}
             className={`classroom ${layoutMode === 'GROUP' ? 'horizontal-layout' : 'vertical-layout'}`}
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={handleCanvasDrop}
           >
             <div className="blackboard">黑板</div>
             
@@ -512,9 +502,8 @@ export default function App() {
               <div 
                 key={item.id} 
                 className="static-label"
-                style={{ left: `${item.x}%`, top: `${item.y}%` }}
-                draggable
-                onDragStart={(e) => handleDragStart(e, 'static', item.id)}
+                style={{ left: `${item.x}%`, top: `${item.y}%`, cursor: 'grab', userSelect: 'none' }}
+                onMouseDown={(e) => handleStaticMouseDown(e, item.id)}
               >
                 {item.name}
               </div>
@@ -528,7 +517,7 @@ export default function App() {
                   className={`seat group-${seat.groupId || 1} ${seat.shape || 'vertical'}`}
                   style={{ left: `${seat.x}%`, top: `${seat.y}%` }}
                   draggable
-                  onDragStart={(e) => handleDragStart(e, 'seat', seat.id)}
+                  onDragStart={(e) => handleSeatDragStart(e, seat.id)}
                   onDragOver={(e) => e.preventDefault()}
                   onDrop={(e) => handleSeatDrop(e, seat.id)}
                 >
