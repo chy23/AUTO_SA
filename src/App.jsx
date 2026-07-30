@@ -1,4 +1,8 @@
 import React, { useState, useCallback, useRef, useEffect, useMemo } from 'react';
+import * as Papa from 'papaparse';
+import * as XLSX from 'xlsx';
+import pptxgen from 'pptxgenjs';
+import { Upload, Shuffle, Download, Settings2, Trash2, MapPin, X } from 'lucide-react';
 import { LAYOUT_HORIZONTAL, LAYOUT_VERTICAL, GROUPS, ADJACENCY_LIST } from './constants';
 import './App.css';
 
