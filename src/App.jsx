@@ -134,7 +134,7 @@ export default function App() {
   const standardMap = useMemo(() => {
     const seats = [];
     let currentId = 1;
-    const xStart = 10, xEnd = 90, yStart = 15, yEnd = 90;
+    const xStart = 15, xEnd = 85, yStart = 15, yEnd = 85;
     const xStep = standardCols > 1 ? (xEnd - xStart) / (standardCols - 1) : 0;
     const yStep = standardRows > 1 ? (yEnd - yStart) / (standardRows - 1) : 0;
     
@@ -490,7 +490,7 @@ export default function App() {
 
         <section className="classroom-area">
           <div 
-            className="classroom"
+            className={`classroom ${layoutMode === 'GROUP' ? 'horizontal-layout' : 'vertical-layout'}`}
             onDragOver={(e) => e.preventDefault()}
             onDrop={handleCanvasDrop}
           >

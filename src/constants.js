@@ -57,11 +57,11 @@ export const LAYOUT_VERTICAL = {
   ],
   labels: [],
   staticItems: [
-    { id: 'front-door', name: '前門', x: 2, y: 15 },
-    { id: 'back-corridor', name: '後走廊門', x: 95, y: 15 },
-    { id: 'back-door', name: '後門', x: 2, y: 90 },
-    { id: 'teacher', name: '導師', x: 60, y: 95 },
-    { id: 'restroom', name: '廁所', x: 90, y: 95 }
+    { id: 'front-door', name: '前門', x: 5, y: 5 },
+    { id: 'back-corridor', name: '後走廊門', x: 95, y: 5 },
+    { id: 'back-door', name: '後門', x: 5, y: 95 },
+    { id: 'teacher', name: '導師', x: 50, y: 95 },
+    { id: 'restroom', name: '廁所', x: 85, y: 95 }
   ]
 };
 
