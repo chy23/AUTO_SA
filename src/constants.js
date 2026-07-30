@@ -1,4 +1,4 @@
-export const SEAT_MAP = [
+export const GROUP_MAP = [
   // Col 1
   { id: 25, groupId: 2, col: 1, row: 1 },
   { id: 17, groupId: 1, col: 1, row: 2 },
@@ -36,6 +36,44 @@ export const SEAT_MAP = [
   { id: 7, groupId: 4, col: 6, row: 6 },
 ];
 
+export const EXAM_MAP = [
+  // Col 1
+  { id: 25, groupId: 2, col: 1, row: 1 },
+  { id: 17, groupId: 1, col: 1, row: 2 },
+  { id: 4, groupId: 5, col: 1, row: 3 },
+  { id: 12, groupId: 4, col: 1, row: 4 },
+  { id: 20, groupId: 4, col: 1, row: 5 },
+
+  // Col 2
+  { id: 3, groupId: 1, col: 2, row: 1 },
+  { id: 10, groupId: 5, col: 2, row: 2 },
+  { id: 21, groupId: 2, col: 2, row: 3 },
+  { id: 13, groupId: 1, col: 2, row: 4 },
+  { id: 22, groupId: 5, col: 2, row: 5 },
+
+  // Col 3
+  { id: 6, groupId: 3, col: 3, row: 1 },
+  { id: 23, groupId: 5, col: 3, row: 2 },
+  { id: 16, groupId: 4, col: 3, row: 3 },
+  { id: 9, groupId: 2, col: 3, row: 4 },
+
+  // Col 4
+  { id: 2, groupId: 3, col: 4, row: 1 },
+  { id: 8, groupId: 3, col: 4, row: 2 },
+  { id: 11, groupId: 2, col: 4, row: 3 },
+
+  // Col 5
+  { id: 18, groupId: 3, col: 5, row: 1 },
+  { id: 15, groupId: 4, col: 5, row: 2 },
+  { id: 7, groupId: 4, col: 5, row: 3 },
+
+  // Col 6
+  { id: 24, groupId: 1, col: 6, row: 1 },
+  { id: 14, groupId: 1, col: 6, row: 2 },
+  { id: 19, groupId: 2, col: 6, row: 3 },
+  { id: 1, groupId: 5, col: 6, row: 4 },
+];
+
 export const GROUPS = [
   { id: 1, name: "第壹組" },
   { id: 2, name: "第二組" },
@@ -62,9 +100,9 @@ export const STATIC_LABELS = [
 ];
 
 export const getAdjacencyList = () => {
-  // 將視覺上上下左右相連的座位都列為相鄰 (隔壁)
+  // 將視覺上上下左右相連的座位都列為相鄰 (隔壁) - 以 GROUP_MAP 為主
   const adj = {};
-  SEAT_MAP.forEach(s => (adj[s.id] = []));
+  GROUP_MAP.forEach(s => (adj[s.id] = []));
 
   const addEdge = (a, b) => {
     if (!adj[a].includes(b)) adj[a].push(b);

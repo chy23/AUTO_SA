@@ -3,7 +3,7 @@ import * as Papa from 'papaparse';
 import * as XLSX from 'xlsx';
 import pptxgen from 'pptxgenjs';
 import { Upload, Shuffle, Download, Settings2, Trash2 } from 'lucide-react';
-import { SEAT_MAP, GROUPS, ADJACENCY_LIST, GROUP_LABELS, STATIC_LABELS } from './constants';
+import { GROUP_MAP, EXAM_MAP, GROUPS, ADJACENCY_LIST, GROUP_LABELS, STATIC_LABELS } from './constants';
 import './App.css';
 
 // --- Utility Functions ---
@@ -62,17 +62,17 @@ const evaluateAssignment = (assignment, rules) => {
 };
 
 // 自動排座演算法 (模擬退火 / 隨機交換)
-const assignSeats = (students, rules) => {
+const assignSeats = (students, rules, currentMap) => {
   if (students.length === 0) return [];
   
   // 初始化隨機分配
-  let currentAssignment = SEAT_MAP.map((seat, index) => ({
+  let currentAssignment = currentMap.map((seat, index) => ({
     seatId: seat.id,
     student: index < students.length ? students[index] : null,
   }));
   currentAssignment = shuffleArray(currentAssignment);
 
-  let currentScore = evaluateAssignment(currentAssignment, rules);
+  let currentScore = evaluateAssignment(currentAssignment, rules, currentMap);
   let bestAssignment = [...currentAssignment];
   let bestScore = currentScore;
 
@@ -92,7 +92,7 @@ const assignSeats = (students, rules) => {
     newAssignment[idx1].student = newAssignment[idx2].student;
     newAssignment[idx2].student = temp;
 
-    const newScore = evaluateAssignment(newAssignment, rules);
+    const newScore = evaluateAssignment(newAssignment, rules, currentMap);
 
     if (newScore < currentScore) {
       currentAssignment = newAssignment;
@@ -113,9 +113,12 @@ const assignSeats = (students, rules) => {
 function App() {
   const [students, setStudents] = useState([]);
   const [rules, setRules] = useState([]);
+  const [layoutMode, setLayoutMode] = useState('GROUP');
+  const currentMap = layoutMode === 'GROUP' ? GROUP_MAP : EXAM_MAP;
   const [assignments, setAssignments] = useState(
-    SEAT_MAP.map(s => ({ seatId: s.id, student: null }))
+    currentMap.map(s => ({ seatId: s.id, student: null }))
   );
+  const [isAssigning, setIsAssigning] = useState(false);
   const [draggedSeat, setDraggedSeat] = useState(null);
 
   // --- 規則設定相關 ---
@@ -186,7 +189,7 @@ function App() {
       alert("請先上傳名單");
       return;
     }
-    const result = assignSeats(students, rules);
+    const result = assignSeats(students, rules, currentMap);
     setAssignments(result);
   };
 
@@ -230,7 +233,7 @@ function App() {
     });
 
     assignments.forEach(ass => {
-      const seat = SEAT_MAP.find(s => s.id === ass.seatId);
+      const seat = currentMap.find(s => s.id === ass.seatId);
       if (!seat) return;
 
       const px = (seat.col - 1) * 1.5 + 0.5; 
@@ -318,9 +321,19 @@ function App() {
           </section>
 
           <section className="panel actions">
-             <button className="primary-btn" onClick={handleAssign}>
-               <Shuffle size={16} /> 自動排座位
-             </button>
+          <button 
+            className="action-btn outline"
+            onClick={() => {
+              setLayoutMode(prev => prev === 'GROUP' ? 'EXAM' : 'GROUP');
+            }}
+          >
+            <Settings2 size={18} />
+            {layoutMode === 'GROUP' ? '切換為考試模式' : '切換為分組模式'}
+          </button>
+          
+          <button className="action-btn primary" onClick={handleAssign} disabled={isAssigning || students.length === 0}>
+             <Shuffle size={16} /> 自動排座位
+          </button>
              <button className="secondary-btn" onClick={handleExportPPTX}>
                <Download size={16} /> 匯出 PPTX
              </button>
@@ -331,7 +344,8 @@ function App() {
         <section className="classroom-area">
           <div className="classroom">
             <div className="blackboard">黑板</div>
-            {GROUP_LABELS.map((label, idx) => (
+            
+            {layoutMode === 'GROUP' && GROUP_LABELS.map((label, idx) => (
               <div 
                 key={`label-${idx}`} 
                 className="group-label"
@@ -349,6 +363,7 @@ function App() {
                 {label.text}
               </div>
             ))}
+            
             {STATIC_LABELS.map((label, idx) => (
               <div 
                 key={`static-${idx}`} 
@@ -358,7 +373,7 @@ function App() {
                 {label.text}
               </div>
             ))}
-            {SEAT_MAP.map(seat => {
+            {currentMap.map(seat => {
               const ass = assignments.find(a => a.seatId === seat.id);
               return (
                 <div 
