@@ -91,48 +91,48 @@ export const STATIC_LABELS = [
 ];
 
 export const getAdjacencyList = () => {
-  // 將視覺上上下左右相連的座位都列為相鄰 (隔壁) - 以 GROUP_MAP 為主
+  // 將視覺上上下左右相連的座位都列為相鄰 (隔壁)
   const adj = {};
-  GROUP_MAP.forEach(s => (adj[s.id] = []));
+  LAYOUT_HORIZONTAL.seats.forEach(s => (adj[s.id] = []));
 
   const addEdge = (a, b) => {
+    if (!adj[a]) adj[a] = [];
+    if (!adj[b]) adj[b] = [];
     if (!adj[a].includes(b)) adj[a].push(b);
     if (!adj[b].includes(a)) adj[b].push(a);
   };
 
-  // Group 1 相鄰 (Based on Image 2)
+  // Group 1 相鄰
   addEdge(17, 3);
   addEdge(3, 24);
   addEdge(24, 18);
   addEdge(14, 18);
   addEdge(14, 13);
   
-  // Group 2 相鄰 (Based on Image 2)
+  // Group 2 相鄰
   addEdge(25, 21);
   addEdge(21, 19);
   addEdge(19, 11);
   addEdge(11, 7);
   addEdge(9, 11);
 
-  // Group 3 相鄰 (Based on Image 2)
+  // Group 3 相鄰
   addEdge(6, 2);
   addEdge(2, 8);
   addEdge(8, 18);
 
-  // Group 4 相鄰 (Based on Image 2)
+  // Group 4 相鄰
   addEdge(12, 15);
   addEdge(15, 20);
   addEdge(20, 16);
   addEdge(16, 7);
 
-  // Group 5 相鄰 (Based on Image 2)
+  // Group 5 相鄰
   addEdge(4, 10);
   addEdge(10, 23);
   addEdge(23, 1);
   addEdge(1, 22);
 
-  // 根據圖片，1, 3, 15, 21 沒有相鄰
-  // 檢查是否有跨組相鄰：看起來組跟組之間都有走道，沒有直接相鄰
   return adj;
 };
 
