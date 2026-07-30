@@ -264,21 +264,23 @@ export default function App() {
 
   const handleSeatDrop = (e, targetSeatId) => {
     e.preventDefault();
-    e.stopPropagation(); // Prevent canvas drop
     try {
       const data = JSON.parse(e.dataTransfer.getData('text/plain'));
-      if (data.itemType === 'seat' && data.id !== targetSeatId) {
-        setAssignments(prev => {
-          const newAss = [...prev];
-          const idx1 = newAss.findIndex(a => a.seatId === data.id);
-          const idx2 = newAss.findIndex(a => a.seatId === targetSeatId);
-          if (idx1 !== -1 && idx2 !== -1) {
-            const temp = newAss[idx1].student;
-            newAss[idx1].student = newAss[idx2].student;
-            newAss[idx2].student = temp;
-          }
-          return newAss;
-        });
+      if (data.itemType === 'seat') {
+        e.stopPropagation(); // Prevent canvas drop only for seats
+        if (data.id !== targetSeatId) {
+          setAssignments(prev => {
+            const newAss = [...prev];
+            const idx1 = newAss.findIndex(a => a.seatId === data.id);
+            const idx2 = newAss.findIndex(a => a.seatId === targetSeatId);
+            if (idx1 !== -1 && idx2 !== -1) {
+              const temp = newAss[idx1].student;
+              newAss[idx1].student = newAss[idx2].student;
+              newAss[idx2].student = temp;
+            }
+            return newAss;
+          });
+        }
       }
     } catch {}
   };
