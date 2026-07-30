@@ -1,78 +1,69 @@
-export const GROUP_MAP = [
-  // Col 1
-  { id: 25, groupId: 2, col: 1, row: 1 },
-  { id: 17, groupId: 1, col: 1, row: 2 },
-  { id: 4, groupId: 5, col: 1, row: 3 },
-  { id: 12, groupId: 4, col: 1, row: 4 },
-  { id: 20, groupId: 4, col: 1, row: 5 },
-  { id: 22, groupId: 5, col: 1, row: 6 },
+export const LAYOUT_HORIZONTAL = {
+  seats: [
+    // Group 5
+    { id: 4, groupId: 5, x: 10, y: 15 },
+    { id: 1, groupId: 5, x: 24, y: 15 },
+    { id: 10, groupId: 5, x: 10, y: 30 },
+    { id: 22, groupId: 5, x: 10, y: 45 },
+    { id: 23, groupId: 5, x: 20, y: 45 },
+    // Group 4
+    { id: 12, groupId: 4, x: 10, y: 60 },
+    { id: 15, groupId: 4, x: 24, y: 60 },
+    { id: 20, groupId: 4, x: 10, y: 75 },
+    { id: 16, groupId: 4, x: 10, y: 90 },
+    { id: 7, groupId: 4, x: 20, y: 90 },
+    // Group 3
+    { id: 2, groupId: 3, x: 42, y: 60 },
+    { id: 8, groupId: 3, x: 54, y: 60 },
+    { id: 6, groupId: 3, x: 42, y: 75 },
+    { id: 18, groupId: 3, x: 54, y: 75 },
+    // Group 1
+    { id: 3, groupId: 1, x: 74, y: 15 },
+    { id: 17, groupId: 1, x: 86, y: 15 },
+    { id: 24, groupId: 1, x: 86, y: 30 },
+    { id: 13, groupId: 1, x: 76, y: 45 },
+    { id: 14, groupId: 1, x: 86, y: 45 },
+    // Group 2
+    { id: 21, groupId: 2, x: 74, y: 60 },
+    { id: 19, groupId: 2, x: 86, y: 60 },
+    { id: 11, groupId: 2, x: 86, y: 75 },
+    { id: 9, groupId: 2, x: 76, y: 90 },
+    { id: 25, groupId: 2, x: 86, y: 90 },
+  ],
+  labels: [
+    { text: '5', x: 20, y: 30 },
+    { text: '4', x: 20, y: 75 },
+    { text: '3', x: 48, y: 67 },
+    { text: '1', x: 76, y: 30 },
+    { text: '2', x: 76, y: 75 },
+  ],
+  staticItems: [
+    { id: 'front-door', name: '前門', x: 2, y: 15 },
+    { id: 'back-corridor', name: '後走廊門', x: 95, y: 15 },
+    { id: 'back-door', name: '後門', x: 2, y: 90 },
+    { id: 'teacher', name: '導師', x: 60, y: 95 },
+    { id: 'restroom', name: '廁所', x: 90, y: 95 }
+  ]
+};
 
-  // Col 2
-  { id: 3, groupId: 1, col: 2, row: 1 },
-  { id: 10, groupId: 5, col: 2, row: 3 },
-  { id: 21, groupId: 2, col: 2, row: 4 },
-  { id: 13, groupId: 1, col: 2, row: 6 },
-
-  // Col 3
-  { id: 6, groupId: 3, col: 3, row: 4 },
-  { id: 16, groupId: 4, col: 3, row: 5 },
-
-  // Col 4
-  { id: 23, groupId: 5, col: 4, row: 4 },
-  { id: 9, groupId: 2, col: 4, row: 5 },
-
-  // Col 5
-  { id: 2, groupId: 3, col: 5, row: 1 },
-  { id: 8, groupId: 3, col: 5, row: 3 },
-  { id: 15, groupId: 4, col: 5, row: 4 },
-  { id: 11, groupId: 2, col: 5, row: 6 },
-
-  // Col 6
-  { id: 24, groupId: 1, col: 6, row: 1 },
-  { id: 18, groupId: 3, col: 6, row: 2 },
-  { id: 14, groupId: 1, col: 6, row: 3 },
-  { id: 19, groupId: 2, col: 6, row: 4 },
-  { id: 1, groupId: 5, col: 6, row: 5 },
-  { id: 7, groupId: 4, col: 6, row: 6 },
-];
-
-export const EXAM_MAP = [
-  // Col 1
-  { id: 25, groupId: 2, col: 1, row: 1 },
-  { id: 17, groupId: 1, col: 1, row: 2 },
-  { id: 4, groupId: 5, col: 1, row: 3 },
-  { id: 12, groupId: 4, col: 1, row: 4 },
-  { id: 20, groupId: 4, col: 1, row: 5 },
-
-  // Col 2
-  { id: 3, groupId: 1, col: 2, row: 1 },
-  { id: 10, groupId: 5, col: 2, row: 2 },
-  { id: 21, groupId: 2, col: 2, row: 3 },
-  { id: 13, groupId: 1, col: 2, row: 4 },
-  { id: 22, groupId: 5, col: 2, row: 5 },
-
-  // Col 3
-  { id: 6, groupId: 3, col: 3, row: 1 },
-  { id: 23, groupId: 5, col: 3, row: 2 },
-  { id: 16, groupId: 4, col: 3, row: 3 },
-  { id: 9, groupId: 2, col: 3, row: 4 },
-
-  // Col 4
-  { id: 2, groupId: 3, col: 4, row: 1 },
-  { id: 8, groupId: 3, col: 4, row: 2 },
-  { id: 11, groupId: 2, col: 4, row: 3 },
-
-  // Col 5
-  { id: 18, groupId: 3, col: 5, row: 1 },
-  { id: 15, groupId: 4, col: 5, row: 2 },
-  { id: 7, groupId: 4, col: 5, row: 3 },
-
-  // Col 6
-  { id: 24, groupId: 1, col: 6, row: 1 },
-  { id: 14, groupId: 1, col: 6, row: 2 },
-  { id: 19, groupId: 2, col: 6, row: 3 },
-  { id: 1, groupId: 5, col: 6, row: 4 },
-];
+export const LAYOUT_VERTICAL = {
+  seats: [
+    { id: 25, groupId: 2, x: 10, y: 15 }, { id: 17, groupId: 1, x: 10, y: 30 }, { id: 4, groupId: 5, x: 10, y: 45 }, { id: 12, groupId: 4, x: 10, y: 60 }, { id: 20, groupId: 4, x: 10, y: 75 },
+    { id: 3, groupId: 1, x: 25, y: 15 }, { id: 10, groupId: 5, x: 25, y: 30 }, { id: 21, groupId: 2, x: 25, y: 45 }, { id: 13, groupId: 1, x: 25, y: 60 }, { id: 22, groupId: 5, x: 25, y: 75 },
+    { id: 6, groupId: 3, x: 40, y: 15 }, { id: 23, groupId: 5, x: 40, y: 30 }, { id: 16, groupId: 4, x: 40, y: 45 }, { id: 9, groupId: 2, x: 40, y: 60 },
+    { id: 2, groupId: 3, x: 55, y: 15 }, { id: 8, groupId: 3, x: 55, y: 30 }, { id: 11, groupId: 2, x: 55, y: 45 },
+    { id: 18, groupId: 3, x: 70, y: 15 }, { id: 15, groupId: 4, x: 70, y: 30 }, { id: 7, groupId: 4, x: 70, y: 45 },
+    { id: 24, groupId: 1, x: 85, y: 15 }, { id: 14, groupId: 1, x: 85, y: 30 }, { id: 19, groupId: 2, x: 85, y: 45 }, { id: 1, groupId: 5, x: 85, y: 60 },
+  ],
+  labels: [],
+  staticItems: [
+    { id: 'front-door', name: '前門', x: 2, y: 15 },
+    { id: 'back-corridor', name: '後走廊門', x: 95, y: 15 },
+    { id: 'back-door', name: '後門', x: 2, y: 90 },
+    { id: 'teacher', name: '導師', x: 60, y: 95 },
+    { id: 'restroom', name: '廁所', x: 90, y: 95 }
+  ]
+};
 
 export const GROUPS = [
   { id: 1, name: "第壹組" },
