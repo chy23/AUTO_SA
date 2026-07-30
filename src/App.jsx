@@ -126,6 +126,7 @@ export default function App() {
   const [students, setStudents] = useState([]); // List of {id, name}
   const [rules, setRules] = useState([]);
   const [layoutMode, setLayoutMode] = useState('GROUP');
+  const [lastGroupMode, setLastGroupMode] = useState('GROUP');
   const [standardRows, setStandardRows] = useState(6);
   const [standardCols, setStandardCols] = useState(5);
   const [hiddenSeatIds, setHiddenSeatIds] = useState([]);
@@ -360,8 +361,22 @@ export default function App() {
 
   return (
     <div className="app-container">
-      <header className="app-header">
+      <header className="app-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h1>智慧教室座位分配系統</h1>
+        <div className="mode-toggle" style={{ display: 'flex', background: 'rgba(255,255,255,0.1)', borderRadius: '20px', padding: '4px', gap: '4px' }}>
+          <button 
+            onClick={() => setLayoutMode(lastGroupMode)}
+            style={{ padding: '6px 16px', borderRadius: '16px', border: 'none', background: layoutMode !== 'STANDARD' ? '#4CAF50' : 'transparent', color: 'white', cursor: 'pointer', transition: 'all 0.3s' }}
+          >
+            小組模式
+          </button>
+          <button 
+            onClick={() => setLayoutMode('STANDARD')}
+            style={{ padding: '6px 16px', borderRadius: '16px', border: 'none', background: layoutMode === 'STANDARD' ? '#4CAF50' : 'transparent', color: 'white', cursor: 'pointer', transition: 'all 0.3s' }}
+          >
+            一般模式
+          </button>
+        </div>
       </header>
       
       <main className="app-content">
@@ -435,13 +450,19 @@ export default function App() {
           </section>
 
           <section className="panel actions">
-          <button 
-            className="action-btn outline"
-            onClick={() => setLayoutMode(prev => prev === 'GROUP' ? 'EXAM' : prev === 'EXAM' ? 'STANDARD' : 'GROUP')}
-          >
-            <Settings2 size={18} />
-            {layoutMode === 'GROUP' ? '切換為考試版(直版)' : layoutMode === 'EXAM' ? '切換為一般模式' : '切換為分組版(橫版)'}
-          </button>
+          {layoutMode !== 'STANDARD' && (
+            <button 
+              className="action-btn outline"
+              onClick={() => {
+                const nextMode = layoutMode === 'GROUP' ? 'EXAM' : 'GROUP';
+                setLayoutMode(nextMode);
+                setLastGroupMode(nextMode);
+              }}
+            >
+              <Settings2 size={18} />
+              {layoutMode === 'GROUP' ? '切換為直排' : '切換為橫排'}
+            </button>
+          )}
           
           {layoutMode === 'STANDARD' && (
             <div className="standard-mode-settings" style={{ marginTop: '10px', background: '#f5f5f5', padding: '10px', borderRadius: '8px' }}>
