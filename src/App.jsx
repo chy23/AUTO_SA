@@ -454,7 +454,7 @@ export default function App() {
               return (
                 <div 
                   key={seat.id} 
-                  className={`seat group-${seat.groupId || 1}`}
+                  className={`seat group-${seat.groupId || 1} ${seat.shape || 'vertical'}`}
                   style={{ left: `${seat.x}%`, top: `${seat.y}%` }}
                   draggable
                   onDragStart={(e) => handleDragStart(e, 'seat', seat.id)}
