@@ -3,7 +3,7 @@ import * as Papa from 'papaparse';
 import * as XLSX from 'xlsx';
 import pptxgen from 'pptxgenjs';
 import { Upload, Shuffle, Download, Settings2, Trash2 } from 'lucide-react';
-import { SEAT_MAP, GROUPS, ADJACENCY_LIST, GROUP_LABELS } from './constants';
+import { SEAT_MAP, GROUPS, ADJACENCY_LIST, GROUP_LABELS, STATIC_LABELS } from './constants';
 import './App.css';
 
 // --- Utility Functions ---
@@ -345,6 +345,15 @@ function App() {
                   marginRight: label.text === '5' || label.text === '4' ? '10px' : '0',
                   ...label.customStyle 
                 }}
+              >
+                {label.text}
+              </div>
+            ))}
+            {STATIC_LABELS.map((label, idx) => (
+              <div 
+                key={`static-${idx}`} 
+                className="static-label"
+                style={label.style}
               >
                 {label.text}
               </div>

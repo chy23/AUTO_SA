@@ -230,6 +230,20 @@ select:focus, input:focus {
   z-index: 5;
 }
 
+.static-label {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  border: 1px solid #ccc;
+  letter-spacing: 2px;
+}
+
 .seat {
   width: 100%;
   height: 100%;
