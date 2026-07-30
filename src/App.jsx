@@ -3,7 +3,7 @@ import * as Papa from 'papaparse';
 import * as XLSX from 'xlsx';
 import pptxgen from 'pptxgenjs';
 import { Upload, Shuffle, Download, Settings2, Trash2 } from 'lucide-react';
-import { SEAT_MAP, GROUPS, ADJACENCY_LIST } from './constants';
+import { SEAT_MAP, GROUPS, ADJACENCY_LIST, GROUP_LABELS } from './constants';
 import './App.css';
 
 // --- Utility Functions ---
@@ -331,6 +331,24 @@ function App() {
         <section className="classroom-area">
           <div className="classroom">
             <div className="blackboard">黑板</div>
+            {GROUP_LABELS.map((label, idx) => (
+              <div 
+                key={`label-${idx}`} 
+                className="group-label"
+                style={{ 
+                  gridColumn: label.col, 
+                  gridRow: label.row,
+                  justifySelf: label.text === '5' || label.text === '4' ? 'end' : (label.text === '1' || label.text === '2' ? 'start' : 'center'),
+                  alignSelf: label.text === '3' ? 'center' : 'end',
+                  marginBottom: label.text === '3' ? '0' : '10px',
+                  marginLeft: label.text === '1' || label.text === '2' ? '10px' : '0',
+                  marginRight: label.text === '5' || label.text === '4' ? '10px' : '0',
+                  ...label.customStyle 
+                }}
+              >
+                {label.text}
+              </div>
+            ))}
             {SEAT_MAP.map(seat => {
               const ass = assignments.find(a => a.seatId === seat.id);
               return (

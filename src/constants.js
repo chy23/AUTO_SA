@@ -42,6 +42,15 @@ export const GROUPS = [
   { id: 5, name: "第五組" },
 ];
 
+export const GROUP_LABELS = [
+  { text: '5', col: '2', row: '2' },
+  { text: '1', col: '5', row: '2' },
+  { text: '4', col: '2', row: '5' },
+  { text: '2', col: '5', row: '5' },
+  // Box 3 is exactly between col 3,4 and row 4,5
+  { text: '3', col: '3 / span 2', row: '4 / span 2', customStyle: { margin: 'auto' } },
+];
+
 export const getAdjacencyList = () => {
   // 將視覺上上下左右相連的座位都列為相鄰 (隔壁)
   const adj = {};
