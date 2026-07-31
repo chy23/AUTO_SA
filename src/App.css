@@ -261,12 +261,23 @@ select:focus, input:focus {
   font-size: clamp(10px, 1.8cqw, 22px);
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
   border: 1px solid #ccc;
-  letter-spacing: 2px;
   transform: translate(-50%, -50%);
   cursor: move;
-  padding: 1cqw;
   z-index: 8;
   white-space: nowrap;
+}
+
+.static-vertical {
+  width: clamp(25px, 4cqw, 40px);
+  height: clamp(60px, 12cqw, 120px);
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  letter-spacing: 4px;
+}
+
+.static-horizontal {
+  padding: 1cqw 2cqw;
+  letter-spacing: 2px;
 }
 
 .seat {

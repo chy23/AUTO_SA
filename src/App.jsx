@@ -605,7 +605,7 @@ export default function App() {
             {staticItems.map(item => staticVisibility[item.id] && (
               <div 
                 key={item.id} 
-                className="static-label"
+                className={`static-label ${item.orientation === 'vertical' ? 'static-vertical' : 'static-horizontal'}`}
                 style={{ left: `${item.x}%`, top: `${item.y}%`, cursor: 'grab', userSelect: 'none' }}
                 onMouseDown={(e) => handleStaticMouseDown(e, item.id)}
               >

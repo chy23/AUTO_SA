@@ -37,11 +37,11 @@ export const LAYOUT_HORIZONTAL = {
     { text: '2', x: 71.9, y: 72.4 },
   ],
   staticItems: [
-    { id: 'front-door', name: '前門', x: 2.0, y: 22.0 },
-    { id: 'back-corridor', name: '後走廊門', x: 95.0, y: 22.0 },
-    { id: 'back-door', name: '後門', x: 2.0, y: 85.0 },
-    { id: 'teacher', name: '導師', x: 58.8, y: 95.0 },
-    { id: 'restroom', name: '廁所', x: 85.0, y: 95.0 }
+    { id: 'front-door', name: '前門', x: 2.0, y: 22.0 , orientation: 'vertical' },
+    { id: 'back-corridor', name: '後走廊門', x: 95.0, y: 22.0 , orientation: 'vertical' },
+    { id: 'back-door', name: '後門', x: 2.0, y: 85.0 , orientation: 'vertical' },
+    { id: 'teacher', name: '導師', x: 58.8, y: 95.0 , orientation: 'horizontal' },
+    { id: 'restroom', name: '廁所', x: 85.0, y: 95.0 , orientation: 'horizontal' }
   ]
 };
 
@@ -79,11 +79,11 @@ export const LAYOUT_VERTICAL = {
   ],
   labels: [],
   staticItems: [
-    { id: 'front-door', name: '前門', x: 2.0, y: 22.0 },
-    { id: 'back-corridor', name: '後走廊門', x: 95.0, y: 22.0 },
-    { id: 'back-door', name: '後門', x: 2.0, y: 85.0 },
-    { id: 'teacher', name: '導師', x: 58.8, y: 95.0 },
-    { id: 'restroom', name: '廁所', x: 85.0, y: 95.0 }
+    { id: 'front-door', name: '前門', x: 2.0, y: 22.0 , orientation: 'vertical' },
+    { id: 'back-corridor', name: '後走廊門', x: 95.0, y: 22.0 , orientation: 'vertical' },
+    { id: 'back-door', name: '後門', x: 2.0, y: 85.0 , orientation: 'vertical' },
+    { id: 'teacher', name: '導師', x: 58.8, y: 95.0 , orientation: 'horizontal' },
+    { id: 'restroom', name: '廁所', x: 85.0, y: 95.0 , orientation: 'horizontal' }
   ]
 };
 
