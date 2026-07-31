@@ -139,18 +139,31 @@ const evaluateAssignment = (assignment, rules, currentMap) => {
   return penalty;
 };
 
-const assignSeats = (students, rules, currentMap) => {
+const assignSeats = (students, rules, currentMap, layoutMode) => {
   if (students.length === 0) return [];
+  
+  const totalSeats = currentMap.seats.length;
+  const numStudents = Math.min(students.length, totalSeats);
   
   let currentAssignment = currentMap.seats.map((seat, index) => ({
     seatId: seat.id,
-    student: index < students.length ? students[index] : null,
+    student: index < numStudents ? students[index] : null,
   }));
   
-  for (let i = currentAssignment.length - 1; i > 0; i--) {
+  let swappableIndices = [];
+  if (layoutMode === 'STANDARD' && totalSeats > students.length) {
+    // Keep empty seats at the very end of the currentMap.seats array
+    for (let i = 0; i < numStudents; i++) swappableIndices.push(i);
+  } else {
+    for (let i = 0; i < totalSeats; i++) swappableIndices.push(i);
+  }
+  
+  for (let i = swappableIndices.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [currentAssignment[i].student, currentAssignment[j].student] = 
-    [currentAssignment[j].student, currentAssignment[i].student];
+    const idx1 = swappableIndices[i];
+    const idx2 = swappableIndices[j];
+    [currentAssignment[idx1].student, currentAssignment[idx2].student] = 
+    [currentAssignment[idx2].student, currentAssignment[idx1].student];
   }
 
   let currentScore = evaluateAssignment(currentAssignment, rules, currentMap);
@@ -162,8 +175,10 @@ const assignSeats = (students, rules, currentMap) => {
     if (bestScore === 0) break;
     
     const newAssignment = [...currentAssignment];
-    const idx1 = Math.floor(Math.random() * newAssignment.length);
-    const idx2 = Math.floor(Math.random() * newAssignment.length);
+    const r1 = Math.floor(Math.random() * swappableIndices.length);
+    const r2 = Math.floor(Math.random() * swappableIndices.length);
+    const idx1 = swappableIndices[r1];
+    const idx2 = swappableIndices[r2];
     
     const temp = newAssignment[idx1].student;
     newAssignment[idx1].student = newAssignment[idx2].student;
@@ -332,7 +347,7 @@ export default function App() {
       alert("請先上傳名單");
       return;
     }
-    const result = assignSeats(students, rules, currentMap);
+    const result = assignSeats(students, rules, currentMap, layoutMode);
     setAssignments(result);
   };
 
