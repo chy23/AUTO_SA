@@ -386,10 +386,10 @@ export default function App() {
   // --- PPTX Export ---
   const handleExportPPTX = () => {
     const pres = new pptxgen();
-    // Default 16:9 layout is 10 x 5.625 inches
+    pres.layout = "LAYOUT_4x3"; // 10 x 7.5 inches, matches web 4:3 aspect ratio
     const slide = pres.addSlide();
     const slideW = 10;
-    const slideH = 5.625;
+    const slideH = 7.5;
     
     // Classroom boundary
     slide.addShape(pres.ShapeType.rect, {
@@ -417,9 +417,9 @@ export default function App() {
       const cx = (seat.x / 100) * slideW;
       const cy = (seat.y / 100) * slideH;
       
-      // Scale down slightly from exact CSS percentages to ensure a small gap
-      const w = (seat.shape === 'vertical' ? 0.07 : 0.11) * slideW;
-      const h = (seat.shape === 'vertical' ? 0.12 : 0.08) * slideH;
+      // Identical size for both horizontal and vertical seats, just rotated
+      const w = seat.shape === 'vertical' ? 0.6 : 0.9;
+      const h = seat.shape === 'vertical' ? 0.9 : 0.6;
       
       const px = cx - (w / 2);
       const py = cy - (h / 2);
@@ -478,26 +478,38 @@ export default function App() {
   };
 
   // --- JPEG Export ---
-  const handleExportJPEG = async () => {
+  const handleExportJPEG = async (isWhiteMode) => {
     if (!classroomRef.current) return;
-    try {
-      const canvas = await html2canvas(classroomRef.current, {
-        scale: 2, // Double resolution for clarity
-        backgroundColor: '#242424',
-        ignoreElements: (element) => {
-          // Hide web-only UI elements like the delete button
-          return element.classList.contains('delete-seat-btn');
-        }
-      });
-      const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
-      const link = document.createElement('a');
-      link.download = '座位表.jpg';
-      link.href = dataUrl;
-      link.click();
-    } catch (error) {
-      console.error('Export JPEG failed:', error);
-      alert('匯出圖片失敗');
+    
+    if (isWhiteMode) {
+      classroomRef.current.classList.add('export-white');
     }
+    
+    // Small delay to allow DOM to apply the class
+    setTimeout(async () => {
+      try {
+        const canvas = await html2canvas(classroomRef.current, {
+          scale: 2, // Double resolution for clarity
+          backgroundColor: isWhiteMode ? '#ffffff' : '#242424',
+          ignoreElements: (element) => {
+            // Hide web-only UI elements like the delete button
+            return element.classList.contains('delete-seat-btn');
+          }
+        });
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+        const link = document.createElement('a');
+        link.download = isWhiteMode ? '座位表-白底.jpg' : '座位表-黑底.jpg';
+        link.href = dataUrl;
+        link.click();
+      } catch (error) {
+        console.error('Export JPEG failed:', error);
+        alert('匯出圖片失敗');
+      } finally {
+        if (isWhiteMode) {
+          classroomRef.current.classList.remove('export-white');
+        }
+      }
+    }, 50);
   };
 
   return (
@@ -638,13 +650,18 @@ export default function App() {
           <button className="action-btn primary" onClick={handleAssign} disabled={isAssigning || students.length === 0}>
              <Shuffle size={16} /> 自動排座位
           </button>
-          <div style={{ display: 'flex', gap: '10px' }}>
-             <button className="secondary-btn" onClick={handleExportPPTX} style={{ flex: 1 }}>
+          <div style={{ display: 'flex', gap: '10px', flexDirection: 'column' }}>
+             <button className="secondary-btn" onClick={handleExportPPTX} style={{ flex: 1, padding: '10px' }}>
                <Download size={16} /> 匯出 PPTX
              </button>
-             <button className="secondary-btn" onClick={handleExportJPEG} style={{ flex: 1 }}>
-               <ImageIcon size={16} /> 匯出圖片
-             </button>
+             <div style={{ display: 'flex', gap: '10px' }}>
+               <button className="secondary-btn" onClick={() => handleExportJPEG(false)} style={{ flex: 1, padding: '10px' }}>
+                 <ImageIcon size={16} /> 黑底圖檔
+               </button>
+               <button className="secondary-btn" onClick={() => handleExportJPEG(true)} style={{ flex: 1, padding: '10px', background: '#fff', color: '#333', border: '1px solid #ccc' }}>
+                 <ImageIcon size={16} /> 白底圖檔
+               </button>
+             </div>
           </div>
           </section>
         </aside>
