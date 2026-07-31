@@ -464,11 +464,26 @@ export default function App() {
           {/* 1. 學生名單上傳 */}
           <section className="panel upload-panel">
             <h2>1. 學生名單</h2>
-            <label className="upload-btn">
-              <Upload size={18} /> 上傳名單 (Excel/CSV)
-              <input type="file" accept=".csv, .xlsx, .xls" onChange={handleFileUpload} hidden />
-            </label>
-            <div className="student-stats">
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <label className="upload-btn" style={{ flex: 1 }}>
+                <Upload size={18} /> 上傳名單
+                <input id="file-upload" type="file" accept=".csv, .xlsx, .xls" onChange={handleFileUpload} hidden />
+              </label>
+              <button 
+                className="secondary-btn" 
+                onClick={() => {
+                  setStudents([]);
+                  setAssignments(currentMap.seats.map(seat => ({ seatId: seat.id, student: null })));
+                  const fileInput = document.getElementById('file-upload');
+                  if (fileInput) fileInput.value = '';
+                }}
+                style={{ padding: '0 1rem' }}
+                title="清除所有學生"
+              >
+                <Trash2 size={18} /> 清除
+              </button>
+            </div>
+            <div className="student-stats" style={{ marginTop: '0.5rem', textAlign: 'center', fontSize: '0.9rem', color: '#ccc' }}>
               已載入 {students.length} 名學生
             </div>
           </section>
