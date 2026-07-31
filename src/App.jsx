@@ -348,6 +348,10 @@ export default function App() {
       alert("請先上傳名單");
       return;
     }
+    if (students.length > currentMap.seats.length) {
+      alert(`座位數量不足！\n目前有 ${students.length} 位學生，但只有 ${currentMap.seats.length} 個座位。\n請切換至「一般模式」增加行列數，或移除部分學生。`);
+      return;
+    }
     const result = assignSeats(students, rules, currentMap, layoutMode);
     setAssignments(result);
   };
