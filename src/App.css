@@ -197,6 +197,7 @@ select:focus, input:focus {
   border-radius: 12px;
   position: relative;
   margin: 0 auto;
+  container-type: size;
 }
 
 .classroom.horizontal-layout {
@@ -224,9 +225,10 @@ select:focus, input:focus {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 4px solid #8b5a2b;
+  border: 0.4cqw solid #8b5a2b;
   border-radius: 4px;
   font-weight: bold;
+  font-size: clamp(12px, 2.5cqw, 28px);
   box-shadow: 0 4px 6px rgba(0,0,0,0.3);
   z-index: 10;
 }
@@ -235,10 +237,10 @@ select:focus, input:focus {
   position: absolute;
   background: #000;
   color: #fff;
-  font-size: 1.2rem;
+  font-size: clamp(10px, 2cqw, 24px);
   font-weight: bold;
-  width: 30px;
-  height: 30px;
+  width: clamp(20px, 4cqw, 40px);
+  height: clamp(20px, 4cqw, 40px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -256,14 +258,15 @@ select:focus, input:focus {
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: clamp(10px, 1.8cqw, 22px);
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
   border: 1px solid #ccc;
   letter-spacing: 2px;
   transform: translate(-50%, -50%);
   cursor: move;
-  padding: 10px;
+  padding: 1cqw;
   z-index: 8;
+  white-space: nowrap;
 }
 
 .seat {
@@ -316,7 +319,7 @@ select:focus, input:focus {
   position: absolute;
   top: 2px;
   left: 4px;
-  font-size: 0.65rem;
+  font-size: clamp(8px, 1.2cqw, 12px);
   color: var(--text-muted);
 }
 
@@ -328,12 +331,12 @@ select:focus, input:focus {
   pointer-events: none;
 }
 .student-id {
-  font-size: 0.75rem;
+  font-size: clamp(8px, 1.3cqw, 14px);
   color: #a0c4ff;
   font-weight: bold;
 }
 .student-name {
-  font-size: 0.9rem;
+  font-size: clamp(10px, 1.6cqw, 18px);
   font-weight: 600;
   color: #ffffff;
 }
