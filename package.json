@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@hello-pangea/dnd": "^18.0.1",
+    "html2canvas": "^1.4.1",
     "lucide-react": "^1.27.0",
     "papaparse": "^5.5.4",
     "pptxgenjs": "^4.0.1",
