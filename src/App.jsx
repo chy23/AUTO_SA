@@ -2,7 +2,8 @@ import React, { useState, useCallback, useRef, useEffect, useMemo } from 'react'
 import * as Papa from 'papaparse';
 import * as XLSX from 'xlsx';
 import pptxgen from 'pptxgenjs';
-import { Upload, Shuffle, Download, Settings2, Trash2, MapPin, X } from 'lucide-react';
+import html2canvas from 'html2canvas';
+import { Upload, Shuffle, Download, Settings2, Trash2, MapPin, X, Image as ImageIcon } from 'lucide-react';
 import { LAYOUT_HORIZONTAL, LAYOUT_VERTICAL, GROUPS, ADJACENCY_LIST } from './constants';
 import './App.css';
 
@@ -381,24 +382,27 @@ export default function App() {
   // --- PPTX Export ---
   const handleExportPPTX = () => {
     const pres = new pptxgen();
+    // Default 16:9 layout is 10 x 5.625 inches
     const slide = pres.addSlide();
+    const slideW = 10;
+    const slideH = 5.625;
     
     // Classroom boundary
     slide.addShape(pres.ShapeType.rect, {
-      x: 0.2, y: 0.2, w: 9.6, h: 5.2,
+      x: 0, y: 0, w: slideW, h: slideH,
       fill: { color: "F0F0F0" },
       line: { color: "CCCCCC", width: 1 }
     });
 
     // Blackboard
     slide.addShape(pres.ShapeType.rect, {
-      x: 3.5, y: 0.3, w: 3, h: 0.5,
+      x: (slideW - 3) / 2, y: 0.1, w: 3, h: 0.4,
       fill: { color: "1A472A" },
-      line: { color: "8B5A2B", width: 4 }
+      line: { color: "8B5A2B", width: 2 }
     });
     slide.addText("黑板", {
-      x: 3.5, y: 0.3, w: 3, h: 0.5,
-      color: "FFFFFF", align: "center", bold: true, fontSize: 18
+      x: (slideW - 3) / 2, y: 0.1, w: 3, h: 0.4,
+      color: "FFFFFF", align: "center", bold: true, fontSize: 16
     });
 
     // Seats
@@ -406,8 +410,14 @@ export default function App() {
       const seat = currentMap.seats.find(s => s.id === ass.seatId);
       if (!seat) return;
 
-      const px = (seat.x / 100) * 8.6 + 0.5; // Scale to 9.6w
-      const py = (seat.y / 100) * 4.2 + 0.8; // Scale to 5.2h
+      const cx = (seat.x / 100) * slideW;
+      const cy = (seat.y / 100) * slideH;
+      
+      const w = seat.shape === 'vertical' ? 0.7 : 0.9;
+      const h = seat.shape === 'vertical' ? 0.9 : 0.7;
+      
+      const px = cx - (w / 2);
+      const py = cy - (h / 2);
       
       let text = `${seat.id}`;
       if (ass.student) {
@@ -424,12 +434,13 @@ export default function App() {
       }
 
       slide.addShape(pres.ShapeType.rect, {
-        x: px, y: py, w: 0.8, h: 0.8,
+        x: px, y: py, w: w, h: h,
         fill: { color: fillCol },
         line: { color: "000000", width: 1 }
       });
+      
       slide.addText(text, {
-        x: px, y: py, w: 0.8, h: 0.8,
+        x: px, y: py, w: w, h: h,
         color: "000000", align: "center", fontSize: 12
       });
     });
@@ -437,21 +448,47 @@ export default function App() {
     // Static Items
     staticItems.forEach(item => {
       if (!staticVisibility[item.id]) return;
-      const px = (item.x / 100) * 8.6 + 0.5;
-      const py = (item.y / 100) * 4.2 + 0.8;
+      const cx = (item.x / 100) * slideW;
+      const cy = (item.y / 100) * slideH;
+      
+      const w = item.orientation === 'vertical' ? 0.4 : 1.2;
+      const h = item.orientation === 'vertical' ? 1.2 : 0.4;
+      
+      const px = cx - (w / 2);
+      const py = cy - (h / 2);
       
       slide.addShape(pres.ShapeType.rect, {
-        x: px, y: py, w: 0.8, h: 0.4,
+        x: px, y: py, w: w, h: h,
         fill: { color: "DDDDDD" },
         line: { color: "999999", width: 1 }
       });
+      
       slide.addText(item.name, {
-        x: px, y: py, w: 0.8, h: 0.4,
+        x: px, y: py, w: w, h: h,
         color: "333333", align: "center", fontSize: 10
       });
     });
 
     pres.writeFile({ fileName: "座位表.pptx" });
+  };
+
+  // --- JPEG Export ---
+  const handleExportJPEG = async () => {
+    if (!classroomRef.current) return;
+    try {
+      const canvas = await html2canvas(classroomRef.current, {
+        scale: 2, // Double resolution for clarity
+        backgroundColor: '#242424', 
+      });
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+      const link = document.createElement('a');
+      link.download = '座位表.jpg';
+      link.href = dataUrl;
+      link.click();
+    } catch (error) {
+      console.error('Export JPEG failed:', error);
+      alert('匯出圖片失敗');
+    }
   };
 
   return (
@@ -592,9 +629,14 @@ export default function App() {
           <button className="action-btn primary" onClick={handleAssign} disabled={isAssigning || students.length === 0}>
              <Shuffle size={16} /> 自動排座位
           </button>
-             <button className="secondary-btn" onClick={handleExportPPTX}>
+          <div style={{ display: 'flex', gap: '10px' }}>
+             <button className="secondary-btn" onClick={handleExportPPTX} style={{ flex: 1 }}>
                <Download size={16} /> 匯出 PPTX
              </button>
+             <button className="secondary-btn" onClick={handleExportJPEG} style={{ flex: 1 }}>
+               <ImageIcon size={16} /> 匯出圖片
+             </button>
+          </div>
           </section>
         </aside>
 
