@@ -417,8 +417,9 @@ export default function App() {
       const cx = (seat.x / 100) * slideW;
       const cy = (seat.y / 100) * slideH;
       
-      const w = seat.shape === 'vertical' ? 0.7 : 0.9;
-      const h = seat.shape === 'vertical' ? 0.9 : 0.7;
+      // Scale down slightly from exact CSS percentages to ensure a small gap
+      const w = (seat.shape === 'vertical' ? 0.07 : 0.11) * slideW;
+      const h = (seat.shape === 'vertical' ? 0.12 : 0.08) * slideH;
       
       const px = cx - (w / 2);
       const py = cy - (h / 2);
@@ -455,8 +456,8 @@ export default function App() {
       const cx = (item.x / 100) * slideW;
       const cy = (item.y / 100) * slideH;
       
-      const w = item.orientation === 'vertical' ? 0.4 : 1.2;
-      const h = item.orientation === 'vertical' ? 1.2 : 0.4;
+      const w = (item.orientation === 'vertical' ? 0.04 : 0.10) * slideW;
+      const h = (item.orientation === 'vertical' ? 0.12 : 0.06) * slideH;
       
       const px = cx - (w / 2);
       const py = cy - (h / 2);
@@ -482,7 +483,11 @@ export default function App() {
     try {
       const canvas = await html2canvas(classroomRef.current, {
         scale: 2, // Double resolution for clarity
-        backgroundColor: '#242424', 
+        backgroundColor: '#242424',
+        ignoreElements: (element) => {
+          // Hide web-only UI elements like the delete button
+          return element.classList.contains('delete-seat-btn');
+        }
       });
       const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
       const link = document.createElement('a');
