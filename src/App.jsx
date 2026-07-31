@@ -114,22 +114,26 @@ const evaluateAssignment = (assignment, rules, currentMap) => {
   const getSeat = id => currentMap.seats.find(s => s.id === id);
   
   rules.forEach(rule => {
-    const s1 = rule.students[0];
-    const s2 = rule.students[1];
-    const ass1 = assignment.find(a => a.student?.name === s1 || a.student?.id === s1);
-    const ass2 = assignment.find(a => a.student?.name === s2 || a.student?.id === s2);
-    
-    if (ass1 && ass2) {
-      const seat1 = getSeat(ass1.seatId);
-      const seat2 = getSeat(ass2.seatId);
-      if (!seat1 || !seat2) return;
-      
-      if (rule.type === 'NOT_SAME_GROUP' && seat1.groupId === seat2.groupId) penalty += 1000;
-      if (rule.type === 'SAME_GROUP' && seat1.groupId !== seat2.groupId) penalty += 1000;
-      
-      const isAdjacent = ADJACENCY_LIST[seat1.id]?.includes(seat2.id);
-      if (rule.type === 'NOT_ADJACENT' && isAdjacent) penalty += 1000;
-      if (rule.type === 'ADJACENT' && !isAdjacent) penalty += 1000;
+    if (!rule.students) return;
+    const items = rule.students.map(studentId => 
+      assignment.find(a => a.student?.name === studentId || a.student?.id === studentId)
+    ).filter(Boolean);
+
+    if (items.length < 2) return;
+
+    for (let i = 0; i < items.length; i++) {
+      for (let j = i + 1; j < items.length; j++) {
+        const seat1 = getSeat(items[i].seatId);
+        const seat2 = getSeat(items[j].seatId);
+        if (!seat1 || !seat2) continue;
+        
+        if (rule.type === 'NOT_SAME_GROUP' && seat1.groupId === seat2.groupId) penalty += 1000;
+        if (rule.type === 'SAME_GROUP' && seat1.groupId !== seat2.groupId) penalty += 1000;
+        
+        const isAdjacent = ADJACENCY_LIST[seat1.id]?.includes(seat2.id);
+        if (rule.type === 'NOT_ADJACENT' && isAdjacent) penalty += 1000;
+        if (rule.type === 'ADJACENT' && !isAdjacent) penalty += 1000;
+      }
     }
   });
   return penalty;
