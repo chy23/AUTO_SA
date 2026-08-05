@@ -228,6 +228,11 @@ export default function App() {
   const [standardCols, setStandardCols] = useState(5);
   const [hiddenSeatIds, setHiddenSeatIds] = useState([]);
 
+  useEffect(() => {
+    // Hidden credit easter egg
+    console.log("%c網站建立自楊家驊老師 The website was created by Teacher ChiahuaYang", "color: #4CAF50; font-size: 16px; font-weight: bold; padding: 10px; border: 2px solid #4CAF50; border-radius: 5px;");
+  }, []);
+
   const standardMap = useMemo(() => {
     const seats = [];
     let currentId = 1;
