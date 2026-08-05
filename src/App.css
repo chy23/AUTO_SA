@@ -185,7 +185,7 @@ select:focus, input:focus {
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  padding: 3.5rem 1.5rem;
   align-items: center;
   justify-content: center;
 }
@@ -377,6 +377,24 @@ select:focus, input:focus {
   background: #ffffff !important;
   color: #000000 !important;
   border-color: #000 !important;
+}
+
+/* Watermarks */
+.watermark {
+  position: absolute;
+  right: 1.5rem;
+  font-size: 18pt;
+  color: rgba(128, 128, 128, 0.25);
+  pointer-events: none;
+  user-select: none;
+  z-index: 5;
+  white-space: nowrap;
+}
+.watermark-top {
+  top: 1rem;
+}
+.watermark-bottom {
+  bottom: 1rem;
 }
 
 .drag-hint {

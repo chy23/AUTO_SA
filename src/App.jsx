@@ -667,6 +667,9 @@ export default function App() {
         </aside>
 
         <section className="classroom-area">
+          <div className="watermark watermark-top">網站建立自楊家驊老師</div>
+          <div className="watermark watermark-bottom">網站建立自楊家驊老師</div>
+          
           <div 
             ref={classroomRef}
             className={`classroom ${layoutMode === 'GROUP' ? 'horizontal-layout' : 'vertical-layout'}`}
