@@ -81,9 +81,9 @@
 }
 
 select, input {
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: white;
+  background: var(--input-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
   padding: 0.5rem;
   border-radius: 6px;
   outline: none;
@@ -157,11 +157,11 @@ select:focus, input:focus {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
-  color: white;
 }
 
 .primary-btn {
   background: var(--primary);
+  color: white;
 }
 .primary-btn:hover {
   background: var(--primary-hover);
@@ -169,10 +169,12 @@ select:focus, input:focus {
 }
 
 .secondary-btn {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--btn-secondary-bg);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
 }
 .secondary-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--btn-secondary-hover);
 }
 
 /* Classroom Area */
@@ -297,8 +299,8 @@ select:focus, input:focus {
 .seat.vertical {
   width: 7.5%;
   height: 12.5%;
-  min-width: 45px;
-  min-height: 60px;
+  min-width: 35px;
+  min-height: 50px;
 }
 
 .seat.vertical .student-name {
@@ -311,8 +313,8 @@ select:focus, input:focus {
 .seat.horizontal {
   width: 11.5%;
   height: 9%;
-  min-width: 65px;
-  min-height: 45px;
+  min-width: 50px;
+  min-height: 35px;
 }
 
 .seat:active {
