@@ -72,7 +72,7 @@ export default function ClassroomArea({ seating, classroomRef }) {
       
       <div 
         ref={classroomRef}
-        className={`classroom ${layoutMode === 'GROUP' ? 'horizontal-layout' : 'vertical-layout'}`}
+        className={`classroom ${layoutMode === 'EXAM' ? 'vertical-layout' : 'horizontal-layout'}`}
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => e.preventDefault()}
       >

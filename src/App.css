@@ -343,13 +343,46 @@ select:focus, input:focus {
 }
 .student-id {
   font-size: clamp(8px, 1.3cqw, 14px);
-  color: #a0c4ff;
+  color: var(--primary);
   font-weight: bold;
 }
 .student-name {
   font-size: clamp(10px, 1.6cqw, 18px);
   font-weight: 600;
-  color: #ffffff;
+  color: var(--text-main);
+}
+
+.lock-seat-btn {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  background: #555;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s, background 0.2s;
+  z-index: 20;
+}
+
+.seat:hover .lock-seat-btn,
+.lock-seat-btn.locked {
+  opacity: 1;
+}
+
+.lock-seat-btn.locked {
+  background: #ff4444;
+}
+
+.seat.locked {
+  background: rgba(255, 68, 68, 0.15) !important;
+  border-color: #ff4444 !important;
 }
 
 /* White Mode Export Styles */

@@ -19,7 +19,7 @@ export default function Seat({
       initial={false}
       animate={{ left: `${seat.x}%`, top: `${seat.y}%` }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      className={`seat group-${seat.groupId || 1} ${seat.shape || 'vertical'}`}
+      className={`seat group-${seat.groupId || 1} ${seat.shape || 'vertical'} ${isLocked ? 'locked' : ''}`}
       style={{ position: 'absolute' }}
       draggable
       onDragStart={(e) => onDragStart(e, seat.id)}
@@ -44,27 +44,10 @@ export default function Seat({
       {/* Lock toggle button */}
       {assignment?.student && (
         <button 
-          className="lock-seat-btn"
+          className={`lock-seat-btn ${isLocked ? 'locked' : ''}`}
           onClick={(e) => {
             e.stopPropagation();
             onToggleLock(seat.id);
-          }}
-          style={{
-            position: 'absolute',
-            top: '-5px',
-            left: '-5px',
-            background: isLocked ? '#ff4444' : '#555',
-            color: '#fff',
-            border: 'none',
-            borderRadius: '50%',
-            width: '20px',
-            height: '20px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer',
-            opacity: isLocked ? 1 : 0,
-            transition: 'opacity 0.2s'
           }}
           title={isLocked ? "解除鎖定" : "鎖定座位"}
         >
