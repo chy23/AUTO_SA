@@ -63,7 +63,7 @@ export const useSeating = () => {
           groupId: c + 1,
           x: standardCols === 1 ? 50 : xStart + (c * xStep),
           y: standardRows === 1 ? 50 : yStart + (r * yStep),
-          shape: 'vertical'
+          shape: 'horizontal'
         });
       }
       currentId++;
