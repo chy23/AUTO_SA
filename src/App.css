@@ -258,7 +258,7 @@ select:focus, input:focus {
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  font-size: clamp(10px, 1.8cqw, 22px);
+  font-size: 1rem;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
   border: 1px solid #ccc;
   transform: translate(-50%, -50%);
@@ -268,15 +268,15 @@ select:focus, input:focus {
 }
 
 .static-vertical {
-  width: clamp(25px, 4cqw, 40px);
-  height: clamp(60px, 12cqw, 120px);
+  width: 30px;
+  height: 80px;
   writing-mode: vertical-rl;
   text-orientation: upright;
   letter-spacing: 4px;
 }
 
 .static-horizontal {
-  padding: 1cqw 2cqw;
+  padding: 8px 16px;
   letter-spacing: 2px;
 }
 
