@@ -1,40 +1,40 @@
 export const LAYOUT_HORIZONTAL = {
   seats: [
-    { id: 1, groupId: 5, x: 15.0, y: 22.0, shape: 'vertical' },
-    { id: 2, groupId: 5, x: 15.0, y: 34.6, shape: 'vertical' },
-    { id: 3, groupId: 5, x: 15.0, y: 47.2, shape: 'horizontal' },
-    { id: 6, groupId: 5, x: 28.1, y: 22.0, shape: 'vertical' },
-    { id: 7, groupId: 5, x: 28.1, y: 47.2, shape: 'horizontal' },
+    { id: 1, groupId: 5, x: 18.0, y: 18.0, shape: 'vertical' },
+    { id: 2, groupId: 5, x: 18.0, y: 30.6, shape: 'vertical' },
+    { id: 3, groupId: 5, x: 18.0, y: 43.2, shape: 'horizontal' },
+    { id: 6, groupId: 5, x: 31.1, y: 18.0, shape: 'vertical' },
+    { id: 7, groupId: 5, x: 31.1, y: 43.2, shape: 'horizontal' },
     
-    { id: 4, groupId: 4, x: 15.0, y: 59.8, shape: 'vertical' },
-    { id: 5, groupId: 4, x: 15.0, y: 72.4, shape: 'vertical' },
-    { id: 10, groupId: 4, x: 15.0, y: 85.0, shape: 'horizontal' },
-    { id: 8, groupId: 4, x: 28.1, y: 59.8, shape: 'horizontal' },
-    { id: 9, groupId: 4, x: 28.1, y: 85.0, shape: 'horizontal' },
+    { id: 4, groupId: 4, x: 18.0, y: 55.8, shape: 'vertical' },
+    { id: 5, groupId: 4, x: 18.0, y: 68.4, shape: 'vertical' },
+    { id: 10, groupId: 4, x: 18.0, y: 81.0, shape: 'horizontal' },
+    { id: 8, groupId: 4, x: 31.1, y: 55.8, shape: 'horizontal' },
+    { id: 9, groupId: 4, x: 31.1, y: 81.0, shape: 'horizontal' },
     
-    { id: 11, groupId: 3, x: 45.6, y: 59.8, shape: 'horizontal' },
-    { id: 12, groupId: 3, x: 58.8, y: 59.8, shape: 'horizontal' },
-    { id: 13, groupId: 3, x: 45.6, y: 85.0, shape: 'horizontal' },
-    { id: 14, groupId: 3, x: 58.8, y: 85.0, shape: 'horizontal' },
+    { id: 11, groupId: 3, x: 45.6, y: 55.8, shape: 'horizontal' },
+    { id: 12, groupId: 3, x: 58.8, y: 55.8, shape: 'horizontal' },
+    { id: 13, groupId: 3, x: 45.6, y: 81.0, shape: 'horizontal' },
+    { id: 14, groupId: 3, x: 58.8, y: 81.0, shape: 'horizontal' },
     
-    { id: 15, groupId: 1, x: 71.9, y: 22.0, shape: 'vertical' },
-    { id: 21, groupId: 1, x: 85.0, y: 22.0, shape: 'vertical' },
-    { id: 18, groupId: 1, x: 85.0, y: 34.6, shape: 'vertical' },
-    { id: 16, groupId: 1, x: 71.9, y: 47.2, shape: 'horizontal' },
-    { id: 22, groupId: 1, x: 85.0, y: 47.2, shape: 'horizontal' },
+    { id: 15, groupId: 1, x: 68.9, y: 18.0, shape: 'vertical' },
+    { id: 21, groupId: 1, x: 82.0, y: 18.0, shape: 'vertical' },
+    { id: 18, groupId: 1, x: 82.0, y: 30.6, shape: 'vertical' },
+    { id: 16, groupId: 1, x: 68.9, y: 43.2, shape: 'horizontal' },
+    { id: 22, groupId: 1, x: 82.0, y: 43.2, shape: 'horizontal' },
     
-    { id: 19, groupId: 2, x: 71.9, y: 59.8, shape: 'horizontal' },
-    { id: 23, groupId: 2, x: 85.0, y: 59.8, shape: 'vertical' },
-    { id: 24, groupId: 2, x: 85.0, y: 72.4, shape: 'vertical' },
-    { id: 17, groupId: 2, x: 71.9, y: 85.0, shape: 'horizontal' },
-    { id: 20, groupId: 2, x: 85.0, y: 85.0, shape: 'horizontal' },
+    { id: 19, groupId: 2, x: 68.9, y: 55.8, shape: 'horizontal' },
+    { id: 23, groupId: 2, x: 82.0, y: 55.8, shape: 'vertical' },
+    { id: 24, groupId: 2, x: 82.0, y: 68.4, shape: 'vertical' },
+    { id: 17, groupId: 2, x: 68.9, y: 81.0, shape: 'horizontal' },
+    { id: 20, groupId: 2, x: 82.0, y: 81.0, shape: 'horizontal' },
   ],
   labels: [
-    { text: '5', x: 28.1, y: 34.6 },
-    { text: '4', x: 28.1, y: 72.4 },
-    { text: '3', x: 52.2, y: 72.4 },
-    { text: '1', x: 71.9, y: 34.6 },
-    { text: '2', x: 71.9, y: 72.4 },
+    { text: '5', x: 31.1, y: 30.6 },
+    { text: '4', x: 31.1, y: 68.4 },
+    { text: '3', x: 52.2, y: 68.4 },
+    { text: '1', x: 68.9, y: 30.6 },
+    { text: '2', x: 68.9, y: 68.4 },
   ],
   staticItems: [
     { id: 'front-door', name: '前門', x: 2.0, y: 22.0 , orientation: 'vertical' },
@@ -109,8 +109,8 @@ export const getAdjacencyList = () => {
     for (let j = i + 1; j < seats.length; j++) {
       const dx = Math.abs(seats[i].x - seats[j].x);
       const dy = Math.abs(seats[i].y - seats[j].y);
-      // If they are exactly adjacent vertically or horizontally in group layout
-      if ((dx === 0 && dy === 15) || (dx === 15 && dy === 0)) {
+      // If they are roughly adjacent vertically or horizontally in group layout
+      if ((dx === 0 && dy < 14) || (dy === 0 && dx < 14)) {
         addEdge(seats[i].id, seats[j].id);
       }
     }
