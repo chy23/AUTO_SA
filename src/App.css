@@ -172,6 +172,7 @@ select:focus, input:focus {
   background: var(--btn-secondary-bg);
   color: var(--text-main);
   border: 1px solid var(--border-color);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 .secondary-btn:hover {
   background: var(--btn-secondary-hover);
@@ -284,8 +285,8 @@ select:focus, input:focus {
 
 .seat {
   position: absolute;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--seat-bg);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -294,13 +295,14 @@ select:focus, input:focus {
   cursor: grab;
   transition: top 0.3s, left 0.3s, box-shadow 0.2s;
   transform: translate(-50%, -50%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .seat.vertical {
   width: 7.5%;
   height: 12.5%;
-  min-width: 35px;
-  min-height: 50px;
+  min-width: 45px;
+  min-height: 60px;
 }
 
 .seat.vertical .student-name {
@@ -313,8 +315,8 @@ select:focus, input:focus {
 .seat.horizontal {
   width: 11.5%;
   height: 9%;
-  min-width: 50px;
-  min-height: 35px;
+  min-width: 65px;
+  min-height: 45px;
 }
 
 .seat:active {

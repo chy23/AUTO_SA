@@ -17,27 +17,28 @@
   --btn-secondary-bg: rgba(255, 255, 255, 0.1);
   --btn-secondary-hover: rgba(255, 255, 255, 0.15);
   --input-bg: rgba(0, 0, 0, 0.2);
+  --seat-bg: rgba(255, 255, 255, 0.05);
 }
 
 body.light-theme {
-  --bg-color: #f1f5f9;
-  --panel-bg: rgba(255, 255, 255, 0.9);
-  --text-main: #0f172a;
+  --bg-color: #f1f5f9; /* Soft grayish-blue background */
+  --panel-bg: #ffffff; /* Clean white panels */
+  --text-main: #1e293b; /* Dark slate text */
   --text-muted: #64748b;
   --primary: #2563eb;
   --primary-hover: #1d4ed8;
-  --border-color: rgba(0, 0, 0, 0.1);
+  --border-color: #cbd5e1; /* Visible border */
   
-  /* Make colors slightly darker for light mode contrast */
   --group-1: #e11d48;
   --group-2: #059669;
   --group-3: #2563eb;
   --group-4: #d97706;
   --group-5: #9333ea;
   
-  --btn-secondary-bg: rgba(0, 0, 0, 0.05);
-  --btn-secondary-hover: rgba(0, 0, 0, 0.1);
-  --input-bg: rgba(0, 0, 0, 0.05);
+  --btn-secondary-bg: #ffffff;
+  --btn-secondary-hover: #f1f5f9;
+  --input-bg: #ffffff;
+  --seat-bg: #ffffff;
 }
 
 body {
