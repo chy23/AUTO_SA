@@ -327,6 +327,19 @@ select:focus, input:focus {
 .seat.group-3 { border-top: 3px solid var(--group-3); }
 .seat.group-4 { border-top: 3px solid var(--group-4); }
 .seat.group-5 { border-top: 3px solid var(--group-5); }
+.seat.group-6 { border-top: 3px solid var(--group-6); }
+.seat.group-7 { border-top: 3px solid var(--group-7); }
+.seat.group-8 { border-top: 3px solid var(--group-8); }
+
+.group-badge-1 { background-color: var(--group-1); }
+.group-badge-2 { background-color: var(--group-2); }
+.group-badge-3 { background-color: var(--group-3); }
+.group-badge-4 { background-color: var(--group-4); }
+.group-badge-5 { background-color: var(--group-5); }
+.group-badge-6 { background-color: var(--group-6); }
+.group-badge-7 { background-color: var(--group-7); }
+.group-badge-8 { background-color: var(--group-8); }
+.group-badge-0 { background-color: #64748b; }
 
 .seat-no {
   position: absolute;

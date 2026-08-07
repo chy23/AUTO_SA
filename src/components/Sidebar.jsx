@@ -207,9 +207,9 @@ export default function Sidebar({
                   僅清除所有組號
                 </button>
                 
-                <div style={{ marginTop: '15px', padding: '10px', background: 'rgba(0,0,0,0.1)', borderRadius: '4px' }}>
-                  <h4 style={{ fontSize: '13px', margin: '0 0 10px', color: 'var(--text-color)' }}>拖曳分配小組</h4>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
+                <div style={{ marginTop: '15px', padding: '10px', background: 'rgba(0,0,0,0.1)', borderRadius: '6px' }}>
+                  <h4 style={{ fontSize: '13px', margin: '0 0 10px', color: 'var(--text-color)' }}>拖曳分配小組號碼</h4>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                     {[1, 2, 3, 4, 5, 6, 7, 8].map(g => (
                       <div
                         key={g}
@@ -217,18 +217,35 @@ export default function Sidebar({
                         onDragStart={(e) => {
                           e.dataTransfer.setData('text/plain', JSON.stringify({ itemType: 'groupLabel', groupId: g }));
                         }}
-                        className={`group-${g}`}
+                        className={`group-badge-${g}`}
                         style={{ 
-                          width: '32px', height: '32px', borderRadius: '4px', 
+                          width: '32px', height: '32px', borderRadius: '6px', 
                           display: 'flex', alignItems: 'center', justifyContent: 'center', 
                           cursor: 'grab', fontWeight: 'bold', fontSize: '14px',
-                          color: '#fff', border: '1px solid rgba(255,255,255,0.3)'
+                          color: '#fff', boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
                         }}
                         title={`拖曳分配為第 ${g} 組`}
                       >
                         {g}
                       </div>
                     ))}
+                    <div
+                      key={0}
+                      draggable
+                      onDragStart={(e) => {
+                        e.dataTransfer.setData('text/plain', JSON.stringify({ itemType: 'groupLabel', groupId: 0 }));
+                      }}
+                      className="group-badge-0"
+                      style={{ 
+                        width: '32px', height: '32px', borderRadius: '6px', 
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                        cursor: 'grab', fontWeight: 'bold', fontSize: '12px',
+                        color: '#fff', boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+                      }}
+                      title="拖曳清除座位組別"
+                    >
+                      無
+                    </div>
                   </div>
                 </div>
 

@@ -37,8 +37,10 @@ export const evaluateAssignment = (assignment, rules, currentMap) => {
         const seat2 = getSeat(items[j].seatId);
         if (!seat1 || !seat2) continue;
         
-        if (rule.type === 'NOT_SAME_GROUP' && seat1.groupId === seat2.groupId) penalty += 1000;
-        if (rule.type === 'SAME_GROUP' && seat1.groupId !== seat2.groupId) penalty += 1000;
+        const g1 = seat1.groupId || 0;
+        const g2 = seat2.groupId || 0;
+        if (rule.type === 'NOT_SAME_GROUP' && g1 > 0 && g2 > 0 && g1 === g2) penalty += 1000;
+        if (rule.type === 'SAME_GROUP' && (g1 === 0 || g2 === 0 || g1 !== g2)) penalty += 1000;
         
         const isAdjacent = adjacencyList[seat1.id]?.includes(seat2.id);
         if (rule.type === 'NOT_ADJACENT' && isAdjacent) penalty += 1000;
