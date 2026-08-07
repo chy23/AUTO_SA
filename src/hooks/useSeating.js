@@ -39,7 +39,10 @@ export const useSeating = () => {
   const [staticVisibility, setStaticVisibility] = useLocalStorage('auto_sa_static_vis', {
     'front-door': true, 'back-corridor': true, 'back-door': true, 'teacher': true, 'restroom': true
   });
-  const [customMap, setCustomMap] = useLocalStorage('auto_sa_custom_map', LAYOUT_HORIZONTAL);
+  const [customMap, setCustomMap] = useLocalStorage('auto_sa_custom_map', {
+    ...LAYOUT_HORIZONTAL,
+    seats: LAYOUT_HORIZONTAL.seats.map(s => ({ ...s, groupId: 0 }))
+  });
   
   // Non-persisted transient states
   const [isAssigning, setIsAssigning] = useState(false);
@@ -170,7 +173,7 @@ export const useSeating = () => {
   const addCustomSeat = () => {
     setCustomMap(prev => {
       const maxId = prev.seats.reduce((max, s) => Math.max(max, s.id), 0);
-      const newSeat = { id: maxId + 1, groupId: 1, x: 50, y: 50, shape: 'vertical' };
+      const newSeat = { id: maxId + 1, groupId: 0, x: 50, y: 50, shape: 'vertical' };
       return { ...prev, seats: [...prev.seats, newSeat] };
     });
   };
@@ -183,7 +186,7 @@ export const useSeating = () => {
         maxId++;
         newSeats.push({ 
           id: maxId, 
-          groupId: 1, 
+          groupId: 0, 
           x: 40 + (i % 5) * 5, 
           y: 40 + Math.floor(i / 5) * 5, 
           shape: 'vertical' 

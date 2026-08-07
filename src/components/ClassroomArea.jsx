@@ -21,12 +21,15 @@ export default function ClassroomArea({ seating, classroomRef }) {
   const draggingStatic = useRef(null); // { id, offsetX, offsetY }
 
   const handleStaticMouseDown = (e, itemId) => {
+    if (!isEditingLayout) return;
     e.preventDefault();
     const rect = e.currentTarget.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
     draggingStatic.current = {
       id: itemId,
-      offsetX: e.clientX - rect.left,
-      offsetY: e.clientY - rect.top,
+      offsetX: e.clientX - centerX,
+      offsetY: e.clientY - centerY,
     };
   };
 
@@ -37,10 +40,12 @@ export default function ClassroomArea({ seating, classroomRef }) {
     if (!isEditingLayout) return;
     e.preventDefault();
     const rect = e.currentTarget.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
     draggingSeat.current = {
       id: seatId,
-      offsetX: e.clientX - rect.left,
-      offsetY: e.clientY - rect.top,
+      offsetX: e.clientX - centerX,
+      offsetY: e.clientY - centerY,
     };
   };
 
@@ -51,15 +56,19 @@ export default function ClassroomArea({ seating, classroomRef }) {
 
       if (draggingStatic.current) {
         const { id, offsetX, offsetY } = draggingStatic.current;
-        let x = ((e.clientX - cr.left - offsetX) / cr.width) * 100;
-        let y = ((e.clientY - cr.top - offsetY) / cr.height) * 100;
+        let centerX = e.clientX - offsetX;
+        let centerY = e.clientY - offsetY;
+        let x = ((centerX - cr.left) / cr.width) * 100;
+        let y = ((centerY - cr.top) / cr.height) * 100;
         setStaticItems(prev => prev.map(item =>
           item.id === id ? { ...item, x: Math.max(0, Math.min(100, x)), y: Math.max(0, Math.min(100, y)) } : item
         ));
       } else if (draggingSeat.current) {
         const { id, offsetX, offsetY } = draggingSeat.current;
-        let x = ((e.clientX - cr.left - offsetX) / cr.width) * 100;
-        let y = ((e.clientY - cr.top - offsetY) / cr.height) * 100;
+        let centerX = e.clientX - offsetX;
+        let centerY = e.clientY - offsetY;
+        let x = ((centerX - cr.left) / cr.width) * 100;
+        let y = ((centerY - cr.top) / cr.height) * 100;
         updateCustomSeat(id, { 
           x: Math.max(0, Math.min(100, x)), 
           y: Math.max(0, Math.min(100, y)) 
@@ -117,7 +126,7 @@ export default function ClassroomArea({ seating, classroomRef }) {
       >
         <div className="blackboard">黑板</div>
         
-        {currentMap.labels.map((label, idx) => (
+        {layoutMode !== 'CUSTOM' && currentMap.labels.map((label, idx) => (
           <div 
             key={`label-${idx}`} 
             className="group-label"

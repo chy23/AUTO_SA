@@ -183,6 +183,17 @@ export default function Sidebar({
                     + 5 座位
                   </button>
                 </div>
+                <button 
+                  className="secondary-btn" 
+                  onClick={() => {
+                    if (window.confirm("確定要清除所有座位的組號嗎？")) {
+                      seating.customMap.seats.forEach(s => seating.updateCustomSeat(s.id, { groupId: 0 }));
+                    }
+                  }} 
+                  style={{ width: '100%', padding: '6px', marginTop: '5px' }}
+                >
+                  清除所有組號
+                </button>
                 
                 <div style={{ marginTop: '15px', padding: '10px', background: 'rgba(0,0,0,0.1)', borderRadius: '4px' }}>
                   <h4 style={{ fontSize: '13px', margin: '0 0 10px', color: 'var(--text-color)' }}>拖曳分配小組</h4>

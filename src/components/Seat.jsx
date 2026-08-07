@@ -23,7 +23,7 @@ export default function Seat({
       layout
       initial={false}
       animate={{ left: `${seat.x}%`, top: `${seat.y}%` }}
-      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      transition={isEditingLayout ? { duration: 0 } : { type: "spring", stiffness: 300, damping: 30 }}
       className={`seat group-${seat.groupId || 1} ${seat.shape || 'vertical'} ${isLocked ? 'locked' : ''} ${isSelected ? 'selected' : ''}`}
       style={{ position: 'absolute', cursor: isEditingLayout ? 'grab' : 'pointer' }}
       draggable={!isEditingLayout}
