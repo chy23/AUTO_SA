@@ -200,7 +200,7 @@ export default function Sidebar({
                   className="secondary-btn" 
                   onClick={() => {
                     if (window.confirm("確定要清除所有座位的組號嗎？")) {
-                      seating.customMap.seats.forEach(s => seating.updateCustomSeat(s.id, { groupId: 0 }));
+                      seating.clearAllCustomGroups();
                     }
                   }} 
                   style={{ width: '100%', padding: '6px', marginTop: '5px' }}

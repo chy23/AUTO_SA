@@ -132,7 +132,7 @@ export default function ClassroomArea({ seating, classroomRef }) {
       >
         <div className="blackboard">黑板</div>
         
-        {layoutMode !== 'CUSTOM' && currentMap.labels.map((label, idx) => (
+        {layoutMode !== 'CUSTOM' && (currentMap?.labels || []).map((label, idx) => (
           <div 
             key={`label-${idx}`} 
             className="group-label"
@@ -142,7 +142,7 @@ export default function ClassroomArea({ seating, classroomRef }) {
           </div>
         ))}
         
-        {staticItems.map(item => staticVisibility[item.id] && (
+        {(staticItems || []).map(item => staticVisibility[item.id] && (
           <div 
             key={item.id} 
             className={`static-label ${item.orientation === 'vertical' ? 'static-vertical' : 'static-horizontal'}`}
@@ -153,7 +153,7 @@ export default function ClassroomArea({ seating, classroomRef }) {
           </div>
         ))}
         
-        {currentMap.seats.map(seat => {
+        {(currentMap?.seats || []).map(seat => {
           const ass = assignments.find(a => a.seatId === seat.id);
           return (
             <Seat 
