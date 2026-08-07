@@ -223,8 +223,8 @@ export const useSeating = () => {
         newSeats.push({ 
           id: maxId, 
           groupId: 0, 
-          x: 35 + (i % 5) * 6, 
-          y: 35 + Math.floor(i / 5) * 6, 
+          x: 35 + (i % 5) * 7.5, 
+          y: 35 + Math.floor(i / 5) * 7.5, 
           shape: 'vertical' 
         });
       }

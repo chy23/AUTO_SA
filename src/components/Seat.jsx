@@ -58,7 +58,9 @@ export default function Seat({
       onClick={(e) => {
         if (isEditingLayout) {
           e.stopPropagation();
-          if (activeGroupBrush !== null && onAssignGroup) {
+          if (activeGroupBrush === 'DELETE') {
+            onDelete(seat.id);
+          } else if (activeGroupBrush !== null && onAssignGroup) {
             onAssignGroup(seat.id, activeGroupBrush);
           } else {
             onSelect(seat.id);
@@ -93,14 +95,32 @@ export default function Seat({
         </div>
       )}
 
-      {/* Delete button (Standard Mode) */}
-      {layoutMode === 'STANDARD' && (
+      {/* Delete button (Edit Mode) */}
+      {isEditingLayout && (
         <button 
           className="delete-seat-btn"
+          style={{
+            position: 'absolute',
+            top: '-8px',
+            right: '-8px',
+            background: '#ff4444',
+            color: 'white',
+            borderRadius: '50%',
+            width: '20px',
+            height: '20px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            border: '2px solid white',
+            cursor: 'pointer',
+            zIndex: 20,
+            boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+          }}
           onClick={(e) => {
             e.stopPropagation();
             onDelete(seat.id);
           }}
+          title="刪除座位"
         >
           <X size={12} />
         </button>

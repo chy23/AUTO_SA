@@ -293,6 +293,7 @@ select:focus, input:focus {
   position: absolute;
   background: var(--seat-bg);
   border: 1px solid var(--border-color);
+  border-top: 3px solid transparent;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
