@@ -59,6 +59,11 @@ export default function ClassroomArea({ seating, classroomRef }) {
         let centerY = e.clientY - offsetY;
         let x = ((centerX - cr.left) / cr.width) * 100;
         let y = ((centerY - cr.top) / cr.height) * 100;
+        
+        // Snap to grid (2.5%)
+        x = Math.round(x / 2.5) * 2.5;
+        y = Math.round(y / 2.5) * 2.5;
+
         setStaticItems(prev => prev.map(item =>
           item.id === id ? { ...item, x: Math.max(0, Math.min(100, x)), y: Math.max(0, Math.min(100, y)) } : item
         ));
@@ -68,6 +73,11 @@ export default function ClassroomArea({ seating, classroomRef }) {
         let centerY = e.clientY - offsetY;
         let x = ((centerX - cr.left) / cr.width) * 100;
         let y = ((centerY - cr.top) / cr.height) * 100;
+
+        // Snap to grid (2.5%)
+        x = Math.round(x / 2.5) * 2.5;
+        y = Math.round(y / 2.5) * 2.5;
+
         updateCustomSeat(id, { 
           x: Math.max(0, Math.min(100, x)), 
           y: Math.max(0, Math.min(100, y)) 
@@ -123,7 +133,7 @@ export default function ClassroomArea({ seating, classroomRef }) {
       
       <div 
         ref={classroomRef}
-        className={`classroom ${layoutMode === 'EXAM' ? 'vertical-layout' : 'horizontal-layout'}`}
+        className={`classroom ${layoutMode === 'EXAM' ? 'vertical-layout' : 'horizontal-layout'} ${isEditingLayout ? 'editing-grid' : ''}`}
         onDragOver={(e) => {
           e.preventDefault();
           e.dataTransfer.dropEffect = 'copy';

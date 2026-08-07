@@ -212,6 +212,15 @@ select:focus, input:focus {
   aspect-ratio: 1 / 1.414; /* A4 Portrait */
 }
 
+.classroom.editing-grid {
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 2.5% 2.5%;
+  background-position: 0 0;
+  transition: background-color 0.3s ease;
+}
+
 .blackboard {
   position: absolute;
   top: 2%;
