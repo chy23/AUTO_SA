@@ -149,6 +149,68 @@ export default function Sidebar({
           </div>
         )}
         
+        {layoutMode === 'CUSTOM' && (
+          <div className="custom-mode-settings" style={{ marginTop: '10px', background: 'rgba(255,255,255,0.05)', padding: '10px', borderRadius: '8px' }}>
+            <h3 style={{ fontSize: '14px', marginBottom: '8px', color: 'var(--text-color)' }}>自定義版面</h3>
+            <button 
+              className={`action-btn ${seating.isEditingLayout ? 'primary' : 'outline'}`}
+              onClick={() => {
+                if (seating.isEditingLayout) seating.saveCustomStaticItems();
+                seating.setIsEditingLayout(!seating.isEditingLayout);
+              }}
+              style={{ width: '100%', marginBottom: '10px' }}
+            >
+              <Settings2 size={16} style={{ marginRight: '5px', verticalAlign: 'text-bottom' }} />
+              {seating.isEditingLayout ? '儲存並退出編輯' : '編輯座位配置'}
+            </button>
+            {seating.isEditingLayout && (
+              <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
+                <p>• 直接拖曳可移動座位與設施位置</p>
+                <p>• 點擊座位可編輯其群組與方向</p>
+                <button 
+                  className="secondary-btn" 
+                  onClick={seating.addCustomSeat} 
+                  style={{ width: '100%', padding: '6px', marginTop: '10px' }}
+                >
+                  + 新增座位
+                </button>
+                {seating.selectedSeatId && (
+                  <div style={{ marginTop: '10px', padding: '10px', background: 'rgba(0,0,0,0.1)', borderRadius: '4px' }}>
+                    <h4 style={{ fontSize: '13px', margin: '0 0 5px' }}>編輯所選座位 #{seating.selectedSeatId}</h4>
+                    <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '5px' }}>
+                      所屬小組:
+                      <input 
+                        type="number" min="1" max="15" 
+                        value={seating.customMap.seats.find(s => s.id === seating.selectedSeatId)?.groupId || 1}
+                        onChange={(e) => seating.updateCustomSeat(seating.selectedSeatId, { groupId: Number(e.target.value) })}
+                        style={{ width: '50px' }}
+                      />
+                    </label>
+                    <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
+                      座位方向:
+                      <select
+                        value={seating.customMap.seats.find(s => s.id === seating.selectedSeatId)?.shape || 'vertical'}
+                        onChange={(e) => seating.updateCustomSeat(seating.selectedSeatId, { shape: e.target.value })}
+                        style={{ padding: '2px 4px' }}
+                      >
+                        <option value="vertical">直排</option>
+                        <option value="horizontal">橫排</option>
+                      </select>
+                    </label>
+                    <button 
+                      className="icon-btn danger" 
+                      onClick={() => seating.deleteCustomSeat(seating.selectedSeatId)}
+                      style={{ width: '100%', padding: '4px', display: 'flex', justifyContent: 'center', gap: '5px' }}
+                    >
+                      <Trash2 size={14} /> 刪除此座位
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+        
         <div style={{ display: 'flex', gap: '10px' }}>
           <button className="action-btn primary" onClick={handleAssign} disabled={isAssigning || students.length === 0} style={{ flex: 3 }}>
              <Shuffle size={16} /> 自動排座位

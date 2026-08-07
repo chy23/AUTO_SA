@@ -381,6 +381,13 @@ select:focus, input:focus {
   background: #ff4444;
 }
 
+.seat.selected {
+  outline: 3px solid #2196F3;
+  outline-offset: 2px;
+  box-shadow: 0 0 10px rgba(33, 150, 243, 0.5);
+  z-index: 10;
+}
+
 .seat.locked {
   background: rgba(255, 68, 68, 0.15) !important;
   border-color: #ff4444 !important;

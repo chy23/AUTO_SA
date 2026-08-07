@@ -11,7 +11,10 @@ export default function ClassroomArea({ seating, classroomRef }) {
     staticVisibility,
     hiddenSeatIds, setHiddenSeatIds,
     manualSwap,
-    toggleSeatLock
+    toggleSeatLock,
+    isEditingLayout,
+    selectedSeatId, setSelectedSeatId,
+    updateCustomSeat
   } = seating;
 
   // Static item dragging
@@ -27,27 +30,53 @@ export default function ClassroomArea({ seating, classroomRef }) {
     };
   };
 
+  // Seat physical dragging (Edit mode)
+  const draggingSeat = useRef(null); // { id, offsetX, offsetY }
+
+  const handleSeatMouseDown = (e, seatId) => {
+    if (!isEditingLayout) return;
+    e.preventDefault();
+    const rect = e.currentTarget.getBoundingClientRect();
+    draggingSeat.current = {
+      id: seatId,
+      offsetX: e.clientX - rect.left,
+      offsetY: e.clientY - rect.top,
+    };
+  };
+
   useEffect(() => {
     const onMouseMove = (e) => {
-      if (!draggingStatic.current || !classroomRef.current) return;
-      const { id, offsetX, offsetY } = draggingStatic.current;
+      if (!classroomRef.current) return;
       const cr = classroomRef.current.getBoundingClientRect();
-      let x = ((e.clientX - cr.left - offsetX) / cr.width) * 100;
-      let y = ((e.clientY - cr.top - offsetY) / cr.height) * 100;
-      x = Math.max(0, Math.min(100, x));
-      y = Math.max(0, Math.min(100, y));
-      setStaticItems(prev => prev.map(item =>
-        item.id === id ? { ...item, x, y } : item
-      ));
+
+      if (draggingStatic.current) {
+        const { id, offsetX, offsetY } = draggingStatic.current;
+        let x = ((e.clientX - cr.left - offsetX) / cr.width) * 100;
+        let y = ((e.clientY - cr.top - offsetY) / cr.height) * 100;
+        setStaticItems(prev => prev.map(item =>
+          item.id === id ? { ...item, x: Math.max(0, Math.min(100, x)), y: Math.max(0, Math.min(100, y)) } : item
+        ));
+      } else if (draggingSeat.current) {
+        const { id, offsetX, offsetY } = draggingSeat.current;
+        let x = ((e.clientX - cr.left - offsetX) / cr.width) * 100;
+        let y = ((e.clientY - cr.top - offsetY) / cr.height) * 100;
+        updateCustomSeat(id, { 
+          x: Math.max(0, Math.min(100, x)), 
+          y: Math.max(0, Math.min(100, y)) 
+        });
+      }
     };
-    const onMouseUp = () => { draggingStatic.current = null; };
+    const onMouseUp = () => { 
+      draggingStatic.current = null; 
+      draggingSeat.current = null;
+    };
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
     return () => {
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
     };
-  }, [setStaticItems, classroomRef]);
+  }, [setStaticItems, updateCustomSeat, classroomRef]);
 
   // Seat dragging
   const handleSeatDragStart = (e, seatId) => {
@@ -111,6 +140,10 @@ export default function ClassroomArea({ seating, classroomRef }) {
               onDrop={handleSeatDrop}
               onDelete={(id) => setHiddenSeatIds(prev => [...prev, id])}
               onToggleLock={toggleSeatLock}
+              isEditingLayout={isEditingLayout}
+              isSelected={selectedSeatId === seat.id}
+              onSelect={setSelectedSeatId}
+              onMouseDown={handleSeatMouseDown}
             />
           );
         })}

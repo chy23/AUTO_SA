@@ -9,7 +9,11 @@ export default function Seat({
   onDragStart, 
   onDrop, 
   onDelete,
-  onToggleLock
+  onToggleLock,
+  isEditingLayout,
+  isSelected,
+  onSelect,
+  onMouseDown
 }) {
   const isLocked = assignment?.isLocked;
   
@@ -19,12 +23,21 @@ export default function Seat({
       initial={false}
       animate={{ left: `${seat.x}%`, top: `${seat.y}%` }}
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      className={`seat group-${seat.groupId || 1} ${seat.shape || 'vertical'} ${isLocked ? 'locked' : ''}`}
-      style={{ position: 'absolute' }}
-      draggable
-      onDragStart={(e) => onDragStart(e, seat.id)}
-      onDragOver={(e) => e.preventDefault()}
-      onDrop={(e) => onDrop(e, seat.id)}
+      className={`seat group-${seat.groupId || 1} ${seat.shape || 'vertical'} ${isLocked ? 'locked' : ''} ${isSelected ? 'selected' : ''}`}
+      style={{ position: 'absolute', cursor: isEditingLayout ? 'grab' : 'pointer' }}
+      draggable={!isEditingLayout}
+      onDragStart={(e) => { if (!isEditingLayout) onDragStart(e, seat.id); }}
+      onDragOver={(e) => { if (!isEditingLayout) e.preventDefault(); }}
+      onDrop={(e) => { if (!isEditingLayout) onDrop(e, seat.id); }}
+      onClick={(e) => {
+        if (isEditingLayout) {
+          e.stopPropagation();
+          onSelect(seat.id);
+        }
+      }}
+      onMouseDown={(e) => {
+        if (isEditingLayout) onMouseDown(e, seat.id);
+      }}
     >
       <div className="seat-no">{seat.id}</div>
       

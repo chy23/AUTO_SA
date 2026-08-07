@@ -39,9 +39,12 @@ export const useSeating = () => {
   const [staticVisibility, setStaticVisibility] = useLocalStorage('auto_sa_static_vis', {
     'front-door': true, 'back-corridor': true, 'back-door': true, 'teacher': true, 'restroom': true
   });
+  const [customMap, setCustomMap] = useLocalStorage('auto_sa_custom_map', LAYOUT_HORIZONTAL);
   
   // Non-persisted transient states
   const [isAssigning, setIsAssigning] = useState(false);
+  const [isEditingLayout, setIsEditingLayout] = useState(false);
+  const [selectedSeatId, setSelectedSeatId] = useState(null);
   const [history, setHistory] = useState([]); // Array of assignment arrays
   
   // Dynamic Maps
@@ -73,6 +76,7 @@ export const useSeating = () => {
 
   const currentMap = layoutMode === 'GROUP' ? LAYOUT_HORIZONTAL :
                      layoutMode === 'EXAM' ? LAYOUT_VERTICAL :
+                     layoutMode === 'CUSTOM' ? customMap :
                      standardMap;
                      
   const [staticItems, setStaticItems] = useState(currentMap.staticItems);
@@ -106,8 +110,9 @@ export const useSeating = () => {
   useEffect(() => {
     setStaticItems(layoutMode === 'GROUP' ? LAYOUT_HORIZONTAL.staticItems : 
                    layoutMode === 'EXAM' ? LAYOUT_VERTICAL.staticItems : 
+                   layoutMode === 'CUSTOM' ? customMap.staticItems :
                    LAYOUT_VERTICAL.staticItems);
-  }, [layoutMode]);
+  }, [layoutMode, customMap.staticItems]);
 
   // Actions
   const handleAssign = () => {
@@ -160,6 +165,34 @@ export const useSeating = () => {
       a.seatId === seatId ? { ...a, isLocked: !a.isLocked } : a
     ));
   };
+  
+  // Custom Layout Methods
+  const addCustomSeat = () => {
+    setCustomMap(prev => {
+      const maxId = prev.seats.reduce((max, s) => Math.max(max, s.id), 0);
+      const newSeat = { id: maxId + 1, groupId: 1, x: 50, y: 50, shape: 'vertical' };
+      return { ...prev, seats: [...prev.seats, newSeat] };
+    });
+  };
+
+  const updateCustomSeat = (seatId, changes) => {
+    setCustomMap(prev => ({
+      ...prev,
+      seats: prev.seats.map(s => s.id === seatId ? { ...s, ...changes } : s)
+    }));
+  };
+
+  const deleteCustomSeat = (seatId) => {
+    setCustomMap(prev => ({
+      ...prev,
+      seats: prev.seats.filter(s => s.id !== seatId)
+    }));
+    if (selectedSeatId === seatId) setSelectedSeatId(null);
+  };
+  
+  const saveCustomStaticItems = () => {
+    setCustomMap(prev => ({ ...prev, staticItems }));
+  };
 
   return {
     students, setStudents,
@@ -173,11 +206,18 @@ export const useSeating = () => {
     staticItems, setStaticItems,
     staticVisibility, setStaticVisibility,
     currentMap,
+    customMap, setCustomMap,
     isAssigning,
+    isEditingLayout, setIsEditingLayout,
+    selectedSeatId, setSelectedSeatId,
     handleAssign,
     undo,
     canUndo: history.length > 0,
     manualSwap,
-    toggleSeatLock
+    toggleSeatLock,
+    addCustomSeat,
+    updateCustomSeat,
+    deleteCustomSeat,
+    saveCustomStaticItems
   };
 };

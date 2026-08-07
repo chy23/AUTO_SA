@@ -1,8 +1,27 @@
 import { ADJACENCY_LIST } from '../constants';
 
+const buildAdjacencyList = (seats) => {
+  const adj = {};
+  seats.forEach(s => (adj[s.id] = []));
+  
+  for (let i = 0; i < seats.length; i++) {
+    for (let j = i + 1; j < seats.length; j++) {
+      const dx = Math.abs(seats[i].x - seats[j].x);
+      const dy = Math.abs(seats[i].y - seats[j].y);
+      // Allow a small margin (3%) for alignment imperfections during custom dragging
+      if ((dx < 3 && dy < 16) || (dy < 3 && dx < 16)) {
+        adj[seats[i].id].push(seats[j].id);
+        adj[seats[j].id].push(seats[i].id);
+      }
+    }
+  }
+  return adj;
+};
+
 export const evaluateAssignment = (assignment, rules, currentMap) => {
   let penalty = 0;
   const getSeat = id => currentMap.seats.find(s => s.id === id);
+  const adjacencyList = buildAdjacencyList(currentMap.seats);
   
   rules.forEach(rule => {
     if (!rule.students) return;
@@ -21,7 +40,7 @@ export const evaluateAssignment = (assignment, rules, currentMap) => {
         if (rule.type === 'NOT_SAME_GROUP' && seat1.groupId === seat2.groupId) penalty += 1000;
         if (rule.type === 'SAME_GROUP' && seat1.groupId !== seat2.groupId) penalty += 1000;
         
-        const isAdjacent = ADJACENCY_LIST[seat1.id]?.includes(seat2.id);
+        const isAdjacent = adjacencyList[seat1.id]?.includes(seat2.id);
         if (rule.type === 'NOT_ADJACENT' && isAdjacent) penalty += 1000;
         if (rule.type === 'ADJACENT' && !isAdjacent) penalty += 1000;
       }
