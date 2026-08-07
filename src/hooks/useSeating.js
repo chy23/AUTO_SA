@@ -176,13 +176,23 @@ export const useSeating = () => {
     setHistory(prev => [...prev, assignments].slice(-20));
     setAssignments(prev => {
       const newAss = [...prev];
-      const idx1 = newAss.findIndex(a => a.seatId === seatId1);
-      const idx2 = newAss.findIndex(a => a.seatId === seatId2);
-      if (idx1 !== -1 && idx2 !== -1) {
-        const temp = newAss[idx1].student;
-        newAss[idx1].student = newAss[idx2].student;
-        newAss[idx2].student = temp;
+      let idx1 = newAss.findIndex(a => a.seatId === seatId1);
+      let idx2 = newAss.findIndex(a => a.seatId === seatId2);
+      
+      // If a seat doesn't have an assignment record yet (e.g., newly added custom seat), create it
+      if (idx1 === -1) {
+        newAss.push({ seatId: seatId1, student: null, isLocked: false });
+        idx1 = newAss.length - 1;
       }
+      if (idx2 === -1) {
+        newAss.push({ seatId: seatId2, student: null, isLocked: false });
+        idx2 = newAss.length - 1;
+      }
+      
+      const temp = newAss[idx1].student;
+      newAss[idx1].student = newAss[idx2].student;
+      newAss[idx2].student = temp;
+      
       return newAss;
     });
   };
