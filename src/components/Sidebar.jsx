@@ -167,13 +167,48 @@ export default function Sidebar({
               <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
                 <p>• 直接拖曳可移動座位與設施位置</p>
                 <p>• 點擊座位可編輯其群組與方向</p>
-                <button 
-                  className="secondary-btn" 
-                  onClick={seating.addCustomSeat} 
-                  style={{ width: '100%', padding: '6px', marginTop: '10px' }}
-                >
-                  + 新增座位
-                </button>
+                <div style={{ display: 'flex', gap: '5px', marginTop: '10px' }}>
+                  <button 
+                    className="secondary-btn" 
+                    onClick={seating.addCustomSeat} 
+                    style={{ flex: 1, padding: '6px' }}
+                  >
+                    + 1 座位
+                  </button>
+                  <button 
+                    className="secondary-btn" 
+                    onClick={() => seating.addMultipleCustomSeats(5)} 
+                    style={{ flex: 1, padding: '6px' }}
+                  >
+                    + 5 座位
+                  </button>
+                </div>
+                
+                <div style={{ marginTop: '15px', padding: '10px', background: 'rgba(0,0,0,0.1)', borderRadius: '4px' }}>
+                  <h4 style={{ fontSize: '13px', margin: '0 0 10px', color: 'var(--text-color)' }}>拖曳分配小組</h4>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
+                    {[1, 2, 3, 4, 5, 6, 7, 8].map(g => (
+                      <div
+                        key={g}
+                        draggable
+                        onDragStart={(e) => {
+                          e.dataTransfer.setData('text/plain', JSON.stringify({ itemType: 'groupLabel', groupId: g }));
+                        }}
+                        className={`group-${g}`}
+                        style={{ 
+                          width: '32px', height: '32px', borderRadius: '4px', 
+                          display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                          cursor: 'grab', fontWeight: 'bold', fontSize: '14px',
+                          color: '#fff', border: '1px solid rgba(255,255,255,0.3)'
+                        }}
+                        title={`拖曳分配為第 ${g} 組`}
+                      >
+                        {g}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
                 {seating.selectedSeatId && (
                   <div style={{ marginTop: '10px', padding: '10px', background: 'rgba(0,0,0,0.1)', borderRadius: '4px' }}>
                     <h4 style={{ fontSize: '13px', margin: '0 0 5px' }}>編輯所選座位 #{seating.selectedSeatId}</h4>
@@ -187,15 +222,7 @@ export default function Sidebar({
                       />
                     </label>
                     <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
-                      座位方向:
-                      <select
-                        value={seating.customMap.seats.find(s => s.id === seating.selectedSeatId)?.shape || 'vertical'}
-                        onChange={(e) => seating.updateCustomSeat(seating.selectedSeatId, { shape: e.target.value })}
-                        style={{ padding: '2px 4px' }}
-                      >
-                        <option value="vertical">直排</option>
-                        <option value="horizontal">橫排</option>
-                      </select>
+                      <span style={{color: 'var(--text-muted)', fontSize: '11px'}}>(也可直接從上方拖曳號碼，或雙擊座位旋轉)</span>
                     </label>
                     <button 
                       className="icon-btn danger" 

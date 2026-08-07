@@ -13,7 +13,8 @@ export default function Seat({
   isEditingLayout,
   isSelected,
   onSelect,
-  onMouseDown
+  onMouseDown,
+  onDoubleClick
 }) {
   const isLocked = assignment?.isLocked;
   
@@ -27,12 +28,18 @@ export default function Seat({
       style={{ position: 'absolute', cursor: isEditingLayout ? 'grab' : 'pointer' }}
       draggable={!isEditingLayout}
       onDragStart={(e) => { if (!isEditingLayout) onDragStart(e, seat.id); }}
-      onDragOver={(e) => { if (!isEditingLayout) e.preventDefault(); }}
-      onDrop={(e) => { if (!isEditingLayout) onDrop(e, seat.id); }}
+      onDragOver={(e) => e.preventDefault()}
+      onDrop={(e) => onDrop(e, seat.id)}
       onClick={(e) => {
         if (isEditingLayout) {
           e.stopPropagation();
           onSelect(seat.id);
+        }
+      }}
+      onDoubleClick={(e) => {
+        if (isEditingLayout) {
+          e.stopPropagation();
+          onDoubleClick(seat.id);
         }
       }}
       onMouseDown={(e) => {

@@ -88,10 +88,20 @@ export default function ClassroomArea({ seating, classroomRef }) {
     e.stopPropagation();
     try {
       const data = JSON.parse(e.dataTransfer.getData('text/plain'));
-      if (data.itemType === 'seat' && data.id !== targetSeatId) {
+      if (data.itemType === 'seat' && data.id !== targetSeatId && !isEditingLayout) {
         manualSwap(data.id, targetSeatId);
+      } else if (data.itemType === 'groupLabel' && isEditingLayout) {
+        updateCustomSeat(targetSeatId, { groupId: data.groupId });
       }
     } catch {}
+  };
+
+  const handleSeatDoubleClick = (seatId) => {
+    if (!isEditingLayout) return;
+    const seat = currentMap.seats.find(s => s.id === seatId);
+    if (seat) {
+      updateCustomSeat(seatId, { shape: seat.shape === 'vertical' ? 'horizontal' : 'vertical' });
+    }
   };
 
   return (
@@ -144,6 +154,7 @@ export default function ClassroomArea({ seating, classroomRef }) {
               isSelected={selectedSeatId === seat.id}
               onSelect={setSelectedSeatId}
               onMouseDown={handleSeatMouseDown}
+              onDoubleClick={handleSeatDoubleClick}
             />
           );
         })}

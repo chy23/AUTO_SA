@@ -175,6 +175,24 @@ export const useSeating = () => {
     });
   };
 
+  const addMultipleCustomSeats = (count) => {
+    setCustomMap(prev => {
+      let maxId = prev.seats.reduce((max, s) => Math.max(max, s.id), 0);
+      const newSeats = [];
+      for (let i = 0; i < count; i++) {
+        maxId++;
+        newSeats.push({ 
+          id: maxId, 
+          groupId: 1, 
+          x: 40 + (i % 5) * 5, 
+          y: 40 + Math.floor(i / 5) * 5, 
+          shape: 'vertical' 
+        });
+      }
+      return { ...prev, seats: [...prev.seats, ...newSeats] };
+    });
+  };
+
   const updateCustomSeat = (seatId, changes) => {
     setCustomMap(prev => ({
       ...prev,
@@ -216,6 +234,7 @@ export const useSeating = () => {
     manualSwap,
     toggleSeatLock,
     addCustomSeat,
+    addMultipleCustomSeats,
     updateCustomSeat,
     deleteCustomSeat,
     saveCustomStaticItems
