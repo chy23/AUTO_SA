@@ -51,9 +51,10 @@ export const useSeating = () => {
     staticItems: LAYOUT_VERTICAL.staticItems
   };
   let currentId = 1;
-  const xStart = 15, xEnd = 85, yStart = 15, yEnd = 85;
-  const xStep = standardCols > 1 ? (xEnd - xStart) / (standardCols - 1) : 0;
-  const yStep = standardRows > 1 ? (yEnd - yStart) / (standardRows - 1) : 0;
+  const xStep = standardCols > 1 ? 68 / (standardCols - 1) : 0;
+  const yStep = standardRows > 1 ? 68 / (standardRows - 1) : 0;
+  const xStart = 16;
+  const yStart = 16;
   
   for (let r = 0; r < standardRows; r++) {
     for (let c = 0; c < standardCols; c++) {
