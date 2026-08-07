@@ -54,7 +54,7 @@ export const useSeating = () => {
     return seats;
   };
 
-  const [customMap, setCustomMap] = useLocalStorage('auto_sa_custom_map_v2', {
+  const [customMap, setCustomMap] = useLocalStorage('auto_sa_custom_map', {
     labels: [],
     seats: generateDefaultBlankSeats()
   });
