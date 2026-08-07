@@ -77,7 +77,7 @@ export default function Seat({
 
       {!isEditingLayout && assignment?.student ? (
         <div className="student-info">
-          <span className="student-id">{assignment.student.id}</span>
+          {assignment.student.id && <span className="student-id">{assignment.student.id}</span>}
           <span className="student-name">{assignment.student.name}</span>
         </div>
       ) : !isEditingLayout ? (
