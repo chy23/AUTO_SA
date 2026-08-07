@@ -39,9 +39,24 @@ export const useSeating = () => {
   const [staticVisibility, setStaticVisibility] = useLocalStorage('auto_sa_static_vis', {
     'front-door': true, 'back-corridor': true, 'back-door': true, 'teacher': true, 'restroom': true
   });
-  const [customMap, setCustomMap] = useLocalStorage('auto_sa_custom_map', {
-    ...LAYOUT_HORIZONTAL,
-    seats: LAYOUT_HORIZONTAL.seats.map(s => ({ ...s, groupId: 0 }))
+  
+  const generateDefaultBlankSeats = () => {
+    const seats = [];
+    for (let i = 0; i < 30; i++) {
+      seats.push({
+        id: i + 1,
+        groupId: 0,
+        x: 20 + (i % 6) * 12, // 6 columns
+        y: 25 + Math.floor(i / 6) * 14, // 5 rows
+        shape: 'vertical'
+      });
+    }
+    return seats;
+  };
+
+  const [customMap, setCustomMap] = useLocalStorage('auto_sa_custom_map_v2', {
+    labels: [],
+    seats: generateDefaultBlankSeats()
   });
   
   // Non-persisted transient states

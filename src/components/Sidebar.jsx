@@ -20,7 +20,8 @@ export default function Sidebar({
     staticVisibility, setStaticVisibility,
     currentMap, staticItems,
     isAssigning, handleAssign,
-    undo, canUndo
+    undo, canUndo,
+    resetCustomMap
   } = seating;
 
   const handleFileUpload = async (e) => {
@@ -186,13 +187,24 @@ export default function Sidebar({
                 <button 
                   className="secondary-btn" 
                   onClick={() => {
+                    if (window.confirm("確定要重置版面為 30 個空白座位嗎？這會清除您所有的排列與群組！")) {
+                      seating.resetCustomMap();
+                    }
+                  }} 
+                  style={{ width: '100%', padding: '6px', marginTop: '5px', color: '#ff4444', borderColor: 'rgba(255,68,68,0.3)' }}
+                >
+                  還原預設版面 (30 空白座位)
+                </button>
+                <button 
+                  className="secondary-btn" 
+                  onClick={() => {
                     if (window.confirm("確定要清除所有座位的組號嗎？")) {
                       seating.customMap.seats.forEach(s => seating.updateCustomSeat(s.id, { groupId: 0 }));
                     }
                   }} 
                   style={{ width: '100%', padding: '6px', marginTop: '5px' }}
                 >
-                  清除所有組號
+                  僅清除所有組號
                 </button>
                 
                 <div style={{ marginTop: '15px', padding: '10px', background: 'rgba(0,0,0,0.1)', borderRadius: '4px' }}>

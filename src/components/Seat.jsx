@@ -75,14 +75,14 @@ export default function Seat({
         </button>
       )}
 
-      {assignment?.student ? (
+      {!isEditingLayout && assignment?.student ? (
         <div className="student-info">
           <span className="student-id">{assignment.student.id}</span>
           <span className="student-name">{assignment.student.name}</span>
         </div>
-      ) : (
+      ) : !isEditingLayout ? (
         <div className="empty-seat">空</div>
-      )}
+      ) : null}
     </motion.div>
   );
 }
