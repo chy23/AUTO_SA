@@ -21,7 +21,8 @@ export default function Sidebar({
     currentMap, staticItems,
     isAssigning, handleAssign,
     undo, canUndo,
-    resetCustomMap
+    resetCustomMap,
+    activeGroupBrush, setActiveGroupBrush
   } = seating;
 
   const handleFileUpload = async (e) => {
@@ -207,46 +208,86 @@ export default function Sidebar({
                   僅清除所有組號
                 </button>
                 
-                <div style={{ marginTop: '15px', padding: '10px', background: 'rgba(0,0,0,0.1)', borderRadius: '6px' }}>
-                  <h4 style={{ fontSize: '13px', margin: '0 0 10px', color: 'var(--text-color)' }}>拖曳分配小組號碼</h4>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                    {[1, 2, 3, 4, 5, 6, 7, 8].map(g => (
-                      <div
-                        key={g}
-                        draggable
-                        onDragStart={(e) => {
-                          e.dataTransfer.setData('text/plain', JSON.stringify({ itemType: 'groupLabel', groupId: g }));
-                        }}
-                        className={`group-badge-${g}`}
-                        style={{ 
-                          width: '32px', height: '32px', borderRadius: '6px', 
-                          display: 'flex', alignItems: 'center', justifyContent: 'center', 
-                          cursor: 'grab', fontWeight: 'bold', fontSize: '14px',
-                          color: '#fff', boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
-                        }}
-                        title={`拖曳分配為第 ${g} 組`}
+                <div style={{ marginTop: '15px', padding: '10px', background: 'rgba(0,0,0,0.15)', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.08)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                    <h4 style={{ fontSize: '13px', margin: 0, color: 'var(--text-color)' }}>分配小組號碼牌</h4>
+                    {activeGroupBrush !== null && (
+                      <button 
+                        onClick={() => setActiveGroupBrush(null)}
+                        style={{ background: 'none', border: 'none', color: '#ff6b6b', fontSize: '11px', cursor: 'pointer', padding: '2px 4px' }}
                       >
-                        {g}
-                      </div>
-                    ))}
-                    <div
-                      key={0}
-                      draggable
-                      onDragStart={(e) => {
-                        e.dataTransfer.setData('text/plain', JSON.stringify({ itemType: 'groupLabel', groupId: 0 }));
-                      }}
-                      className="group-badge-0"
-                      style={{ 
-                        width: '32px', height: '32px', borderRadius: '6px', 
-                        display: 'flex', alignItems: 'center', justifyContent: 'center', 
-                        cursor: 'grab', fontWeight: 'bold', fontSize: '12px',
-                        color: '#fff', boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
-                      }}
-                      title="拖曳清除座位組別"
-                    >
-                      無
-                    </div>
+                        取消筆刷
+                      </button>
+                    )}
                   </div>
+                  
+                  <p style={{ fontSize: '11px', color: 'var(--text-muted)', margin: '0 0 8px 0', lineHeight: 1.4 }}>
+                    • 可<strong>直接拖曳</strong>號碼牌至座位<br/>
+                    • 或<strong>點選號碼</strong>開啟筆刷，再連續點擊座位上色
+                  </p>
+
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                    {[1, 2, 3, 4, 5, 6, 7, 8].map(g => {
+                      const isActive = activeGroupBrush === g;
+                      return (
+                        <div
+                          key={g}
+                          draggable
+                          onDragStart={(e) => {
+                            e.dataTransfer.effectAllowed = 'copyMove';
+                            e.dataTransfer.setData('text/plain', JSON.stringify({ itemType: 'groupLabel', groupId: g }));
+                          }}
+                          onClick={() => setActiveGroupBrush(isActive ? null : g)}
+                          className={`group-badge-${g}`}
+                          style={{ 
+                            width: '32px', height: '32px', borderRadius: '6px', 
+                            display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                            cursor: 'pointer', fontWeight: 'bold', fontSize: '14px',
+                            color: '#fff', 
+                            boxShadow: isActive ? '0 0 0 2px #fff, 0 0 8px var(--primary)' : '0 2px 4px rgba(0,0,0,0.2)',
+                            transform: isActive ? 'scale(1.1)' : 'scale(1)',
+                            transition: 'all 0.15s ease'
+                          }}
+                          title={`拖曳或點選第 ${g} 組`}
+                        >
+                          {g}
+                        </div>
+                      );
+                    })}
+                    {(() => {
+                      const isActive = activeGroupBrush === 0;
+                      return (
+                        <div
+                          key={0}
+                          draggable
+                          onDragStart={(e) => {
+                            e.dataTransfer.effectAllowed = 'copyMove';
+                            e.dataTransfer.setData('text/plain', JSON.stringify({ itemType: 'groupLabel', groupId: 0 }));
+                          }}
+                          onClick={() => setActiveGroupBrush(isActive ? null : 0)}
+                          className="group-badge-0"
+                          style={{ 
+                            width: '32px', height: '32px', borderRadius: '6px', 
+                            display: 'flex', alignItems: 'center', justifyContent: 'center', 
+                            cursor: 'pointer', fontWeight: 'bold', fontSize: '12px',
+                            color: '#fff', 
+                            boxShadow: isActive ? '0 0 0 2px #fff, 0 0 8px #ff4444' : '0 2px 4px rgba(0,0,0,0.2)',
+                            transform: isActive ? 'scale(1.1)' : 'scale(1)',
+                            transition: 'all 0.15s ease'
+                          }}
+                          title="拖曳或點選清除組別"
+                        >
+                          無
+                        </div>
+                      );
+                    })()}
+                  </div>
+
+                  {activeGroupBrush !== null && (
+                    <div style={{ marginTop: '8px', padding: '6px 8px', background: 'rgba(59, 130, 246, 0.15)', borderRadius: '4px', border: '1px solid rgba(59, 130, 246, 0.3)', fontSize: '11px', color: '#93c5fd' }}>
+                      🖌️ 筆刷模式中：點擊任意座位立即設為「{activeGroupBrush === 0 ? '無組別' : `第 ${activeGroupBrush} 組`}」
+                    </div>
+                  )}
                 </div>
 
                 {seating.selectedSeatId && (

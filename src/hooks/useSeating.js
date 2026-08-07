@@ -63,6 +63,7 @@ export const useSeating = () => {
   const [isAssigning, setIsAssigning] = useState(false);
   const [isEditingLayout, setIsEditingLayout] = useState(false);
   const [selectedSeatId, setSelectedSeatId] = useState(null);
+  const [activeGroupBrush, setActiveGroupBrush] = useState(null);
   const [history, setHistory] = useState([]); // Array of assignment arrays
   
   // Dynamic Maps
@@ -246,6 +247,7 @@ export const useSeating = () => {
     isAssigning,
     isEditingLayout, setIsEditingLayout,
     selectedSeatId, setSelectedSeatId,
+    activeGroupBrush, setActiveGroupBrush,
     handleAssign,
     undo,
     canUndo: history.length > 0,
@@ -255,6 +257,7 @@ export const useSeating = () => {
     addMultipleCustomSeats,
     updateCustomSeat,
     deleteCustomSeat,
-    saveCustomStaticItems
+    saveCustomStaticItems,
+    resetCustomMap
   };
 };

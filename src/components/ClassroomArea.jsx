@@ -14,6 +14,7 @@ export default function ClassroomArea({ seating, classroomRef }) {
     toggleSeatLock,
     isEditingLayout,
     selectedSeatId, setSelectedSeatId,
+    activeGroupBrush,
     updateCustomSeat
   } = seating;
 
@@ -94,13 +95,17 @@ export default function ClassroomArea({ seating, classroomRef }) {
     e.preventDefault();
     e.stopPropagation();
     try {
-      const data = JSON.parse(e.dataTransfer.getData('text/plain'));
+      const raw = e.dataTransfer.getData('text/plain');
+      if (!raw) return;
+      const data = JSON.parse(raw);
       if (data.itemType === 'seat' && data.id !== targetSeatId && !isEditingLayout) {
         manualSwap(data.id, targetSeatId);
-      } else if (data.itemType === 'groupLabel' && isEditingLayout) {
+      } else if (data.itemType === 'groupLabel') {
         updateCustomSeat(targetSeatId, { groupId: data.groupId });
       }
-    } catch {}
+    } catch (err) {
+      console.warn("Drop error:", err);
+    }
   };
 
   const handleSeatDoubleClick = (seatId) => {
@@ -119,7 +124,10 @@ export default function ClassroomArea({ seating, classroomRef }) {
       <div 
         ref={classroomRef}
         className={`classroom ${layoutMode === 'EXAM' ? 'vertical-layout' : 'horizontal-layout'}`}
-        onDragOver={(e) => e.preventDefault()}
+        onDragOver={(e) => {
+          e.preventDefault();
+          e.dataTransfer.dropEffect = 'copy';
+        }}
         onDrop={(e) => e.preventDefault()}
       >
         <div className="blackboard">黑板</div>
@@ -162,6 +170,8 @@ export default function ClassroomArea({ seating, classroomRef }) {
               onSelect={setSelectedSeatId}
               onMouseDown={handleSeatMouseDown}
               onDoubleClick={handleSeatDoubleClick}
+              activeGroupBrush={activeGroupBrush}
+              onAssignGroup={(id, g) => updateCustomSeat(id, { groupId: g })}
             />
           );
         })}
