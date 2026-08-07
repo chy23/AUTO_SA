@@ -22,7 +22,6 @@ export default function ClassroomArea({ seating, classroomRef }) {
 
   const handleStaticMouseDown = (e, itemId) => {
     if (!isEditingLayout) return;
-    e.preventDefault();
     const rect = e.currentTarget.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
@@ -38,7 +37,6 @@ export default function ClassroomArea({ seating, classroomRef }) {
 
   const handleSeatMouseDown = (e, seatId) => {
     if (!isEditingLayout) return;
-    e.preventDefault();
     const rect = e.currentTarget.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
