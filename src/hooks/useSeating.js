@@ -123,7 +123,8 @@ export const useSeating = () => {
                      layoutMode === 'CUSTOM' ? safeCustomMap :
                      standardMap;
                      
-  const [staticItems, setStaticItems] = useState(currentMap.staticItems || LAYOUT_VERTICAL.staticItems);
+  // Globally persist static items positions across all modes!
+  const [staticItems, setStaticItems] = useLocalStorage('auto_sa_global_static_items', LAYOUT_VERTICAL.staticItems);
 
   // We persist assignments, but initialize based on map if empty
   const [assignments, setAssignments] = useLocalStorage('auto_sa_assignments', []);
@@ -139,15 +140,6 @@ export const useSeating = () => {
       setAssignments(initAss);
     }
   }, [assignments.length, students]);
-  
-  // When layoutMode changes, reset static items to default positions of that mode
-  useEffect(() => {
-    const defaultStatic = (safeCustomMap && safeCustomMap.staticItems) ? safeCustomMap.staticItems : LAYOUT_VERTICAL.staticItems;
-    setStaticItems(layoutMode === 'GROUP' ? LAYOUT_HORIZONTAL.staticItems : 
-                   layoutMode === 'EXAM' ? LAYOUT_VERTICAL.staticItems : 
-                   layoutMode === 'CUSTOM' ? defaultStatic :
-                   LAYOUT_VERTICAL.staticItems);
-  }, [layoutMode, customMap?.staticItems]);
 
   // Actions
   const handleAssign = () => {
