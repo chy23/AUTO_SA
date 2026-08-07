@@ -24,7 +24,7 @@ export default function Seat({
       initial={false}
       animate={{ left: `${seat.x}%`, top: `${seat.y}%` }}
       transition={isEditingLayout ? { duration: 0 } : { type: "spring", stiffness: 300, damping: 30 }}
-      className={`seat group-${seat.groupId || 1} ${seat.shape || 'vertical'} ${isLocked ? 'locked' : ''} ${isSelected ? 'selected' : ''}`}
+      className={`seat group-${seat.groupId ?? 1} ${seat.shape || 'vertical'} ${isLocked ? 'locked' : ''} ${isSelected ? 'selected' : ''}`}
       style={{ position: 'absolute', cursor: isEditingLayout ? 'grab' : 'pointer' }}
       draggable={!isEditingLayout}
       onDragStart={(e) => { if (!isEditingLayout) onDragStart(e, seat.id); }}

@@ -238,8 +238,8 @@ export default function Sidebar({
                     <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '5px' }}>
                       所屬小組:
                       <input 
-                        type="number" min="1" max="15" 
-                        value={seating.customMap.seats.find(s => s.id === seating.selectedSeatId)?.groupId || 1}
+                        type="number" min="0" max="15" 
+                        value={seating.customMap.seats.find(s => s.id === seating.selectedSeatId)?.groupId ?? 0}
                         onChange={(e) => seating.updateCustomSeat(seating.selectedSeatId, { groupId: Number(e.target.value) })}
                         style={{ width: '50px' }}
                       />
