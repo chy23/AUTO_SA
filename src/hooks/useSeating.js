@@ -128,27 +128,17 @@ export const useSeating = () => {
   // We persist assignments, but initialize based on map if empty
   const [assignments, setAssignments] = useLocalStorage('auto_sa_assignments', []);
 
-  // Initialize assignments if empty
+  // Initialize empty assignments if needed without adding mock students
   useEffect(() => {
-    if (assignments.length === 0 && students.length === 0) {
-      // Default mock students if entirely fresh
-      const defaultStudents = [
-        { id: '25', name: '李欣語' }, { id: '17', name: '羅姵婷' }, { id: '4', name: '陳定宇' }, { id: '12', name: '吳侑宸' }, { id: '20', name: '茅子芳' },
-        { id: '3', name: '陳少杰' }, { id: '10', name: '劉彥辰' }, { id: '21', name: '洪筠晴' }, { id: '13', name: '嚴梃榮' }, { id: '22', name: '林睦橙' },
-        { id: '6', name: '黃振祐' }, { id: '23', name: '周思妤' }, { id: '16', name: '羅洢洢' }, { id: '9', name: '凌戎邑' },
-        { id: '2', name: '陳秉逸' }, { id: '8', name: '林楷倫' }, { id: '11', name: '王星澄' },
-        { id: '18', name: '蕭巧羚' }, { id: '15', name: '嚴珮宸' }, { id: '7', name: '李崇碩' },
-        { id: '24', name: '吳芝妤' }, { id: '14', name: '余凱豐' }, { id: '19', name: '張倖慈' }, { id: '1', name: '陳睿東' }
-      ];
-      setStudents(defaultStudents);
+    if (assignments.length === 0 && students.length > 0) {
       const initAss = LAYOUT_VERTICAL.seats.map((seat, index) => ({
         seatId: seat.id,
-        student: defaultStudents[index] || null,
+        student: students[index] || null,
         isLocked: false
       }));
       setAssignments(initAss);
     }
-  }, []);
+  }, [assignments.length, students]);
   
   // When layoutMode changes, reset static items to default positions of that mode
   useEffect(() => {
