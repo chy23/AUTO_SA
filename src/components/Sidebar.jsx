@@ -122,7 +122,7 @@ export default function Sidebar({
 
       {/* Controls & Export */}
       <section className="panel actions">
-        {layoutMode !== 'STANDARD' && (
+        {(layoutMode === 'GROUP' || layoutMode === 'EXAM') && (
           <button 
             className="action-btn outline"
             onClick={() => {
@@ -132,7 +132,7 @@ export default function Sidebar({
             }}
           >
             <Settings2 size={18} />
-            {layoutMode === 'GROUP' ? '切換為直排' : '切換為橫排'}
+            {layoutMode === 'GROUP' ? '切換為直排 (個人考試)' : '切換為橫排 (分組上課)'}
           </button>
         )}
         
