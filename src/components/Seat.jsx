@@ -24,7 +24,6 @@ export default function Seat({
   
   return (
     <motion.div 
-      layout
       initial={false}
       animate={{ left: `${seat.x}%`, top: `${seat.y}%` }}
       transition={isEditingLayout ? { duration: 0 } : { type: "spring", stiffness: 300, damping: 30 }}
