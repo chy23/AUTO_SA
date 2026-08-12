@@ -34,7 +34,7 @@
 .panel {
   background: var(--panel-bg);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--panel-border);
   border-radius: 16px;
   padding: 1.5rem;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
@@ -51,8 +51,8 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px dashed rgba(255, 255, 255, 0.2);
+  background: var(--btn-upload-bg);
+  border: 1px dashed var(--btn-upload-border);
   padding: 1rem;
   border-radius: 8px;
   cursor: pointer;
@@ -62,7 +62,7 @@
 }
 
 .upload-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--btn-upload-hover);
   border-color: var(--primary);
 }
 
@@ -98,16 +98,16 @@ select:focus, input:focus {
 }
 
 .add-rule-btn {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  border: none;
+  background: var(--btn-upload-bg);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
   padding: 0.5rem;
   border-radius: 6px;
   cursor: pointer;
   transition: 0.2s;
 }
 .add-rule-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--btn-upload-hover);
 }
 
 .rule-list {
@@ -118,14 +118,26 @@ select:focus, input:focus {
   gap: 0.5rem;
 }
 
+.student-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  background: var(--item-bg);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  border: 1px solid var(--border-color);
+}
+
 .rule-list li {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 0.85rem;
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--item-bg);
   padding: 0.5rem;
   border-radius: 6px;
+  border: 1px solid var(--border-color);
 }
 
 .rule-list button {
@@ -183,7 +195,7 @@ select:focus, input:focus {
   flex: 0 0 78%;
   background: var(--panel-bg);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--panel-border);
   border-radius: 16px;
   position: relative;
   display: flex;
@@ -196,7 +208,7 @@ select:focus, input:focus {
 .classroom {
   width: 100%;
   min-width: 820px;
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--classroom-bg);
   border-radius: 12px;
   position: relative;
   margin: 0 auto;
@@ -214,8 +226,8 @@ select:focus, input:focus {
 
 .classroom.editing-grid {
   background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
   background-size: 2.5% 2.5%;
   background-position: 0 0;
   transition: background-color 0.3s ease;

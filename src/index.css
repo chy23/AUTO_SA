@@ -1,12 +1,21 @@
 :root {
   --bg-color: #0f172a;
   --panel-bg: rgba(30, 41, 59, 0.7);
+  --panel-border: rgba(255, 255, 255, 0.1);
   --text-main: #f8fafc;
   --text-muted: #94a3b8;
   --primary: #3b82f6;
   --primary-hover: #2563eb;
   --accent: #8b5cf6;
   --border-color: rgba(255, 255, 255, 0.1);
+  
+  --classroom-bg: rgba(0, 0, 0, 0.2);
+  --grid-color: rgba(255, 255, 255, 0.08);
+  --btn-upload-bg: rgba(255, 255, 255, 0.05);
+  --btn-upload-border: rgba(255, 255, 255, 0.2);
+  --btn-upload-hover: rgba(255, 255, 255, 0.1);
+  --item-bg: rgba(255, 255, 255, 0.1);
+  --item-hover-bg: rgba(255, 255, 255, 0.2);
   
   --group-1: #fb7185;
   --group-2: #34d399;
@@ -24,25 +33,34 @@
 }
 
 body.light-theme {
-  --bg-color: #f1f5f9; /* Soft grayish-blue background */
+  --bg-color: #f4f4f5; /* Zinc 100 for a warm neutral background */
   --panel-bg: #ffffff; /* Clean white panels */
-  --text-main: #1e293b; /* Dark slate text */
-  --text-muted: #64748b;
+  --panel-border: #d4d4d8; /* Zinc 300 for clearer panel boundaries */
+  --text-main: #18181b; /* Zinc 900 for high contrast text */
+  --text-muted: #52525b; /* Zinc 600 */
   --primary: #2563eb;
   --primary-hover: #1d4ed8;
-  --border-color: #cbd5e1; /* Visible border */
+  --border-color: #d4d4d8;
+  
+  --classroom-bg: #e4e4e7; /* Zinc 200 to contrast with white seats */
+  --grid-color: rgba(0, 0, 0, 0.06);
+  --btn-upload-bg: #f4f4f5;
+  --btn-upload-border: #a1a1aa; /* Zinc 400 for dashed border */
+  --btn-upload-hover: #e4e4e7;
+  --item-bg: #f4f4f5;
+  --item-hover-bg: #e4e4e7;
   
   --group-1: #e11d48;
   --group-2: #059669;
   --group-3: #2563eb;
-  --group-4: #d97706;
-  --group-5: #9333ea;
-  --group-6: #0891b2;
-  --group-7: #ea580c;
-  --group-8: #4f46e5;
+  --group-4: #b45309; /* Darker amber */
+  --group-5: #7e22ce;
+  --group-6: #0e7490;
+  --group-7: #c2410c;
+  --group-8: #4338ca;
   
   --btn-secondary-bg: #ffffff;
-  --btn-secondary-hover: #f1f5f9;
+  --btn-secondary-hover: #f4f4f5;
   --input-bg: #ffffff;
   --seat-bg: #ffffff;
 }
