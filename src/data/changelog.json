@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.99",
+    "hash": "c355d213abba28d0fb1017a08d2136e9cc259741",
+    "date": "2026-08-14T17:45:00+08:00",
+    "type": "bugfix",
+    "isBugFix": true,
+    "title": "correctly isolate deleted seats between different layout modes by clearing hidden state on switch",
+    "details": ""
+  },
+  {
     "version": "v1.0.98",
     "hash": "235ad6f5d013899f9ac162d9f12f51971778ac76",
     "date": "2026-08-14T17:40:57+08:00",

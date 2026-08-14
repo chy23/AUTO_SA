@@ -22,7 +22,12 @@ export default function Sidebar({
     isAssigning, handleAssign,
     undo, canUndo,
     resetCustomMap,
-    activeGroupBrush, setActiveGroupBrush
+    activeGroupBrush, setActiveGroupBrush,
+    saveCustomStaticItems,
+    snapshots,
+    saveSnapshot,
+    loadSnapshot,
+    deleteSnapshot
   } = seating;
 
   const [customSeatCount, setCustomSeatCount] = React.useState(1);
@@ -189,7 +194,7 @@ export default function Sidebar({
             <button 
               className={`action-btn ${seating.isEditingLayout ? 'primary' : 'outline'}`}
               onClick={() => {
-                if (seating.isEditingLayout) seating.saveCustomStaticItems();
+                if (seating.isEditingLayout) saveCustomStaticItems();
                 seating.setIsEditingLayout(!seating.isEditingLayout);
               }}
               style={{ width: '100%', marginBottom: '10px' }}
@@ -366,6 +371,59 @@ export default function Sidebar({
           <button className="secondary-btn" onClick={undo} disabled={!canUndo} style={{ flex: 1, padding: 0 }} title="復原上一步 (手動移動或洗牌)">
              <Undo size={16} />
           </button>
+        </div>
+
+        {/* 暫存座位表 */}
+        <div style={{ background: 'rgba(0,0,0,0.15)', borderRadius: '8px', padding: '10px', marginTop: '5px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+            <h3 style={{ fontSize: '14px', margin: 0, color: 'var(--text-color)' }}>暫存座位表</h3>
+            <button 
+              className="action-btn" 
+              onClick={() => {
+                saveSnapshot();
+                alert('已暫存目前畫面！');
+              }}
+              style={{ fontSize: '11px', padding: '4px 8px', background: 'var(--primary)', color: 'white', border: 'none' }}
+            >
+              + 暫存目前畫面
+            </button>
+          </div>
+          {snapshots.length === 0 ? (
+            <div style={{ fontSize: '12px', color: 'var(--text-muted)', textAlign: 'center', padding: '10px 0' }}>
+              尚無暫存紀錄
+            </div>
+          ) : (
+            <ul style={{ listStyle: 'none', margin: 0, padding: 0, maxHeight: '120px', overflowY: 'auto' }}>
+              {snapshots.map(snap => (
+                <li key={snap.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg-color)', padding: '6px 8px', borderRadius: '4px', marginBottom: '5px', border: '1px solid var(--border-color)' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <span style={{ fontSize: '12px', fontWeight: 'bold', color: 'var(--text-color)' }}>{snap.timeString}</span>
+                    <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>
+                      {snap.layoutMode === 'STANDARD' ? '一般' : snap.layoutMode === 'CUSTOM' ? '自定義' : snap.layoutMode === 'GROUP' ? 'U型小組' : '考試'}模式
+                    </span>
+                  </div>
+                  <div style={{ display: 'flex', gap: '5px' }}>
+                    <button 
+                      onClick={() => {
+                        if (window.confirm('確定要載入此暫存嗎？這將會覆蓋目前的畫面與設定！')) {
+                          loadSnapshot(snap.id);
+                        }
+                      }}
+                      style={{ fontSize: '11px', padding: '2px 6px', background: 'var(--btn-secondary-bg)', color: 'var(--text-main)', border: '1px solid var(--border-color)', borderRadius: '4px', cursor: 'pointer' }}
+                    >
+                      載入
+                    </button>
+                    <button 
+                      onClick={() => deleteSnapshot(snap.id)}
+                      style={{ fontSize: '11px', padding: '2px 6px', background: 'none', color: '#ef4444', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: '4px', cursor: 'pointer' }}
+                    >
+                      刪除
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         <div style={{ display: 'flex', gap: '10px', flexDirection: 'column' }}>

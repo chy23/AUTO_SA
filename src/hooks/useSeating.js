@@ -135,6 +135,9 @@ export const useSeating = () => {
   // We persist assignments, but initialize based on map if empty
   const [assignments, setAssignments] = useLocalStorage('auto_sa_assignments', []);
 
+  // Snapshots for temporary saving
+  const [snapshots, setSnapshots] = useLocalStorage('auto_sa_snapshots', []);
+
   // Initialize empty assignments if needed without adding mock students
   useEffect(() => {
     if (assignments.length === 0 && students.length > 0) {
@@ -146,6 +149,42 @@ export const useSeating = () => {
       setAssignments(initAss);
     }
   }, [assignments.length, students]);
+
+  // Snapshot Actions
+  const saveSnapshot = () => {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+    const newSnapshot = {
+      id: Date.now(),
+      timeString,
+      layoutMode,
+      assignments,
+      customMap,
+      staticItems,
+      hiddenSeatIds,
+      standardRows,
+      standardCols
+    };
+    // Keep the last 10 snapshots
+    setSnapshots(prev => [newSnapshot, ...prev].slice(0, 10));
+  };
+
+  const loadSnapshot = (id) => {
+    const snapshot = snapshots.find(s => s.id === id);
+    if (!snapshot) return;
+    
+    setLayoutMode(snapshot.layoutMode);
+    setAssignments(snapshot.assignments || []);
+    if (snapshot.customMap) setCustomMap(snapshot.customMap);
+    if (snapshot.staticItems) setStaticItems(snapshot.staticItems);
+    if (snapshot.hiddenSeatIds) setHiddenSeatIds(snapshot.hiddenSeatIds);
+    if (snapshot.standardRows) setStandardRows(snapshot.standardRows);
+    if (snapshot.standardCols) setStandardCols(snapshot.standardCols);
+  };
+
+  const deleteSnapshot = (id) => {
+    setSnapshots(prev => prev.filter(s => s.id !== id));
+  };
 
   // Actions
   const handleAssign = () => {
@@ -338,6 +377,10 @@ export const useSeating = () => {
     deleteCustomSeat,
     saveCustomStaticItems,
     resetCustomMap,
-    clearAllCustomGroups
+    clearAllCustomGroups,
+    snapshots,
+    saveSnapshot,
+    loadSnapshot,
+    deleteSnapshot
   };
 };
