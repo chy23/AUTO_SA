@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { X, UserPlus, Users, Trash2 } from 'lucide-react';
 
-export default function RuleBuilderModal({ isOpen, onClose, rules, setRules, students, editingRuleId }) {
+export default function RuleBuilderModal({ isOpen, onClose, rules, setRules, students, editingRuleId, onClearEdit }) {
   const [ruleType, setRuleType] = useState('NOT_SAME_GROUP');
   const [selectedStudents, setSelectedStudents] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [showSavedMsg, setShowSavedMsg] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -36,6 +37,7 @@ export default function RuleBuilderModal({ isOpen, onClose, rules, setRules, stu
         type: ruleType,
         students: selectedStudents.map(s => s.name)
       } : r));
+      if (onClearEdit) onClearEdit();
     } else {
       setRules([...rules, { 
         id: Date.now(), 
@@ -43,7 +45,11 @@ export default function RuleBuilderModal({ isOpen, onClose, rules, setRules, stu
         students: selectedStudents.map(s => s.name) 
       }]);
     }
-    onClose();
+    
+    // Clear selection for next rule
+    setSelectedStudents([]);
+    setShowSavedMsg(true);
+    setTimeout(() => setShowSavedMsg(false), 2000);
   };
 
   const toggleStudent = (student) => {
@@ -127,9 +133,12 @@ export default function RuleBuilderModal({ isOpen, onClose, rules, setRules, stu
           </div>
         </div>
 
-        <div className="modal-footer" style={{ marginTop: '20px', display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
-          <button className="secondary-btn" onClick={onClose}>取消</button>
-          <button className="action-btn primary" onClick={handleAddRule}>儲存規則</button>
+        <div className="modal-footer" style={{ marginTop: '20px', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '15px' }}>
+          {showSavedMsg && <span style={{ color: '#4CAF50', fontSize: '0.9rem', fontWeight: 'bold' }}>已儲存！您可以繼續新增</span>}
+          <button className="secondary-btn" onClick={onClose}>完成 / 關閉</button>
+          <button className="action-btn primary" onClick={handleAddRule}>
+            {editingRuleId ? '儲存變更' : '儲存規則'}
+          </button>
         </div>
       </div>
       
