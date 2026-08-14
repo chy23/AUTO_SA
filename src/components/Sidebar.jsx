@@ -27,7 +27,8 @@ export default function Sidebar({
     snapshots,
     saveSnapshot,
     loadSnapshot,
-    deleteSnapshot
+    deleteSnapshot,
+    isDeletingSeat, setIsDeletingSeat
   } = seating;
 
   const [customSeatCount, setCustomSeatCount] = React.useState(1);
@@ -167,13 +168,21 @@ export default function Sidebar({
                 <input type="number" min="1" max="15" value={standardCols} onChange={e => setStandardCols(Number(e.target.value))} style={{ width: '50px', marginLeft: '5px' }}/>
               </label>
             </div>
+            <div style={{ display: 'flex', gap: '5px', marginTop: '5px' }}>
+              <button 
+                className={`action-btn ${isDeletingSeat ? 'danger' : 'outline'}`}
+                onClick={() => setIsDeletingSeat(!isDeletingSeat)}
+                style={{ fontSize: '12px', padding: '4px 8px', flex: 1 }}
+              >
+                {isDeletingSeat ? '完成刪除' : '🗑 刪除多餘座位'}
+              </button>
+              {hiddenSeatIds.length > 0 && (
+                <button className="secondary-btn" onClick={() => setHiddenSeatIds([])} style={{ fontSize: '12px', padding: '4px 8px', flex: 1 }}>
+                  還原被刪除座位
+                </button>
+              )}
+            </div>
           </div>
-        )}
-        
-        {layoutMode !== 'CUSTOM' && hiddenSeatIds.length > 0 && (
-          <button className="secondary-btn" onClick={() => setHiddenSeatIds([])} style={{ fontSize: '12px', padding: '4px 8px', marginTop: '5px' }}>
-            還原被隱藏的座位
-          </button>
         )}
         
         {layoutMode === 'CUSTOM' && (

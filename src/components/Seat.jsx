@@ -11,6 +11,7 @@ export default function Seat({
   onDelete, 
   onToggleLock,
   isEditingLayout,
+  isDeletingSeat,
   isSelected,
   onSelect,
   onMouseDown,
@@ -59,6 +60,8 @@ export default function Seat({
           } else {
             onSelect(seat.id);
           }
+        } else if (isDeletingSeat) {
+          onDelete(seat.id);
         } else {
           if (onSeatClick) onSeatClick(seat.id);
         }
@@ -75,7 +78,7 @@ export default function Seat({
       className={`seat group-${groupId} ${seat.shape || 'vertical'} ${isLocked ? 'locked' : ''} ${isSelected ? 'selected' : ''}`}
       style={{ 
         position: 'absolute', 
-        cursor: isEditingLayout ? (activeGroupBrush !== null ? 'crosshair' : 'grab') : 'pointer',
+        cursor: isEditingLayout ? (activeGroupBrush !== null ? 'crosshair' : 'grab') : (isDeletingSeat ? 'crosshair' : 'pointer'),
         boxShadow: isDragOver ? '0 0 0 3px #3b82f6, 0 4px 12px rgba(59, 130, 246, 0.4)' : undefined,
         transform: isDragOver ? 'scale(1.08)' : undefined,
         transition: 'box-shadow 0.15s ease, transform 0.15s ease'

@@ -196,6 +196,7 @@ export default function ClassroomArea({ seating, classroomRef, onSeatClick }) {
               }}
               onToggleLock={toggleSeatLock}
               isEditingLayout={isEditingLayout}
+              isDeletingSeat={seating.isDeletingSeat}
               isSelected={selectedSeatId === seat.id}
               onSelect={setSelectedSeatId}
               onMouseDown={handleSeatMouseDown}

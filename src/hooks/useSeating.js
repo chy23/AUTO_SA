@@ -47,6 +47,7 @@ export const useSeating = () => {
   const [rules, setRules] = useLocalStorage('auto_sa_rules', []);
   const [layoutMode, setLayoutMode] = useLocalStorage('auto_sa_layout_mode', 'STANDARD');
   const [lastGroupMode, setLastGroupMode] = useLocalStorage('auto_sa_last_group_mode', 'GROUP');
+  const [isDeletingSeat, setIsDeletingSeat] = useState(false);
   const [standardRows, setStandardRows] = useLocalStorage('auto_sa_std_rows', 6);
   const [standardCols, setStandardCols] = useLocalStorage('auto_sa_std_cols', 5);
   const [hiddenSeatIds, setHiddenSeatIds] = useLocalStorage('auto_sa_hidden_seats', []);
@@ -397,6 +398,7 @@ export const useSeating = () => {
     loadSnapshot,
     deleteSnapshot,
     clearSeats,
-    changeLayoutMode
+    changeLayoutMode,
+    isDeletingSeat, setIsDeletingSeat
   };
 };
