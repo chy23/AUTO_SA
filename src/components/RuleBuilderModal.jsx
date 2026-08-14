@@ -133,6 +133,35 @@ export default function RuleBuilderModal({ isOpen, onClose, rules, setRules, stu
           </div>
         </div>
 
+        {rules.length > 0 && (
+          <div className="current-rules-section" style={{ marginTop: '20px', borderTop: '1px solid var(--border-color)', paddingTop: '15px' }}>
+            <h3 style={{ fontSize: '0.9rem', marginBottom: '10px', color: 'var(--text-color)' }}>目前已建立的條件：</h3>
+            <ul className="rule-list" style={{ maxHeight: '120px', overflowY: 'auto', paddingRight: '5px' }}>
+              {rules.map(r => (
+                <li key={r.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--item-bg)', padding: '6px 10px', borderRadius: '4px', marginBottom: '6px', fontSize: '0.85rem', border: '1px solid var(--border-color)' }}>
+                  <span>
+                    {r.students ? r.students.join(', ') : ''} 
+                    <strong style={{ color: 'var(--primary)', marginLeft: '5px' }}>
+                      {r.type === 'NOT_SAME_GROUP' && "不能同組"}
+                      {r.type === 'NOT_ADJACENT' && "不能相鄰"}
+                      {r.type === 'SAME_GROUP' && "必須同組"}
+                      {r.type === 'ADJACENT' && "必須相鄰"}
+                    </strong>
+                  </span>
+                  <button 
+                    className="icon-btn danger" 
+                    style={{ padding: '4px', color: '#ef4444' }}
+                    onClick={() => setRules(rules.filter(rule => rule.id !== r.id))}
+                    title="刪除條件"
+                  >
+                    <Trash2 size={14} />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         <div className="modal-footer" style={{ marginTop: '20px', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '15px' }}>
           {showSavedMsg && <span style={{ color: '#4CAF50', fontSize: '0.9rem', fontWeight: 'bold' }}>已儲存！您可以繼續新增</span>}
           <button className="secondary-btn" onClick={onClose}>完成 / 關閉</button>
