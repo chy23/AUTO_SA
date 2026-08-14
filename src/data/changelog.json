@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.93",
+    "hash": "e337168a402e0e7f89be828228529154b112e354",
+    "date": "2026-08-14T17:22:55+08:00",
+    "type": "update",
+    "isBugFix": false,
+    "title": "UI: change custom mode seat input to set total seats instead of adding incrementally",
+    "details": ""
+  },
+  {
     "version": "v1.0.92",
     "hash": "40391094a292441d0cca09bb914a77609279af5a",
     "date": "2026-08-14T17:20:07+08:00",

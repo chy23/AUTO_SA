@@ -88,6 +88,10 @@ export const useSeating = () => {
   // Non-persisted transient states
   const [isAssigning, setIsAssigning] = useState(false);
   const [isEditingLayout, setIsEditingLayout] = useState(false);
+
+  useEffect(() => {
+    setIsEditingLayout(false);
+  }, [layoutMode]);
   const [selectedSeatId, setSelectedSeatId] = useState(null);
   const [activeGroupBrush, setActiveGroupBrush] = useState(null);
   const [history, setHistory] = useState([]); // Array of assignment arrays
