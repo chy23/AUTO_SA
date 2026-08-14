@@ -1,12 +1,21 @@
 [
   {
+    "version": "v1.0.100",
+    "hash": "ef3cb8e9f0f8c52f7c505fc2db010e5c0ea19958",
+    "date": "2026-08-14T17:51:01+08:00",
+    "type": "feature",
+    "isBugFix": false,
+    "title": "add snapshot system to temporarily save and restore seat arrangements across all layout modes",
+    "details": ""
+  },
+  {
     "version": "v1.0.99",
     "hash": "c355d213abba28d0fb1017a08d2136e9cc259741",
     "date": "2026-08-14T17:45:00+08:00",
     "type": "bugfix",
     "isBugFix": true,
     "title": "correctly isolate deleted seats between different layout modes by clearing hidden state on switch",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.98",
@@ -15,7 +24,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "stop mouse down propagation on seat delete button to prevent drag interception",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.97",
@@ -23,8 +32,8 @@
     "date": "2026-08-14T17:37:37+08:00",
     "type": "update",
     "isBugFix": false,
-    "title": "UI: remove classroom border shadow and add dynamic full-screen crosshairs when dragging seats to perfectly align them",
-    "details": ""
+    "title": "新增十字線對齊輔助：拖曳座位時會即時顯示貫穿全教室的藍色十字定位線",
+    "details": "移除了多餘的教室外框光暈，並新增了全新的「動態十字線」輔助對齊系統：當您拖曳任何座位時，會即時出現貫穿整個教室的水平與垂直藍色定位線，讓您一眼就能看出是否與其他座位完美對齊！"
   },
   {
     "version": "v1.0.96",
@@ -32,8 +41,8 @@
     "date": "2026-08-14T17:34:00+08:00",
     "type": "update",
     "isBugFix": false,
-    "title": "UI: dramatically increase visibility of background grid during layout editing to help users align seats",
-    "details": ""
+    "title": "強化格線：大幅提升自定義模式編輯時的背景格線可見度，新增雙層主副格線系統",
+    "details": "將自定義模式的編輯背景格線從原本幾乎看不見的淡色，全面升級為清晰的雙層格線系統：每 2.5% 間距的細密基準線搭配每 10% 間距的粗主格線，讓座位排版對齊變得一目了然，就像在藍圖上作業一樣精準！"
   },
   {
     "version": "v1.0.95",
@@ -42,7 +51,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "Docs: translate recent changelogs to Chinese with full details",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.94",

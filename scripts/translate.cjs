@@ -39,7 +39,12 @@ const translations = {
   "UI: add step-by-step usage guide for custom mode in sidebar": "新增教學：在自定義模式的側邊欄加入簡單 5 步驟的使用流程引導",
   "UI: change custom mode add seats to use a numeric input field for adding multiple seats at once": "優化介面：自定義模式改為「座位總數」輸入框，支援一口氣新增指定數量的座位",
   "UI: change custom mode seat input to set total seats instead of adding incrementally": "升級排版功能：自定義模式可直接輸入「座位總數」，系統會自動重新產生方正網格排列",
-  "automatically exit edit layout mode when switching between layout modes to prevent dragging seats in standard modes": "修復切換模式的錯誤：現在切換版面時會自動退出編輯狀態，避免在一般模式下座位也能被拖曳的問題"
+  "automatically exit edit layout mode when switching between layout modes to prevent dragging seats in standard modes": "修復切換模式的錯誤：現在切換版面時會自動退出編輯狀態，避免在一般模式下座位也能被拖曳的問題",
+  "UI: dramatically increase visibility of background grid during layout editing to help users align seats": "強化格線：大幅提升自定義模式編輯時的背景格線可見度，新增雙層主副格線系統",
+  "UI: remove classroom border shadow and add dynamic full-screen crosshairs when dragging seats to perfectly align them": "新增十字線對齊輔助：拖曳座位時會即時顯示貫穿全教室的藍色十字定位線",
+  "Fix: stop mouse down propagation on seat delete button to prevent drag interception": "修復刪除按鈕：解決編輯模式中紅色叉叉無法點擊的問題",
+  "Fix: correctly isolate deleted seats between different layout modes by clearing hidden state on switch": "修復模式隔離：不同版面模式間的座位刪除不再互相干擾",
+  "feat: add snapshot system to temporarily save and restore seat arrangements across all layout modes": "新增「暫存座位表」：可隨時儲存目前的排版畫面，之後再載入還原"
 };
 
 const detailTranslations = {
@@ -58,7 +63,17 @@ const detailTranslations = {
   "UI: change custom mode seat input to set total seats instead of adding incrementally": "大幅優化自定義模式的座位產生邏輯：現在改為直接輸入「座位總數」，點擊重新產生後，系統會自動將該數量的座位排列成完美的方正網格陣型，大幅減少老師手動把座位排整齊的時間！",
   "升級排版功能：自定義模式可直接輸入「座位總數」，系統會自動重新產生方正網格排列": "大幅優化自定義模式的座位產生邏輯：現在改為直接輸入「座位總數」，點擊重新產生後，系統會自動將該數量的座位排列成完美的方正網格陣型，大幅減少老師手動把座位排整齊的時間！",
   "automatically exit edit layout mode when switching between layout modes to prevent dragging seats in standard modes": "修復了一個系統邏輯錯誤：原本在自定義模式開啟「編輯」後若直接切換到其他模式，編輯狀態並未解除，導致一般模式的座位也能被意外拖曳。現在切換任何模式都會自動退出編輯狀態，確保系統穩定。",
-  "修復切換模式的錯誤：現在切換版面時會自動退出編輯狀態，避免在一般模式下座位也能被拖曳的問題": "修復了一個系統邏輯錯誤：原本在自定義模式開啟「編輯」後若直接切換到其他模式，編輯狀態並未解除，導致一般模式的座位也能被意外拖曳。現在切換任何模式都會自動退出編輯狀態，確保系統穩定。"
+  "修復切換模式的錯誤：現在切換版面時會自動退出編輯狀態，避免在一般模式下座位也能被拖曳的問題": "修復了一個系統邏輯錯誤：原本在自定義模式開啟「編輯」後若直接切換到其他模式，編輯狀態並未解除，導致一般模式的座位也能被意外拖曳。現在切換任何模式都會自動退出編輯狀態，確保系統穩定。",
+  "UI: dramatically increase visibility of background grid during layout editing to help users align seats": "將自定義模式的編輯背景格線從原本幾乎看不見的淡色，全面升級為清晰的雙層格線系統：每 2.5% 間距的細密基準線搭配每 10% 間距的粗主格線，讓座位排版對齊變得一目了然，就像在藍圖上作業一樣精準！",
+  "強化格線：大幅提升自定義模式編輯時的背景格線可見度，新增雙層主副格線系統": "將自定義模式的編輯背景格線從原本幾乎看不見的淡色，全面升級為清晰的雙層格線系統：每 2.5% 間距的細密基準線搭配每 10% 間距的粗主格線，讓座位排版對齊變得一目了然，就像在藍圖上作業一樣精準！",
+  "UI: remove classroom border shadow and add dynamic full-screen crosshairs when dragging seats to perfectly align them": "移除了多餘的教室外框光暈，並新增了全新的「動態十字線」輔助對齊系統：當您拖曳任何座位時，會即時出現貫穿整個教室的水平與垂直藍色定位線，讓您一眼就能看出是否與其他座位完美對齊！",
+  "新增十字線對齊輔助：拖曳座位時會即時顯示貫穿全教室的藍色十字定位線": "移除了多餘的教室外框光暈，並新增了全新的「動態十字線」輔助對齊系統：當您拖曳任何座位時，會即時出現貫穿整個教室的水平與垂直藍色定位線，讓您一眼就能看出是否與其他座位完美對齊！",
+  "Fix: stop mouse down propagation on seat delete button to prevent drag interception": "解決了編輯模式中紅色叉叉按鈕無法點擊的問題。原因是滑鼠按下時，座位拖曳事件優先攔截了點擊動作，導致刪除按鈕失效。現在已阻斷事件冒泡，叉叉可以正常點擊刪除座位了。",
+  "修復刪除按鈕：解決編輯模式中紅色叉叉無法點擊的問題": "解決了編輯模式中紅色叉叉按鈕無法點擊的問題。原因是滑鼠按下時，座位拖曳事件優先攔截了點擊動作，導致刪除按鈕失效。現在已阻斷事件冒泡，叉叉可以正常點擊刪除座位了。",
+  "Fix: correctly isolate deleted seats between different layout modes by clearing hidden state on switch": "修復了一個嚴重的模式間汙染問題：原本不同模式共用同一份「被隱藏座位」清單，導致在自定義模式刪除座位後，切換到一般模式會發現同編號的座位也跟著消失。現在切換模式時會自動清空暫時隱藏的紀錄，自定義模式的座位刪除也改為真正從資料中移除，徹底杜絕跨模式干擾。",
+  "修復模式隔離：不同版面模式間的座位刪除不再互相干擾": "修復了一個嚴重的模式間汙染問題：原本不同模式共用同一份「被隱藏座位」清單，導致在自定義模式刪除座位後，切換到一般模式會發現同編號的座位也跟著消失。現在切換模式時會自動清空暫時隱藏的紀錄，自定義模式的座位刪除也改為真正從資料中移除，徹底杜絕跨模式干擾。",
+  "feat: add snapshot system to temporarily save and restore seat arrangements across all layout modes": "新增「暫存座位表」功能區塊：老師可以在任何模式下隨時點擊「暫存目前畫面」將目前的排版狀態（包含版面模式、座位位置、學生入座狀態等）完整打包儲存。之後即使重排或清空座位，都可以從暫存列表中一鍵載入，完美還原之前的排版成果。最多可保存 10 筆暫存紀錄。",
+  "新增「暫存座位表」：可隨時儲存目前的排版畫面，之後再載入還原": "新增「暫存座位表」功能區塊：老師可以在任何模式下隨時點擊「暫存目前畫面」將目前的排版狀態（包含版面模式、座位位置、學生入座狀態等）完整打包儲存。之後即使重排或清空座位，都可以從暫存列表中一鍵載入，完美還原之前的排版成果。最多可保存 10 筆暫存紀錄。"
 };
 
 changelog.forEach(entry => {
