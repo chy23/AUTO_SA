@@ -77,7 +77,7 @@ export default function RuleBuilderModal({ isOpen, onClose, rules, setRules, stu
               style={{ width: '100%', marginBottom: '10px' }}
             />
             
-            <div className="student-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '5px', maxHeight: '200px', overflowY: 'auto', padding: '5px' }}>
+            <div className="student-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '6px', maxHeight: '200px', overflowY: 'auto', padding: '5px' }}>
               {filteredStudents.map(student => {
                 const isSelected = selectedStudents.find(s => s.id === student.id);
                 return (
@@ -85,11 +85,14 @@ export default function RuleBuilderModal({ isOpen, onClose, rules, setRules, stu
                     key={student.id}
                     onClick={() => toggleStudent(student)}
                     style={{ 
-                      padding: '5px', 
+                      padding: '6px', 
                       borderRadius: '4px', 
-                      border: isSelected ? '2px solid #4CAF50' : '1px solid #ccc',
-                      background: isSelected ? 'rgba(76, 175, 80, 0.1)' : 'transparent',
-                      cursor: 'pointer'
+                      border: isSelected ? '2px solid var(--primary)' : '1px solid var(--border-color)',
+                      background: isSelected ? 'rgba(59, 130, 246, 0.15)' : 'var(--item-bg)',
+                      color: 'var(--text-main)',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                      fontWeight: isSelected ? 'bold' : 'normal'
                     }}
                   >
                     {student.id}. {student.name}
