@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.110",
+    "hash": "508dc4aa01f4b4a0520e0a88f0c3b99c44a44fbb",
+    "date": "2026-08-14T19:08:07+08:00",
+    "type": "bugfix",
+    "isBugFix": true,
+    "title": "correct syntax error causing build failure in Sidebar.jsx",
+    "details": ""
+  },
+  {
     "version": "v1.0.109",
     "hash": "b1598833d354d8b78f41b573a7a3312d1542bbee",
     "date": "2026-08-14T19:04:45+08:00",
