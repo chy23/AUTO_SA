@@ -18,6 +18,8 @@ export default function ClassroomArea({ seating, classroomRef, onSeatClick }) {
     updateCustomSeat
   } = seating;
 
+  const [crosshairPos, setCrosshairPos] = React.useState(null);
+
   // Static item dragging
   const draggingStatic = useRef(null); // { id, offsetX, offsetY }
 
@@ -63,6 +65,7 @@ export default function ClassroomArea({ seating, classroomRef, onSeatClick }) {
         // Snap to grid (2.5%)
         x = Math.round(x / 2.5) * 2.5;
         y = Math.round(y / 2.5) * 2.5;
+        setCrosshairPos({ x, y });
 
         setStaticItems(prev => prev.map(item =>
           item.id === id ? { ...item, x: Math.max(0, Math.min(100, x)), y: Math.max(0, Math.min(100, y)) } : item
@@ -77,6 +80,7 @@ export default function ClassroomArea({ seating, classroomRef, onSeatClick }) {
         // Snap to grid (2.5%)
         x = Math.round(x / 2.5) * 2.5;
         y = Math.round(y / 2.5) * 2.5;
+        setCrosshairPos({ x, y });
 
         updateCustomSeat(id, { 
           x: Math.max(0, Math.min(100, x)), 
@@ -87,6 +91,7 @@ export default function ClassroomArea({ seating, classroomRef, onSeatClick }) {
     const onMouseUp = () => { 
       draggingStatic.current = null; 
       draggingSeat.current = null;
+      setCrosshairPos(null);
     };
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
@@ -133,13 +138,19 @@ export default function ClassroomArea({ seating, classroomRef, onSeatClick }) {
       
       <div 
         ref={classroomRef}
-        className={`classroom ${layoutMode === 'EXAM' ? 'vertical-layout' : 'horizontal-layout'} ${isEditingLayout ? 'editing-grid' : ''}`}
+        className={`classroom ${layoutMode === 'EXAM' ? 'vertical-layout' : 'horizontal-layout'} ${isEditingLayout && layoutMode === 'CUSTOM' ? 'editing-grid' : ''}`}
         onDragOver={(e) => {
           e.preventDefault();
           e.dataTransfer.dropEffect = 'copy';
         }}
         onDrop={(e) => e.preventDefault()}
       >
+        {crosshairPos && isEditingLayout && layoutMode === 'CUSTOM' && (
+          <>
+            <div style={{ position: 'absolute', top: 0, bottom: 0, left: `${crosshairPos.x}%`, width: '1px', background: 'var(--primary)', zIndex: 10, pointerEvents: 'none' }} />
+            <div style={{ position: 'absolute', left: 0, right: 0, top: `${crosshairPos.y}%`, height: '1px', background: 'var(--primary)', zIndex: 10, pointerEvents: 'none' }} />
+          </>
+        )}
         <div className="blackboard">黑板</div>
         
         {layoutMode !== 'CUSTOM' && (currentMap?.labels || []).map((label, idx) => (

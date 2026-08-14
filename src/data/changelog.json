@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.96",
+    "hash": "b9e902b56560b63fb82e68ab6379f9994f8ef5ac",
+    "date": "2026-08-14T17:34:00+08:00",
+    "type": "update",
+    "isBugFix": false,
+    "title": "UI: dramatically increase visibility of background grid during layout editing to help users align seats",
+    "details": ""
+  },
+  {
     "version": "v1.0.95",
     "hash": "869fbd870a3e6b202031ec97579ad503be65b739",
     "date": "2026-08-14T17:26:21+08:00",
