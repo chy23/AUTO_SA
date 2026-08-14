@@ -45,7 +45,7 @@ export const useSeating = () => {
   // Persisted states
   const [students, setStudents] = useLocalStorage('auto_sa_students', []);
   const [rules, setRules] = useLocalStorage('auto_sa_rules', []);
-  const [layoutMode, setLayoutMode] = useLocalStorage('auto_sa_layout_mode', 'GROUP');
+  const [layoutMode, setLayoutMode] = useLocalStorage('auto_sa_layout_mode', 'STANDARD');
   const [lastGroupMode, setLastGroupMode] = useLocalStorage('auto_sa_last_group_mode', 'GROUP');
   const [standardRows, setStandardRows] = useLocalStorage('auto_sa_std_rows', 6);
   const [standardCols, setStandardCols] = useLocalStorage('auto_sa_std_cols', 5);

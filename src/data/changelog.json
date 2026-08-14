@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.89",
+    "hash": "68283df11b069033ae3cabce2c3aecaa0fbdd5dd",
+    "date": "2026-08-14T17:11:49+08:00",
+    "type": "feature",
+    "isBugFix": false,
+    "title": "add clear seats button to allow clearing assignments without removing students",
+    "details": ""
+  },
+  {
     "version": "v1.0.88",
     "hash": "c20daf2f0cf2853027b9684c7097ae49ed9ae5e1",
     "date": "2026-08-14T17:08:20+08:00",

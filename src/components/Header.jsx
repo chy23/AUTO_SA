@@ -33,10 +33,10 @@ export default function Header({ layoutMode, lastGroupMode, setLayoutMode, onOpe
         </button>
         <div className="mode-toggle" style={{ display: 'flex', background: 'rgba(255,255,255,0.1)', borderRadius: '20px', padding: '4px', gap: '4px' }}>
           <button 
-            onClick={() => setLayoutMode(lastGroupMode)}
-            style={{ padding: '6px 16px', borderRadius: '16px', border: 'none', background: (layoutMode === 'GROUP' || layoutMode === 'EXAM') ? '#4CAF50' : 'transparent', color: 'white', cursor: 'pointer', transition: 'all 0.3s' }}
+            onClick={() => setLayoutMode('STANDARD')}
+            style={{ padding: '6px 16px', borderRadius: '16px', border: 'none', background: layoutMode === 'STANDARD' ? '#4CAF50' : 'transparent', color: 'white', cursor: 'pointer', transition: 'all 0.3s' }}
           >
-            小組模式
+            一般模式
           </button>
           <button 
             onClick={() => setLayoutMode('CUSTOM')}
@@ -45,10 +45,10 @@ export default function Header({ layoutMode, lastGroupMode, setLayoutMode, onOpe
             自定義模式
           </button>
           <button 
-            onClick={() => setLayoutMode('STANDARD')}
-            style={{ padding: '6px 16px', borderRadius: '16px', border: 'none', background: layoutMode === 'STANDARD' ? '#4CAF50' : 'transparent', color: 'white', cursor: 'pointer', transition: 'all 0.3s' }}
+            onClick={() => setLayoutMode(lastGroupMode)}
+            style={{ padding: '6px 16px', borderRadius: '16px', border: 'none', background: (layoutMode === 'GROUP' || layoutMode === 'EXAM') ? '#4CAF50' : 'transparent', color: 'white', cursor: 'pointer', transition: 'all 0.3s' }}
           >
-            一般模式
+            U型小組模式
           </button>
         </div>
       </div>
