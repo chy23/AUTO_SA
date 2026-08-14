@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.83",
+    "hash": "d65cc38de4ec31083653fac9b51aefde9dc5fbf3",
+    "date": "2026-08-14T16:52:08+08:00",
+    "type": "feature",
+    "isBugFix": false,
+    "title": "implement automated changelog modal fetching last 50 commits",
+    "details": ""
+  },
+  {
     "version": "v1.0.82",
     "hash": "5e3049b94da5df3e880315a56e948c44c289588d",
     "date": "2026-08-14T14:57:16+08:00",
@@ -438,15 +447,6 @@
     "type": "update",
     "isBugFix": false,
     "title": "Add alert when student count exceeds seat capacity",
-    "details": ""
-  },
-  {
-    "version": "v1.0.33",
-    "hash": "54c42a74e15b311b524c3167314de74ee7e79101",
-    "date": "2026-08-01T05:05:07+08:00",
-    "type": "update",
-    "isBugFix": false,
-    "title": "Fix PPTX overlap and add JPEG export functionality",
     "details": ""
   }
 ]

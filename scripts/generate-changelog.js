@@ -8,12 +8,17 @@ function generateChangelog() {
     const totalCommitsStr = execSync('git rev-list --count HEAD', { encoding: 'utf8' }).trim();
     const totalCommits = parseInt(totalCommitsStr, 10);
 
-    // Get the last 50 commits
+    // We want to fetch 50 commits today (totalCommits is currently around 83)
+    // and let the list grow in the future without capping it at 50.
+    // 83 - 33 = 50. We use this offset to ensure all future commits are appended.
+    const baseOffset = 33;
+    const fetchCount = Math.max(50, totalCommits - baseOffset);
+
     // Format: Hash|Date|Subject|Body (separated by a custom delimiter to avoid conflicts)
     const delimiter = '|||--|||';
     // We use a custom separator for entries because body can contain newlines
     const entrySeparator = '===END_ENTRY===';
-    const logCommand = `git log -n 50 --pretty=format:"%H${delimiter}%cI${delimiter}%s${delimiter}%b${entrySeparator}" --no-merges`;
+    const logCommand = `git log -n ${fetchCount} --pretty=format:"%H${delimiter}%cI${delimiter}%s${delimiter}%b${entrySeparator}" --no-merges`;
     const gitLogOutput = execSync(logCommand, { encoding: 'utf8' });
 
     const commits = gitLogOutput.split(entrySeparator).filter(line => line.trim().length > 0);
