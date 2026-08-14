@@ -24,7 +24,7 @@ export default function Header({ layoutMode, lastGroupMode, setLayoutMode, onOpe
           }}
           title="查看系統更新紀錄"
         >
-          {changelogData && changelogData.length > 0 ? changelogData[0].version : 'v1.0.0'}
+          更新紀錄
         </button>
       </div>
       <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
