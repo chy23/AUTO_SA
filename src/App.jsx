@@ -51,6 +51,8 @@ export default function App() {
         setRules={seating.setRules}
         students={seating.students}
         editingRuleId={editingRuleId}
+        onClearEdit={() => setEditingRuleId(null)}
+        onEditRule={setEditingRuleId}
       />
       
       <ManualAssignModal 

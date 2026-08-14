@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, UserPlus, Users, Trash2 } from 'lucide-react';
 
-export default function RuleBuilderModal({ isOpen, onClose, rules, setRules, students, editingRuleId, onClearEdit }) {
+export default function RuleBuilderModal({ isOpen, onClose, rules, setRules, students, editingRuleId, onClearEdit, onEditRule }) {
   const [ruleType, setRuleType] = useState('NOT_SAME_GROUP');
   const [selectedStudents, setSelectedStudents] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -138,7 +138,18 @@ export default function RuleBuilderModal({ isOpen, onClose, rules, setRules, stu
             <h3 style={{ fontSize: '0.9rem', marginBottom: '10px', color: 'var(--text-color)' }}>目前已建立的條件：</h3>
             <ul className="rule-list" style={{ maxHeight: '120px', overflowY: 'auto', paddingRight: '5px' }}>
               {rules.map(r => (
-                <li key={r.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--item-bg)', padding: '6px 10px', borderRadius: '4px', marginBottom: '6px', fontSize: '0.85rem', border: '1px solid var(--border-color)' }}>
+                <li 
+                  key={r.id} 
+                  style={{ 
+                    display: 'flex', justifyContent: 'space-between', alignItems: 'center', 
+                    background: editingRuleId === r.id ? 'var(--item-hover-bg)' : 'var(--item-bg)', 
+                    padding: '6px 10px', borderRadius: '4px', marginBottom: '6px', 
+                    fontSize: '0.85rem', border: editingRuleId === r.id ? '1px solid var(--primary)' : '1px solid var(--border-color)',
+                    cursor: 'pointer'
+                  }}
+                  onClick={() => onEditRule && onEditRule(r.id)}
+                  title="點擊以編輯條件"
+                >
                   <span>
                     {r.students ? r.students.join(', ') : ''} 
                     <strong style={{ color: 'var(--primary)', marginLeft: '5px' }}>
@@ -151,7 +162,11 @@ export default function RuleBuilderModal({ isOpen, onClose, rules, setRules, stu
                   <button 
                     className="icon-btn danger" 
                     style={{ padding: '4px', color: '#ef4444' }}
-                    onClick={() => setRules(rules.filter(rule => rule.id !== r.id))}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setRules(rules.filter(rule => rule.id !== r.id));
+                      if (editingRuleId === r.id && onClearEdit) onClearEdit();
+                    }}
                     title="刪除條件"
                   >
                     <Trash2 size={14} />
