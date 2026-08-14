@@ -1,5 +1,5 @@
 import { execSync } from 'child_process';
-import { writeFileSync, mkdirSync, existsSync } from 'fs';
+import { writeFileSync, mkdirSync, existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 
 function generateChangelog() {
@@ -28,7 +28,7 @@ function generateChangelog() {
     let existingChangelog = [];
     if (existsSync(outputPath)) {
       try {
-        const fileContent = fs.readFileSync(outputPath, 'utf8');
+        const fileContent = readFileSync(outputPath, 'utf8');
         existingChangelog = JSON.parse(fileContent);
       } catch (e) {
         console.warn('Could not parse existing changelog.json, starting fresh.');
