@@ -185,30 +185,6 @@ export default function RuleBuilderModal({ isOpen, onClose, rules, setRules, stu
           </button>
         </div>
       </div>
-      
-      <style>{`
-        .modal-overlay {
-          position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-          background: rgba(0,0,0,0.5);
-          display: flex; align-items: center; justify-content: center;
-          z-index: 1000;
-        }
-        .modal-content {
-          background: var(--bg-color);
-          padding: 20px;
-          border-radius: 8px;
-          width: 500px;
-          max-width: 90vw;
-          box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-        }
-        .modal-header {
-          display: flex; justify-content: space-between; align-items: center;
-          border-bottom: 1px solid var(--border-color);
-          padding-bottom: 10px;
-          margin-bottom: 15px;
-        }
-        .modal-header h2 { margin: 0; font-size: 1.2rem; }
-      `}</style>
     </div>
   );
 }
