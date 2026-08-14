@@ -162,8 +162,13 @@ export default function Sidebar({
                 <input type="number" min="1" max="15" value={standardCols} onChange={e => setStandardCols(Number(e.target.value))} style={{ width: '50px', marginLeft: '5px' }}/>
               </label>
             </div>
-            <button className="secondary-btn" onClick={() => setHiddenSeatIds([])} style={{ fontSize: '12px', padding: '4px 8px' }}>重置所有座位</button>
           </div>
+        )}
+        
+        {layoutMode !== 'CUSTOM' && hiddenSeatIds.length > 0 && (
+          <button className="secondary-btn" onClick={() => setHiddenSeatIds([])} style={{ fontSize: '12px', padding: '4px 8px', marginTop: '5px' }}>
+            還原被隱藏的座位
+          </button>
         )}
         
         {layoutMode === 'CUSTOM' && (

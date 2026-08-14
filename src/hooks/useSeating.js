@@ -91,7 +91,8 @@ export const useSeating = () => {
 
   useEffect(() => {
     setIsEditingLayout(false);
-  }, [layoutMode]);
+    setHiddenSeatIds([]);
+  }, [layoutMode, setHiddenSeatIds]);
   const [selectedSeatId, setSelectedSeatId] = useState(null);
   const [activeGroupBrush, setActiveGroupBrush] = useState(null);
   const [history, setHistory] = useState([]); // Array of assignment arrays

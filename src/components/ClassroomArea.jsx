@@ -15,7 +15,8 @@ export default function ClassroomArea({ seating, classroomRef, onSeatClick }) {
     isEditingLayout,
     selectedSeatId, setSelectedSeatId,
     activeGroupBrush,
-    updateCustomSeat
+    updateCustomSeat,
+    deleteCustomSeat
   } = seating;
 
   const [crosshairPos, setCrosshairPos] = React.useState(null);
@@ -174,7 +175,9 @@ export default function ClassroomArea({ seating, classroomRef, onSeatClick }) {
           </div>
         ))}
         
-        {(currentMap?.seats || []).map(seat => {
+        {(currentMap?.seats || [])
+          .filter(seat => !hiddenSeatIds.includes(seat.id))
+          .map(seat => {
           const ass = assignments.find(a => a.seatId === seat.id);
           return (
             <Seat 
@@ -184,7 +187,13 @@ export default function ClassroomArea({ seating, classroomRef, onSeatClick }) {
               layoutMode={layoutMode}
               onDragStart={handleSeatDragStart}
               onDrop={handleSeatDrop}
-              onDelete={(id) => setHiddenSeatIds(prev => [...prev, id])}
+              onDelete={(id) => {
+                if (layoutMode === 'CUSTOM') {
+                  deleteCustomSeat(id);
+                } else {
+                  setHiddenSeatIds(prev => [...prev, id]);
+                }
+              }}
               onToggleLock={toggleSeatLock}
               isEditingLayout={isEditingLayout}
               isSelected={selectedSeatId === seat.id}
