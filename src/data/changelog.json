@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.91",
+    "hash": "392d0f19e1af65450f3fb9c4bd66e3019864c201",
+    "date": "2026-08-14T17:16:57+08:00",
+    "type": "update",
+    "isBugFix": false,
+    "title": "UI: add step-by-step usage guide for custom mode in sidebar",
+    "details": ""
+  },
+  {
     "version": "v1.0.90",
     "hash": "486bd134b1acde4053bc745c68d5cca0f3a8541a",
     "date": "2026-08-14T17:14:36+08:00",

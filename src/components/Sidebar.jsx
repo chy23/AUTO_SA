@@ -25,6 +25,8 @@ export default function Sidebar({
     activeGroupBrush, setActiveGroupBrush
   } = seating;
 
+  const [customSeatCount, setCustomSeatCount] = React.useState(1);
+
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -194,20 +196,21 @@ export default function Sidebar({
               <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
                 <p>• 直接拖曳可移動座位與設施位置</p>
                 <p>• 點擊座位可編輯其群組與方向</p>
-                <div style={{ display: 'flex', gap: '5px', marginTop: '10px' }}>
+                <div style={{ display: 'flex', gap: '5px', marginTop: '10px', alignItems: 'center' }}>
+                  <input 
+                    type="number" 
+                    min="1" 
+                    max="50" 
+                    value={customSeatCount} 
+                    onChange={(e) => setCustomSeatCount(Math.max(1, parseInt(e.target.value) || 1))}
+                    style={{ width: '60px', padding: '6px', borderRadius: '6px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-color)' }}
+                  />
                   <button 
                     className="secondary-btn" 
-                    onClick={seating.addCustomSeat} 
+                    onClick={() => seating.addMultipleCustomSeats(customSeatCount)} 
                     style={{ flex: 1, padding: '6px' }}
                   >
-                    + 1 座位
-                  </button>
-                  <button 
-                    className="secondary-btn" 
-                    onClick={() => seating.addMultipleCustomSeats(5)} 
-                    style={{ flex: 1, padding: '6px' }}
-                  >
-                    + 5 座位
+                    + 新增座位
                   </button>
                 </div>
                 <button 
