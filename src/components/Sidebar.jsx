@@ -28,7 +28,9 @@ export default function Sidebar({
     saveSnapshot,
     loadSnapshot,
     deleteSnapshot,
-    isDeletingSeat, setIsDeletingSeat
+    isDeletingSeat, setIsDeletingSeat,
+    isRotatingSeat, setIsRotatingSeat,
+    rotatedSeatIds, setRotatedSeatIds
   } = seating;
 
   const [customSeatCount, setCustomSeatCount] = React.useState(1);
@@ -170,18 +172,35 @@ export default function Sidebar({
             </div>
             <div style={{ display: 'flex', gap: '5px', marginTop: '5px' }}>
               <button 
-                className={`action-btn ${isDeletingSeat ? 'danger' : 'outline'}`}
-                onClick={() => setIsDeletingSeat(!isDeletingSeat)}
+                className={`action-btn ${isRotatingSeat ? 'primary' : 'outline'}`}
+                onClick={() => { setIsRotatingSeat(!isRotatingSeat); setIsDeletingSeat(false); }}
                 style={{ fontSize: '12px', padding: '4px 8px', flex: 1 }}
               >
-                {isDeletingSeat ? '完成刪除' : '🗑 刪除多餘座位'}
+                {isRotatingSeat ? '完成旋轉' : '🔄 旋轉座位'}
               </button>
-              {hiddenSeatIds.length > 0 && (
-                <button className="secondary-btn" onClick={() => setHiddenSeatIds([])} style={{ fontSize: '12px', padding: '4px 8px', flex: 1 }}>
-                  還原被刪除座位
-                </button>
-              )}
+              <button 
+                className={`action-btn ${isDeletingSeat ? 'danger' : 'outline'}`}
+                onClick={() => { setIsDeletingSeat(!isDeletingSeat); setIsRotatingSeat(false); }}
+                style={{ fontSize: '12px', padding: '4px 8px', flex: 1 }}
+              >
+                {isDeletingSeat ? '完成刪除' : '🗑 刪除座位'}
+              </button>
             </div>
+          </div>
+        )}
+        
+        {layoutMode !== 'CUSTOM' && (hiddenSeatIds.length > 0 || rotatedSeatIds.length > 0) && (
+          <div style={{ display: 'flex', gap: '5px', marginTop: '5px' }}>
+            {hiddenSeatIds.length > 0 && (
+              <button className="secondary-btn" onClick={() => setHiddenSeatIds([])} style={{ fontSize: '12px', padding: '4px 8px', flex: 1 }}>
+                還原被刪除座位
+              </button>
+            )}
+            {rotatedSeatIds.length > 0 && (
+              <button className="secondary-btn" onClick={() => setRotatedSeatIds([])} style={{ fontSize: '12px', padding: '4px 8px', flex: 1 }}>
+                還原被旋轉座位
+              </button>
+            )}
           </div>
         )}
         

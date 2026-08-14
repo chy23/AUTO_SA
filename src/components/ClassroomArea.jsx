@@ -10,6 +10,7 @@ export default function ClassroomArea({ seating, classroomRef, onSeatClick }) {
     staticItems, setStaticItems,
     staticVisibility,
     hiddenSeatIds, setHiddenSeatIds,
+    rotatedSeatIds, setRotatedSeatIds,
     manualSwap,
     toggleSeatLock,
     isEditingLayout,
@@ -125,9 +126,13 @@ export default function ClassroomArea({ seating, classroomRef, onSeatClick }) {
   };
 
   const handleSeatRotate = (seatId) => {
-    const seat = currentMap.seats.find(s => s.id === seatId);
-    if (seat) {
-      updateCustomSeat(seatId, { shape: seat.shape === 'vertical' ? 'horizontal' : 'vertical' });
+    if (layoutMode === 'CUSTOM') {
+      const seat = currentMap.seats.find(s => s.id === seatId);
+      if (seat) {
+        updateCustomSeat(seatId, { shape: seat.shape === 'vertical' ? 'horizontal' : 'vertical' });
+      }
+    } else {
+      setRotatedSeatIds(prev => prev.includes(seatId) ? prev.filter(id => id !== seatId) : [...prev, seatId]);
     }
   };
 
@@ -178,10 +183,13 @@ export default function ClassroomArea({ seating, classroomRef, onSeatClick }) {
           .filter(seat => !hiddenSeatIds.includes(seat.id))
           .map(seat => {
           const ass = assignments.find(a => a.seatId === seat.id);
+          const isRotated = layoutMode !== 'CUSTOM' && rotatedSeatIds.includes(seat.id);
+          const finalSeat = isRotated ? { ...seat, shape: seat.shape === 'vertical' ? 'horizontal' : 'vertical' } : seat;
+          
           return (
             <Seat 
               key={seat.id}
-              seat={seat}
+              seat={finalSeat}
               assignment={ass}
               layoutMode={layoutMode}
               onDragStart={handleSeatDragStart}

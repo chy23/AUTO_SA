@@ -48,9 +48,11 @@ export const useSeating = () => {
   const [layoutMode, setLayoutMode] = useLocalStorage('auto_sa_layout_mode', 'STANDARD');
   const [lastGroupMode, setLastGroupMode] = useLocalStorage('auto_sa_last_group_mode', 'GROUP');
   const [isDeletingSeat, setIsDeletingSeat] = useState(false);
+  const [isRotatingSeat, setIsRotatingSeat] = useState(false);
   const [standardRows, setStandardRows] = useLocalStorage('auto_sa_std_rows', 6);
   const [standardCols, setStandardCols] = useLocalStorage('auto_sa_std_cols', 5);
   const [hiddenSeatIds, setHiddenSeatIds] = useLocalStorage('auto_sa_hidden_seats', []);
+  const [rotatedSeatIds, setRotatedSeatIds] = useLocalStorage('auto_sa_rotated_seats', []);
   const [staticVisibility, setStaticVisibility] = useLocalStorage('auto_sa_static_vis', {
     'front-door': true, 'back-corridor': true, 'back-door': true, 'teacher': true, 'restroom': true
   });
@@ -93,7 +95,8 @@ export const useSeating = () => {
   useEffect(() => {
     setIsEditingLayout(false);
     setHiddenSeatIds([]);
-  }, [layoutMode, setHiddenSeatIds]);
+    setRotatedSeatIds([]);
+  }, [layoutMode, setHiddenSeatIds, setRotatedSeatIds]);
   const [selectedSeatId, setSelectedSeatId] = useState(null);
   const [activeGroupBrush, setActiveGroupBrush] = useState(null);
   const [history, setHistory] = useState([]); // Array of assignment arrays
@@ -136,21 +139,6 @@ export const useSeating = () => {
   // We persist assignments, but initialize based on map if empty
   const [assignments, setAssignments] = useLocalStorage('auto_sa_assignments', []);
 
-  // Snapshots for temporary saving
-  const [snapshots, setSnapshots] = useLocalStorage('auto_sa_snapshots', []);
-
-  // Initialize empty assignments if needed without adding mock students
-  useEffect(() => {
-    if (assignments.length === 0 && students.length > 0) {
-      const initAss = LAYOUT_VERTICAL.seats.map((seat) => ({
-        seatId: seat.id,
-        student: null,
-        isLocked: false
-      }));
-      setAssignments(initAss);
-    }
-  }, [assignments.length, students]);
-
   // Snapshot Actions
   const saveSnapshot = (reason = "系統自動暫存") => {
     const now = new Date();
@@ -164,12 +152,15 @@ export const useSeating = () => {
       customMap,
       staticItems,
       hiddenSeatIds,
+      rotatedSeatIds,
       standardRows,
       standardCols
     };
     // Keep the last 10 snapshots
     setSnapshots(prev => [newSnapshot, ...prev].slice(0, 10));
   };
+
+  const [snapshots, setSnapshots] = useLocalStorage('auto_sa_snapshots', []);
 
   const loadSnapshot = (id) => {
     const snapshot = snapshots.find(s => s.id === id);
@@ -180,6 +171,7 @@ export const useSeating = () => {
     if (snapshot.customMap) setCustomMap(snapshot.customMap);
     if (snapshot.staticItems) setStaticItems(snapshot.staticItems);
     if (snapshot.hiddenSeatIds) setHiddenSeatIds(snapshot.hiddenSeatIds);
+    if (snapshot.rotatedSeatIds) setRotatedSeatIds(snapshot.rotatedSeatIds);
     if (snapshot.standardRows) setStandardRows(snapshot.standardRows);
     if (snapshot.standardCols) setStandardCols(snapshot.standardCols);
   };
@@ -372,6 +364,7 @@ export const useSeating = () => {
     standardRows, setStandardRows,
     standardCols, setStandardCols,
     hiddenSeatIds, setHiddenSeatIds,
+    rotatedSeatIds, setRotatedSeatIds,
     staticItems, setStaticItems,
     staticVisibility, setStaticVisibility,
     currentMap,
@@ -399,6 +392,7 @@ export const useSeating = () => {
     deleteSnapshot,
     clearSeats,
     changeLayoutMode,
-    isDeletingSeat, setIsDeletingSeat
+    isDeletingSeat, setIsDeletingSeat,
+    isRotatingSeat, setIsRotatingSeat
   };
 };
