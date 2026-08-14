@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.90",
+    "hash": "486bd134b1acde4053bc745c68d5cca0f3a8541a",
+    "date": "2026-08-14T17:14:36+08:00",
+    "type": "update",
+    "isBugFix": false,
+    "title": "UI: set default layout to standard mode and reorder mode buttons with rename to U型小組模式",
+    "details": ""
+  },
+  {
     "version": "v1.0.89",
     "hash": "68283df11b069033ae3cabce2c3aecaa0fbdd5dd",
     "date": "2026-08-14T17:11:49+08:00",

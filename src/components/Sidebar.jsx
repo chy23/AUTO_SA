@@ -167,6 +167,18 @@ export default function Sidebar({
         {layoutMode === 'CUSTOM' && (
           <div className="custom-mode-settings" style={{ marginTop: '10px', background: 'rgba(255,255,255,0.05)', padding: '10px', borderRadius: '8px' }}>
             <h3 style={{ fontSize: '14px', marginBottom: '8px', color: 'var(--text-color)' }}>自定義版面</h3>
+            {!seating.isEditingLayout && (
+              <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '12px', lineHeight: '1.6', background: 'rgba(0,0,0,0.2)', padding: '8px', borderRadius: '6px' }}>
+                <strong style={{ color: 'var(--text-color)' }}>📌 簡單 5 步驟：</strong>
+                <ol style={{ margin: '5px 0 0 15px', padding: 0 }}>
+                  <li>點擊下方「<strong>編輯座位配置</strong>」開始排版</li>
+                  <li>新增座位並<strong>直接拖曳</strong>至黑板區的位置</li>
+                  <li>使用<strong>號碼筆刷</strong>幫座位上色分組</li>
+                  <li>完成後點擊「<strong>儲存並退出編輯</strong>」</li>
+                  <li>最後點擊最下方「<strong>自動排座位</strong>」完成入座</li>
+                </ol>
+              </div>
+            )}
             <button 
               className={`action-btn ${seating.isEditingLayout ? 'primary' : 'outline'}`}
               onClick={() => {
