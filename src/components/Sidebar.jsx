@@ -28,6 +28,7 @@ export default function Sidebar({
     saveSnapshot,
     loadSnapshot,
     deleteSnapshot,
+    clearSnapshots,
     isDeletingSeat, setIsDeletingSeat,
     isRotatingSeat, setIsRotatingSeat,
     rotatedSeatIds, setRotatedSeatIds
@@ -425,6 +426,20 @@ export default function Sidebar({
         <div style={{ background: 'rgba(0,0,0,0.15)', borderRadius: '8px', padding: '10px', marginTop: '5px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
             <h3 style={{ fontSize: '14px', margin: 0, color: 'var(--text-color)' }}>自動暫存紀錄</h3>
+            {snapshots.length > 0 && (
+              <button 
+                className="icon-btn" 
+                onClick={() => {
+                  if (window.confirm('確定要清空所有暫存紀錄嗎？此動作無法復原！')) {
+                    clearSnapshots();
+                  }
+                }}
+                title="清空所有暫存紀錄"
+                style={{ padding: '4px', color: 'var(--text-muted)' }}
+              >
+                <Trash2 size={14} />
+              </button>
+            )}
           </div>
           {snapshots.length === 0 ? (
             <div style={{ fontSize: '12px', color: 'var(--text-muted)', textAlign: 'center', padding: '10px 0' }}>

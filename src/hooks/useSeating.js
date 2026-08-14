@@ -182,6 +182,10 @@ export const useSeating = () => {
     setSnapshots(prev => prev.filter(s => s.id !== id));
   };
 
+  const clearSnapshots = () => {
+    setSnapshots([]);
+  };
+
   const clearSeats = () => {
     // Auto snapshot AFTER clearing is not needed, but we wanted it before? User doesn't want it at all.
     setAssignments([]);
@@ -392,6 +396,7 @@ export const useSeating = () => {
     saveSnapshot,
     loadSnapshot,
     deleteSnapshot,
+    clearSnapshots,
     clearSeats,
     changeLayoutMode,
     isDeletingSeat, setIsDeletingSeat,

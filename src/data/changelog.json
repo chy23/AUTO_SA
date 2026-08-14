@@ -1,5 +1,23 @@
 [
   {
+    "version": "v1.0.115",
+    "hash": "09cd7e8a55fdd641fc0b8124e75b1f993ef1880b",
+    "date": "2026-08-14T19:44:03+08:00",
+    "type": "update",
+    "isBugFix": false,
+    "title": "style: give auto-assign button a prominent gradient background",
+    "details": ""
+  },
+  {
+    "version": "v1.0.114",
+    "hash": "cc7ca1de790acee174a3805453609daa5111c42f",
+    "date": "2026-08-14T19:30:19+08:00",
+    "type": "chore",
+    "isBugFix": false,
+    "title": "only save snapshots when auto-assign finishes",
+    "details": ""
+  },
+  {
     "version": "v1.0.113",
     "hash": "1ca6eb31fa0f38626fb4177c3e5d3de0f67d3f59",
     "date": "2026-08-14T19:27:02+08:00",
