@@ -122,6 +122,9 @@ export default function Seat({
             e.stopPropagation();
             onDelete(seat.id);
           }}
+          onMouseDown={(e) => {
+            e.stopPropagation();
+          }}
           title="刪除座位"
         >
           <X size={12} />

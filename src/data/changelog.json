@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.97",
+    "hash": "279a13e0535225f757ecea842249b1a837d0ace3",
+    "date": "2026-08-14T17:37:37+08:00",
+    "type": "update",
+    "isBugFix": false,
+    "title": "UI: remove classroom border shadow and add dynamic full-screen crosshairs when dragging seats to perfectly align them",
+    "details": ""
+  },
+  {
     "version": "v1.0.96",
     "hash": "b9e902b56560b63fb82e68ab6379f9994f8ef5ac",
     "date": "2026-08-14T17:34:00+08:00",
