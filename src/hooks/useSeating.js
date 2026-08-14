@@ -140,7 +140,7 @@ export const useSeating = () => {
   const [assignments, setAssignments] = useLocalStorage('auto_sa_assignments', []);
 
   // Snapshot Actions
-  const saveSnapshot = (reason = "系統自動暫存") => {
+  const saveSnapshot = (reason = "系統自動暫存", overrideAssignments = null) => {
     const now = new Date();
     const timeString = now.toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
     const newSnapshot = {
@@ -154,7 +154,8 @@ export const useSeating = () => {
       hiddenSeatIds,
       rotatedSeatIds,
       standardRows,
-      standardCols
+      standardCols,
+      assignments: overrideAssignments || assignments
     };
     // Keep the last 10 snapshots
     setSnapshots(prev => [newSnapshot, ...prev].slice(0, 10));
@@ -174,6 +175,7 @@ export const useSeating = () => {
     if (snapshot.rotatedSeatIds) setRotatedSeatIds(snapshot.rotatedSeatIds);
     if (snapshot.standardRows) setStandardRows(snapshot.standardRows);
     if (snapshot.standardCols) setStandardCols(snapshot.standardCols);
+    if (snapshot.assignments) setAssignments(snapshot.assignments);
   };
 
   const deleteSnapshot = (id) => {
@@ -213,6 +215,7 @@ export const useSeating = () => {
       const result = assignSeats(students, rules, currentMap, layoutMode, assignments);
       setAssignments(result);
       setIsAssigning(false);
+      saveSnapshot("自動排座位完成", result);
     }, 50);
   };
 

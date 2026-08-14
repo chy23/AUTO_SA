@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.112",
+    "hash": "c8657d25fd40d41d11bbeff4dffcfdbdc8b805cc",
+    "date": "2026-08-14T19:16:01+08:00",
+    "type": "bugfix",
+    "isBugFix": true,
+    "title": "pass correct onAssign prop to ManualAssignModal to fix student selection",
+    "details": ""
+  },
+  {
     "version": "v1.0.111",
     "hash": "d887994a832cf468a892f4ef9d947ac03eadcc15",
     "date": "2026-08-14T19:11:09+08:00",
