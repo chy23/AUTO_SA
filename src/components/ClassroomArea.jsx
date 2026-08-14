@@ -125,7 +125,7 @@ export default function ClassroomArea({ seating, classroomRef, onSeatClick }) {
   };
 
   const handleSeatDoubleClick = (seatId) => {
-    if (!isEditingLayout) return;
+    if (layoutMode !== 'CUSTOM') return;
     const seat = currentMap.seats.find(s => s.id === seatId);
     if (seat) {
       updateCustomSeat(seatId, { shape: seat.shape === 'vertical' ? 'horizontal' : 'vertical' });

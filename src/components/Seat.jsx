@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { X, Lock, Unlock } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -22,6 +22,42 @@ export default function Seat({
   const [isDragOver, setIsDragOver] = useState(false);
   const isLocked = assignment?.isLocked;
   const groupId = seat.groupId ?? 0;
+  const clickTimeout = useRef(null);
+
+  const handleClick = (e) => {
+    e.stopPropagation();
+    if (clickTimeout.current !== null) {
+      clearTimeout(clickTimeout.current);
+      clickTimeout.current = null;
+    }
+    
+    clickTimeout.current = setTimeout(() => {
+      clickTimeout.current = null;
+      if (isEditingLayout) {
+        if (activeGroupBrush === 'DELETE') {
+          onDelete(seat.id);
+        } else if (activeGroupBrush !== null && onAssignGroup) {
+          onAssignGroup(seat.id, activeGroupBrush);
+        } else {
+          onSelect(seat.id);
+        }
+      } else {
+        if (onSeatClick) onSeatClick(seat.id);
+      }
+    }, 250); // 250ms delay to wait for potential double click
+  };
+
+  const handleDoubleClick = (e) => {
+    e.stopPropagation();
+    if (clickTimeout.current !== null) {
+      clearTimeout(clickTimeout.current);
+      clickTimeout.current = null;
+    }
+    if (onDoubleClick) {
+      onDoubleClick(seat.id);
+    }
+  };
+
   
   return (
     <motion.div 
@@ -55,26 +91,8 @@ export default function Seat({
         setIsDragOver(false);
         onDrop(e, seat.id);
       }}
-      onClick={(e) => {
-        if (isEditingLayout) {
-          e.stopPropagation();
-          if (activeGroupBrush === 'DELETE') {
-            onDelete(seat.id);
-          } else if (activeGroupBrush !== null && onAssignGroup) {
-            onAssignGroup(seat.id, activeGroupBrush);
-          } else {
-            onSelect(seat.id);
-          }
-        } else {
-          if (onSeatClick) onSeatClick(seat.id);
-        }
-      }}
-      onDoubleClick={(e) => {
-        if (isEditingLayout) {
-          e.stopPropagation();
-          onDoubleClick(seat.id);
-        }
-      }}
+      onClick={handleClick}
+      onDoubleClick={handleDoubleClick}
       onMouseDown={(e) => {
         if (isEditingLayout) onMouseDown(e, seat.id);
       }}
