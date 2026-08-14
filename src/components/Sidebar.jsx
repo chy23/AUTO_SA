@@ -400,7 +400,7 @@ export default function Sidebar({
         )}
         
         <div style={{ display: 'flex', gap: '10px' }}>
-          <button className="action-btn primary" onClick={handleAssign} disabled={isAssigning || students.length === 0} style={{ flex: 3 }}>
+          <button className="action-btn auto-assign-btn" onClick={handleAssign} disabled={isAssigning || students.length === 0} style={{ flex: 3 }}>
              <Shuffle size={16} /> 自動排座位
           </button>
           <button 

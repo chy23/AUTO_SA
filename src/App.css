@@ -430,8 +430,31 @@ select:focus, input:focus {
 }
 
 .seat.locked {
-  background: rgba(255, 68, 68, 0.15) !important;
-  border-color: #ff4444 !important;
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+.auto-assign-btn {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  color: white;
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+  transition: all 0.2s ease;
+}
+
+.auto-assign-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--primary-hover) 0%, #7c3aed 100%);
+  box-shadow: 0 6px 16px rgba(139, 92, 246, 0.5);
+  transform: translateY(-1px);
+}
+
+.auto-assign-btn:disabled {
+  background: var(--btn-secondary-bg);
+  color: var(--text-muted);
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 /* White Mode Export Styles */
