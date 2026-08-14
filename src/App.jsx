@@ -65,7 +65,7 @@ export default function App() {
         students={seating.students}
         currentMap={seating.currentMap}
         assignments={seating.assignments}
-        setAssignments={seating.setAssignments}
+        onAssign={seating.assignStudentToSeat}
       />
       
       <ChangelogModal 

@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.111",
+    "hash": "d887994a832cf468a892f4ef9d947ac03eadcc15",
+    "date": "2026-08-14T19:11:09+08:00",
+    "type": "bugfix",
+    "isBugFix": true,
+    "title": "pass isRotatingSeat to Seat component so non-custom mode rotation works",
+    "details": ""
+  },
+  {
     "version": "v1.0.110",
     "hash": "508dc4aa01f4b4a0520e0a88f0c3b99c44a44fbb",
     "date": "2026-08-14T19:08:07+08:00",
