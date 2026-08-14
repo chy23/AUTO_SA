@@ -4,17 +4,63 @@ const buildAdjacencyList = (seats) => {
   const adj = {};
   seats.forEach(s => (adj[s.id] = []));
   
-  for (let i = 0; i < seats.length; i++) {
-    for (let j = i + 1; j < seats.length; j++) {
-      const dx = Math.abs(seats[i].x - seats[j].x);
-      const dy = Math.abs(seats[i].y - seats[j].y);
-      // Allow a small margin (3%) for alignment imperfections during custom dragging
-      if ((dx < 3 && dy < 16) || (dy < 3 && dx < 16)) {
-        adj[seats[i].id].push(seats[j].id);
-        adj[seats[j].id].push(seats[i].id);
+  const alignThreshold = 8; // Allow 8% margin for row/col alignment (handles slight dragging inaccuracies)
+  const maxDist = 45; // Maximum distance to be considered adjacent (prevents cross-room adjacency)
+  
+  seats.forEach(seat => {
+    let closestRight = null; let rightDist = Infinity;
+    let closestLeft = null; let leftDist = Infinity;
+    let closestTop = null; let topDist = Infinity;
+    let closestBottom = null; let bottomDist = Infinity;
+    
+    seats.forEach(other => {
+      if (seat.id === other.id) return;
+      
+      const dx = other.x - seat.x;
+      const dy = other.y - seat.y;
+      const absDx = Math.abs(dx);
+      const absDy = Math.abs(dy);
+      
+      // Check horizontal neighbors
+      if (absDy < alignThreshold) {
+        if (dx > 0 && dx < rightDist) {
+          rightDist = dx;
+          closestRight = other.id;
+        } else if (dx < 0 && absDx < leftDist) {
+          leftDist = absDx;
+          closestLeft = other.id;
+        }
       }
-    }
-  }
+      
+      // Check vertical neighbors
+      if (absDx < alignThreshold) {
+        if (dy > 0 && dy < bottomDist) {
+          bottomDist = dy;
+          closestBottom = other.id;
+        } else if (dy < 0 && absDy < topDist) {
+          topDist = absDy;
+          closestTop = other.id;
+        }
+      }
+    });
+    
+    if (closestRight && rightDist < maxDist) adj[seat.id].push(closestRight);
+    if (closestLeft && leftDist < maxDist) adj[seat.id].push(closestLeft);
+    if (closestTop && topDist < maxDist) adj[seat.id].push(closestTop);
+    if (closestBottom && bottomDist < maxDist) adj[seat.id].push(closestBottom);
+  });
+  
+  // Make it undirected and unique
+  seats.forEach(s => {
+    adj[s.id] = [...new Set(adj[s.id])];
+    adj[s.id].forEach(neighborId => {
+      if (!adj[neighborId]) adj[neighborId] = [];
+      if (!adj[neighborId].includes(s.id)) {
+        adj[neighborId].push(s.id);
+      }
+    });
+  });
+  
   return adj;
 };
 
