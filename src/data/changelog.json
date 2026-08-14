@@ -1,5 +1,41 @@
 [
   {
+    "version": "v1.0.109",
+    "hash": "b1598833d354d8b78f41b573a7a3312d1542bbee",
+    "date": "2026-08-14T19:04:45+08:00",
+    "type": "feature",
+    "isBugFix": false,
+    "title": "allow rotating seats in standard, group and exam modes",
+    "details": ""
+  },
+  {
+    "version": "v1.0.108",
+    "hash": "266f14740ef1e714a4f989409cd08d496795e575",
+    "date": "2026-08-14T19:00:18+08:00",
+    "type": "feature",
+    "isBugFix": false,
+    "title": "replace double click rotation with rotate brush tool for reliability",
+    "details": ""
+  },
+  {
+    "version": "v1.0.107",
+    "hash": "8550db3acba2685f9a9c2ae34ee350083af21839",
+    "date": "2026-08-14T18:49:11+08:00",
+    "type": "update",
+    "isBugFix": false,
+    "title": "Docs: translate latest changelog entries to Chinese with full details",
+    "details": ""
+  },
+  {
+    "version": "v1.0.106",
+    "hash": "46bb15d0caca8b7613fabc9c931175c3ef733840",
+    "date": "2026-08-14T18:45:50+08:00",
+    "type": "feature",
+    "isBugFix": false,
+    "title": "allow deleting extra seats in standard layout mode",
+    "details": ""
+  },
+  {
     "version": "v1.0.105",
     "hash": "df021f1e8e617eb8e872df39fdceafd487a43339",
     "date": "2026-08-14T18:43:37+08:00",

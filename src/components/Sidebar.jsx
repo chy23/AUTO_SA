@@ -170,7 +170,13 @@ export default function Sidebar({
                 <input type="number" min="1" max="15" value={standardCols} onChange={e => setStandardCols(Number(e.target.value))} style={{ width: '50px', marginLeft: '5px' }}/>
               </label>
             </div>
-            <div style={{ display: 'flex', gap: '5px', marginTop: '5px' }}>
+          </div>
+        )}
+        
+        {layoutMode !== 'CUSTOM' && (
+          <div style={{ marginTop: '10px', background: 'rgba(255,255,255,0.05)', padding: '10px', borderRadius: '8px' }}>
+            <h3 style={{ fontSize: '14px', marginBottom: '8px', color: 'var(--text-color)' }}>版面微調工具</h3>
+            <div style={{ display: 'flex', gap: '5px' }}>
               <button 
                 className={`action-btn ${isRotatingSeat ? 'primary' : 'outline'}`}
                 onClick={() => { setIsRotatingSeat(!isRotatingSeat); setIsDeletingSeat(false); }}
@@ -186,20 +192,20 @@ export default function Sidebar({
                 {isDeletingSeat ? '完成刪除' : '🗑 刪除座位'}
               </button>
             </div>
-          </div>
-        )}
-        
-        {layoutMode !== 'CUSTOM' && (hiddenSeatIds.length > 0 || rotatedSeatIds.length > 0) && (
-          <div style={{ display: 'flex', gap: '5px', marginTop: '5px' }}>
-            {hiddenSeatIds.length > 0 && (
-              <button className="secondary-btn" onClick={() => setHiddenSeatIds([])} style={{ fontSize: '12px', padding: '4px 8px', flex: 1 }}>
-                還原被刪除座位
-              </button>
-            )}
-            {rotatedSeatIds.length > 0 && (
-              <button className="secondary-btn" onClick={() => setRotatedSeatIds([])} style={{ fontSize: '12px', padding: '4px 8px', flex: 1 }}>
-                還原被旋轉座位
-              </button>
+            
+            {(hiddenSeatIds.length > 0 || rotatedSeatIds.length > 0) && (
+              <div style={{ display: 'flex', gap: '5px', marginTop: '5px' }}>
+                {hiddenSeatIds.length > 0 && (
+                  <button className="secondary-btn" onClick={() => setHiddenSeatIds([])} style={{ fontSize: '12px', padding: '4px 8px', flex: 1 }}>
+                    還原被刪除座位
+                  </button>
+                )}
+                {rotatedSeatIds.length > 0 && (
+                  <button className="secondary-btn" onClick={() => setRotatedSeatIds([])} style={{ fontSize: '12px', padding: '4px 8px', flex: 1 }}>
+                    還原被旋轉座位
+                  </button>
+                )}
+              </div>
             )}
           </div>
         )}
