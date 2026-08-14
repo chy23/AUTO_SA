@@ -139,6 +139,9 @@ select:focus, input:focus {
   border-radius: 6px;
   border: 1px solid var(--border-color);
 }
+.rule-list li:hover {
+  background: var(--item-hover-bg);
+}
 
 .rule-list button {
   background: none;

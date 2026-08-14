@@ -1,10 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, UserPlus, Users, Trash2 } from 'lucide-react';
 
-export default function RuleBuilderModal({ isOpen, onClose, rules, setRules, students }) {
+export default function RuleBuilderModal({ isOpen, onClose, rules, setRules, students, editingRuleId }) {
   const [ruleType, setRuleType] = useState('NOT_SAME_GROUP');
   const [selectedStudents, setSelectedStudents] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+
+  useEffect(() => {
+    if (isOpen) {
+      if (editingRuleId) {
+        const rule = rules.find(r => r.id === editingRuleId);
+        if (rule) {
+          setRuleType(rule.type);
+          setSelectedStudents(students.filter(s => rule.students.includes(s.name)));
+        }
+      } else {
+        setRuleType('NOT_SAME_GROUP');
+        setSelectedStudents([]);
+      }
+      setSearchTerm('');
+    }
+  }, [isOpen, editingRuleId, rules, students]);
 
   if (!isOpen) return null;
 
@@ -13,12 +29,20 @@ export default function RuleBuilderModal({ isOpen, onClose, rules, setRules, stu
       alert("請至少選擇 2 位學生");
       return;
     }
-    setRules([...rules, { 
-      id: Date.now(), 
-      type: ruleType, 
-      students: selectedStudents.map(s => s.name) 
-    }]);
-    setSelectedStudents([]);
+    
+    if (editingRuleId) {
+      setRules(rules.map(r => r.id === editingRuleId ? {
+        ...r,
+        type: ruleType,
+        students: selectedStudents.map(s => s.name)
+      } : r));
+    } else {
+      setRules([...rules, { 
+        id: Date.now(), 
+        type: ruleType, 
+        students: selectedStudents.map(s => s.name) 
+      }]);
+    }
     onClose();
   };
 

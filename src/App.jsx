@@ -11,7 +11,13 @@ export default function App() {
   const seating = useSeating();
   const classroomRef = React.useRef(null);
   const [isRuleBuilderOpen, setIsRuleBuilderOpen] = useState(false);
+  const [editingRuleId, setEditingRuleId] = useState(null);
   const [manualAssignSeatId, setManualAssignSeatId] = useState(null);
+
+  const handleOpenRuleBuilder = (ruleId = null) => {
+    setEditingRuleId(ruleId);
+    setIsRuleBuilderOpen(true);
+  };
 
   return (
     <div className="app-container">
@@ -25,7 +31,7 @@ export default function App() {
         <Sidebar 
           seating={seating}
           classroomRef={classroomRef}
-          onOpenRuleBuilder={() => setIsRuleBuilderOpen(true)}
+          onOpenRuleBuilder={handleOpenRuleBuilder}
         />
 
         <ClassroomArea 
@@ -37,10 +43,14 @@ export default function App() {
 
       <RuleBuilderModal 
         isOpen={isRuleBuilderOpen}
-        onClose={() => setIsRuleBuilderOpen(false)}
+        onClose={() => {
+          setIsRuleBuilderOpen(false);
+          setEditingRuleId(null);
+        }}
         rules={seating.rules}
         setRules={seating.setRules}
         students={seating.students}
+        editingRuleId={editingRuleId}
       />
       
       <ManualAssignModal 

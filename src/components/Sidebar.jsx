@@ -107,14 +107,27 @@ export default function Sidebar({
         <ul className="rule-list">
           {rules.length === 0 && <li style={{ color: '#888', textAlign: 'center', border: 'none' }}>目前沒有條件</li>}
           {rules.map(r => (
-            <li key={r.id}>
+            <li 
+              key={r.id} 
+              onClick={() => onOpenRuleBuilder(r.id)}
+              style={{ cursor: 'pointer', transition: 'background 0.2s' }}
+              title="點擊以編輯條件"
+            >
               <span>{r.students ? r.students.join(', ') : ''} 
                 {r.type === 'NOT_SAME_GROUP' && " 不能同組"}
                 {r.type === 'NOT_ADJACENT' && " 不能相鄰"}
                 {r.type === 'SAME_GROUP' && " 必須同組"}
                 {r.type === 'ADJACENT' && " 必須相鄰"}
               </span>
-              <button className="icon-btn danger" onClick={() => removeRule(r.id)}><Trash2 size={16} /></button>
+              <button 
+                className="icon-btn danger" 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  removeRule(r.id);
+                }}
+              >
+                <Trash2 size={16} />
+              </button>
             </li>
           ))}
         </ul>
