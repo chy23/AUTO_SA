@@ -132,9 +132,9 @@ export const useSeating = () => {
   // Initialize empty assignments if needed without adding mock students
   useEffect(() => {
     if (assignments.length === 0 && students.length > 0) {
-      const initAss = LAYOUT_VERTICAL.seats.map((seat, index) => ({
+      const initAss = LAYOUT_VERTICAL.seats.map((seat) => ({
         seatId: seat.id,
-        student: students[index] || null,
+        student: null,
         isLocked: false
       }));
       setAssignments(initAss);

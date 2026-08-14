@@ -31,9 +31,9 @@ export default function Sidebar({
     try {
       const studentObjs = await parseFile(file);
       setStudents(studentObjs);
-      setAssignments(currentMap.seats.map((seat, index) => ({
+      setAssignments(currentMap.seats.map((seat) => ({
         seatId: seat.id,
-        student: studentObjs[index] || null,
+        student: null,
         isLocked: false
       })));
     } catch (err) {
