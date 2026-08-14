@@ -183,13 +183,13 @@ export const useSeating = () => {
   };
 
   const clearSeats = () => {
-    saveSnapshot("清空座位前自動暫存");
+    // Auto snapshot AFTER clearing is not needed, but we wanted it before? User doesn't want it at all.
     setAssignments([]);
   };
 
   const changeLayoutMode = (mode) => {
     if (mode === layoutMode) return;
-    saveSnapshot(`切換至${mode === 'STANDARD' ? '一般' : mode === 'CUSTOM' ? '自定義' : '小組'}模式前自動暫存`);
+    
     setLayoutMode(mode);
   };
 
@@ -205,8 +205,7 @@ export const useSeating = () => {
     }
     
     setIsAssigning(true);
-    // Auto save a snapshot before assignment
-    saveSnapshot("自動排座前自動暫存");
+    // No snapshot before assignment
     // Push current assignments to history before changing
     setHistory(prev => [...prev, assignments].slice(-20)); // keep last 20
     
@@ -215,7 +214,7 @@ export const useSeating = () => {
       const result = assignSeats(students, rules, currentMap, layoutMode, assignments);
       setAssignments(result);
       setIsAssigning(false);
-      saveSnapshot("自動排座位完成", result);
+      saveSnapshot("自動排座位結果", result);
     }, 50);
   };
 

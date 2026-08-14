@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.113",
+    "hash": "1ca6eb31fa0f38626fb4177c3e5d3de0f67d3f59",
+    "date": "2026-08-14T19:27:02+08:00",
+    "type": "bugfix",
+    "isBugFix": true,
+    "title": "include assignments in auto snapshots and snapshot after auto-assign completes",
+    "details": ""
+  },
+  {
     "version": "v1.0.112",
     "hash": "c8657d25fd40d41d11bbeff4dffcfdbdc8b805cc",
     "date": "2026-08-14T19:16:01+08:00",
