@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.92",
+    "hash": "40391094a292441d0cca09bb914a77609279af5a",
+    "date": "2026-08-14T17:20:07+08:00",
+    "type": "update",
+    "isBugFix": false,
+    "title": "UI: change custom mode add seats to use a numeric input field for adding multiple seats at once",
+    "details": ""
+  },
+  {
     "version": "v1.0.91",
     "hash": "392d0f19e1af65450f3fb9c4bd66e3019864c201",
     "date": "2026-08-14T17:16:57+08:00",

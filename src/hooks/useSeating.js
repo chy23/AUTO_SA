@@ -54,14 +54,15 @@ export const useSeating = () => {
     'front-door': true, 'back-corridor': true, 'back-door': true, 'teacher': true, 'restroom': true
   });
   
-  const generateDefaultBlankSeats = () => {
+  const generateDefaultBlankSeats = (count = 30) => {
     const seats = [];
-    for (let i = 0; i < 30; i++) {
+    const cols = Math.max(1, Math.ceil(Math.sqrt(count)) + 1); // rough aspect ratio
+    for (let i = 0; i < count; i++) {
       seats.push({
         id: i + 1,
         groupId: 0,
-        x: 20 + (i % 6) * 12, // 6 columns
-        y: 25 + Math.floor(i / 6) * 14, // 5 rows
+        x: 20 + (i % cols) * 12, 
+        y: 25 + Math.floor(i / cols) * 14, 
         shape: 'vertical'
       });
     }
@@ -283,10 +284,10 @@ export const useSeating = () => {
     setCustomMap(prev => ({ ...prev, staticItems }));
   };
 
-  const resetCustomMap = () => {
+  const resetCustomMap = (count = 30) => {
     const fresh = {
       labels: [],
-      seats: generateDefaultBlankSeats(),
+      seats: generateDefaultBlankSeats(count),
       staticItems: LAYOUT_VERTICAL.staticItems
     };
     setCustomMap(fresh);

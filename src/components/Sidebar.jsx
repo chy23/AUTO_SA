@@ -196,34 +196,28 @@ export default function Sidebar({
               <div style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
                 <p>• 直接拖曳可移動座位與設施位置</p>
                 <p>• 點擊座位可編輯其群組與方向</p>
-                <div style={{ display: 'flex', gap: '5px', marginTop: '10px', alignItems: 'center' }}>
+                <div style={{ display: 'flex', gap: '5px', marginTop: '10px', alignItems: 'center', background: 'rgba(239, 68, 68, 0.05)', padding: '8px', borderRadius: '6px', border: '1px solid rgba(239, 68, 68, 0.2)' }}>
+                  <span style={{ fontSize: '12px', color: 'var(--text-color)', whiteSpace: 'nowrap' }}>座位總數:</span>
                   <input 
                     type="number" 
                     min="1" 
-                    max="50" 
+                    max="100" 
                     value={customSeatCount} 
                     onChange={(e) => setCustomSeatCount(Math.max(1, parseInt(e.target.value) || 1))}
-                    style={{ width: '60px', padding: '6px', borderRadius: '6px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-color)' }}
+                    style={{ width: '50px', padding: '4px', borderRadius: '4px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-color)', textAlign: 'center' }}
                   />
                   <button 
                     className="secondary-btn" 
-                    onClick={() => seating.addMultipleCustomSeats(customSeatCount)} 
-                    style={{ flex: 1, padding: '6px' }}
+                    onClick={() => {
+                      if (window.confirm(`確定要重新產生 ${customSeatCount} 個座位嗎？\n\n警告：這會清除您目前在版面上的所有排列與小組設定！`)) {
+                        seating.resetCustomMap(customSeatCount);
+                      }
+                    }} 
+                    style={{ flex: 1, padding: '6px', color: '#ef4444' }}
                   >
-                    + 新增座位
+                    重新產生
                   </button>
                 </div>
-                <button 
-                  className="secondary-btn" 
-                  onClick={() => {
-                    if (window.confirm("確定要重置版面為 30 個空白座位嗎？這會清除您所有的排列與群組！")) {
-                      seating.resetCustomMap();
-                    }
-                  }} 
-                  style={{ width: '100%', padding: '6px', marginTop: '5px', color: '#ff4444', borderColor: 'rgba(255,68,68,0.3)' }}
-                >
-                  還原預設版面 (30 空白座位)
-                </button>
                 <button 
                   className="secondary-btn" 
                   onClick={() => {
