@@ -16,7 +16,8 @@ export default function Seat({
   onMouseDown,
   onDoubleClick,
   activeGroupBrush,
-  onAssignGroup
+  onAssignGroup,
+  onSeatClick
 }) {
   const [isDragOver, setIsDragOver] = useState(false);
   const isLocked = assignment?.isLocked;
@@ -64,6 +65,8 @@ export default function Seat({
           } else {
             onSelect(seat.id);
           }
+        } else {
+          if (onSeatClick) onSeatClick(seat.id);
         }
       }}
       onDoubleClick={(e) => {

@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { MapPin } from 'lucide-react';
 import Seat from './Seat';
 
-export default function ClassroomArea({ seating, classroomRef }) {
+export default function ClassroomArea({ seating, classroomRef, onSeatClick }) {
   const {
     layoutMode,
     currentMap,
@@ -180,6 +180,7 @@ export default function ClassroomArea({ seating, classroomRef }) {
               onSelect={setSelectedSeatId}
               onMouseDown={handleSeatMouseDown}
               onDoubleClick={handleSeatDoubleClick}
+              onSeatClick={onSeatClick}
               activeGroupBrush={activeGroupBrush}
               onAssignGroup={(id, g) => updateCustomSeat(id, { groupId: g })}
             />

@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import ClassroomArea from './components/ClassroomArea';
 import RuleBuilderModal from './components/RuleBuilderModal';
+import ManualAssignModal from './components/ManualAssignModal';
 import { useSeating } from './hooks/useSeating';
 import './App.css';
 
@@ -10,6 +11,7 @@ export default function App() {
   const seating = useSeating();
   const classroomRef = React.useRef(null);
   const [isRuleBuilderOpen, setIsRuleBuilderOpen] = useState(false);
+  const [manualAssignSeatId, setManualAssignSeatId] = useState(null);
 
   return (
     <div className="app-container">
@@ -29,6 +31,7 @@ export default function App() {
         <ClassroomArea 
           seating={seating}
           classroomRef={classroomRef}
+          onSeatClick={(seatId) => setManualAssignSeatId(seatId)}
         />
       </main>
 
@@ -38,6 +41,15 @@ export default function App() {
         rules={seating.rules}
         setRules={seating.setRules}
         students={seating.students}
+      />
+      
+      <ManualAssignModal 
+        isOpen={manualAssignSeatId !== null}
+        seatId={manualAssignSeatId}
+        onClose={() => setManualAssignSeatId(null)}
+        students={seating.students}
+        assignments={seating.assignments}
+        onAssign={seating.assignStudentToSeat}
       />
     </div>
   );

@@ -197,10 +197,36 @@ export const useSeating = () => {
     });
   };
   
-  const toggleSeatLock = (seatId) => {
+  const toggleSeatLock = (seatId, forceState = null) => {
     setAssignments(prev => prev.map(a => 
-      a.seatId === seatId ? { ...a, isLocked: !a.isLocked } : a
+      a.seatId === seatId ? { ...a, isLocked: forceState !== null ? forceState : !a.isLocked } : a
     ));
+  };
+  
+  const assignStudentToSeat = (seatId, student) => {
+    setHistory(prev => [...prev, assignments].slice(-20));
+    setAssignments(prev => {
+      const newAss = [...prev];
+      
+      const studentCurrentIdx = newAss.findIndex(a => a.student?.id === student.id);
+      let targetIdx = newAss.findIndex(a => a.seatId === seatId);
+      
+      if (targetIdx === -1) {
+        newAss.push({ seatId, student: null, isLocked: false });
+        targetIdx = newAss.length - 1;
+      }
+      
+      const occupant = newAss[targetIdx].student;
+      
+      if (studentCurrentIdx !== -1) {
+        newAss[studentCurrentIdx].student = occupant;
+      }
+      
+      newAss[targetIdx].student = student;
+      newAss[targetIdx].isLocked = true;
+      
+      return newAss;
+    });
   };
   
   // Custom Layout Methods
@@ -299,6 +325,7 @@ export const useSeating = () => {
     canUndo: history.length > 0,
     manualSwap,
     toggleSeatLock,
+    assignStudentToSeat,
     addCustomSeat,
     addMultipleCustomSeats,
     updateCustomSeat,
