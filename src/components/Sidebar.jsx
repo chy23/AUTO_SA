@@ -1,5 +1,5 @@
 import React from 'react';
-import { Upload, Shuffle, Download, Settings2, Trash2, Image as ImageIcon, Undo } from 'lucide-react';
+import { Upload, Shuffle, Download, Settings2, Trash2, Image as ImageIcon, Undo, Eraser } from 'lucide-react';
 import { parseFile } from '../utils/fileUtils';
 import { exportToPPTX, exportToJPEG } from '../utils/exportUtils';
 
@@ -335,6 +335,19 @@ export default function Sidebar({
         <div style={{ display: 'flex', gap: '10px' }}>
           <button className="action-btn primary" onClick={handleAssign} disabled={isAssigning || students.length === 0} style={{ flex: 3 }}>
              <Shuffle size={16} /> 自動排座位
+          </button>
+          <button 
+             className="secondary-btn" 
+             onClick={() => {
+                if (window.confirm("確定要清空所有已排好的座位嗎？（不會清除左側的學生名單）\n\n提示：如果您有手動鎖定的座位，它們也會一併被清空。")) {
+                  setAssignments([]);
+                }
+             }} 
+             disabled={assignments.length === 0}
+             style={{ flex: 1, padding: '0 5px', color: '#ef4444' }} 
+             title="清空所有排好的座位"
+          >
+             <Eraser size={16} /> 清空座位
           </button>
           <button className="secondary-btn" onClick={undo} disabled={!canUndo} style={{ flex: 1, padding: 0 }} title="復原上一步 (手動移動或洗牌)">
              <Undo size={16} />

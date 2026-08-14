@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.88",
+    "hash": "c20daf2f0cf2853027b9684c7097ae49ed9ae5e1",
+    "date": "2026-08-14T17:08:20+08:00",
+    "type": "bugfix",
+    "isBugFix": true,
+    "title": "correct import error in changelog generator that caused manual translations to be overwritten",
+    "details": ""
+  },
+  {
     "version": "v1.0.87",
     "hash": "0c97f8495f93d9c38cae56043b3345daa01d01eb",
     "date": "2026-08-14T17:07:18+08:00",
