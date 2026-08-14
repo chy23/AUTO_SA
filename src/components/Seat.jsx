@@ -23,38 +23,46 @@ export default function Seat({
   const isLocked = assignment?.isLocked;
   const groupId = seat.groupId ?? 0;
   const clickTimeout = useRef(null);
+  const lastClickTime = useRef(0);
 
   const handleClick = (e) => {
     e.stopPropagation();
-    if (clickTimeout.current !== null) {
-      clearTimeout(clickTimeout.current);
-      clickTimeout.current = null;
-    }
     
-    clickTimeout.current = setTimeout(() => {
-      clickTimeout.current = null;
-      if (isEditingLayout) {
-        if (activeGroupBrush === 'DELETE') {
-          onDelete(seat.id);
-        } else if (activeGroupBrush !== null && onAssignGroup) {
-          onAssignGroup(seat.id, activeGroupBrush);
-        } else {
-          onSelect(seat.id);
-        }
-      } else {
-        if (onSeatClick) onSeatClick(seat.id);
+    const currentTime = new Date().getTime();
+    const timeDiff = currentTime - lastClickTime.current;
+    
+    if (timeDiff < 300) {
+      // It's a double click!
+      if (clickTimeout.current !== null) {
+        clearTimeout(clickTimeout.current);
+        clickTimeout.current = null;
       }
-    }, 250); // 250ms delay to wait for potential double click
-  };
-
-  const handleDoubleClick = (e) => {
-    e.stopPropagation();
-    if (clickTimeout.current !== null) {
-      clearTimeout(clickTimeout.current);
-      clickTimeout.current = null;
-    }
-    if (onDoubleClick) {
-      onDoubleClick(seat.id);
+      if (onDoubleClick) {
+        onDoubleClick(seat.id);
+      }
+      lastClickTime.current = 0; // reset to prevent triple-click bugs
+    } else {
+      // It's a single click (for now)
+      lastClickTime.current = currentTime;
+      
+      if (clickTimeout.current !== null) {
+        clearTimeout(clickTimeout.current);
+      }
+      
+      clickTimeout.current = setTimeout(() => {
+        clickTimeout.current = null;
+        if (isEditingLayout) {
+          if (activeGroupBrush === 'DELETE') {
+            onDelete(seat.id);
+          } else if (activeGroupBrush !== null && onAssignGroup) {
+            onAssignGroup(seat.id, activeGroupBrush);
+          } else {
+            onSelect(seat.id);
+          }
+        } else {
+          if (onSeatClick) onSeatClick(seat.id);
+        }
+      }, 300); // 300ms delay
     }
   };
 
@@ -92,7 +100,6 @@ export default function Seat({
         onDrop(e, seat.id);
       }}
       onClick={handleClick}
-      onDoubleClick={handleDoubleClick}
       onMouseDown={(e) => {
         if (isEditingLayout) onMouseDown(e, seat.id);
       }}
