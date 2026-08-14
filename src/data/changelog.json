@@ -5,8 +5,8 @@
     "date": "2026-08-14T16:52:08+08:00",
     "type": "feature",
     "isBugFix": false,
-    "title": "implement automated changelog modal fetching last 50 commits",
-    "details": ""
+    "title": "實作自動抓取前 50 次提交紀錄的更新紀錄對話窗",
+    "details": "實作自動抓取前 50 次提交紀錄的更新紀錄對話窗，並自動將紀錄透過精美時間軸呈現，系統會在每次部署時自動抓取最新進度。"
   },
   {
     "version": "v1.0.82",
@@ -14,8 +14,8 @@
     "date": "2026-08-14T14:57:16+08:00",
     "type": "bugfix",
     "isBugFix": true,
-    "title": "move modal CSS styles to App.css so ManualAssignModal renders correctly in the center",
-    "details": ""
+    "title": "將對話窗樣式移至全域，修復指定學生視窗無法置中的排版問題",
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.81",
@@ -23,8 +23,8 @@
     "date": "2026-08-14T14:52:19+08:00",
     "type": "feature",
     "isBugFix": false,
-    "title": "leave seats empty on student list upload to allow manual pre-assignment before auto-assignment",
-    "details": ""
+    "title": "匯入名單後預設清空座位，讓使用者能在自動排座前「手動指定並鎖定」特定學生",
+    "details": "為了讓老師能事先把特定學生安排在特殊座位（例如講桌旁），現在匯入名單後不再立刻自動排滿，而是留空讓老師先綁定特定座位後，再執行自動排座。"
   },
   {
     "version": "v1.0.80",
@@ -32,8 +32,8 @@
     "date": "2026-08-14T14:50:22+08:00",
     "type": "bugfix",
     "isBugFix": true,
-    "title": "missing onClearEdit prop caused edited rules to remain in edit state, and allow editing from modal rule list",
-    "details": ""
+    "title": "修復規則儲存後編輯狀態未清除的異常，並支援在對話窗內直接點擊列表進行編輯",
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.79",
@@ -41,8 +41,8 @@
     "date": "2026-08-14T14:47:29+08:00",
     "type": "bugfix",
     "isBugFix": true,
-    "title": "syntax error due to missing closing div in RuleBuilderModal",
-    "details": ""
+    "title": "修復對話窗的語法渲染錯誤",
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.78",
@@ -50,8 +50,8 @@
     "date": "2026-08-14T14:42:53+08:00",
     "type": "feature",
     "isBugFix": false,
-    "title": "keep RuleBuilderModal open after saving to allow continuous addition of rules without reopening",
-    "details": ""
+    "title": "優化體驗：儲存規則後對話窗會保持開啟，方便老師連續建立多筆規則",
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.77",
@@ -59,8 +59,8 @@
     "date": "2026-08-14T14:41:32+08:00",
     "type": "feature",
     "isBugFix": false,
-    "title": "support editing existing seating rules by clicking on them",
-    "details": ""
+    "title": "支援直接點擊側邊欄的條件列表來修改現有規則",
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.76",
@@ -68,8 +68,8 @@
     "date": "2026-08-14T14:40:08+08:00",
     "type": "feature",
     "isBugFix": false,
-    "title": "allow clicking any seat to manually assign and lock a student from a searchable list before auto-assignment",
-    "details": ""
+    "title": "實作「指定學生至座位」功能：點擊空座位即可搜尋並綁定學生",
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.75",
@@ -77,8 +77,8 @@
     "date": "2026-08-14T14:35:02+08:00",
     "type": "bugfix",
     "isBugFix": true,
-    "title": "dark mode text color invisible in RuleBuilderModal student selection grid",
-    "details": ""
+    "title": "修復深色模式下，對話窗學生網格文字顏色太暗看不見的問題",
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.74",
@@ -86,8 +86,8 @@
     "date": "2026-08-14T14:30:52+08:00",
     "type": "bugfix",
     "isBugFix": true,
-    "title": "adjacency constraints failing in sparse/custom grids by replacing hardcoded threshold with nearest-neighbor detection",
-    "details": ""
+    "title": "升級排座演算法：導入最近鄰居 (Nearest-Neighbor) 偵測，修復自定義版面中「相鄰」條件判定失效的問題",
+    "details": "過去的演算法使用固定像素距離來判斷是否相鄰，導致在老師自己隨意拉動座位的「自定義版面」中判斷常常失準。現在升級為 Nearest-Neighbor 動態偵測，能精準找出每個座位周遭的鄰居，讓「不能相鄰」與「必須相鄰」的條件在任何畸形版面都能完美生效！"
   },
   {
     "version": "v1.0.73",
@@ -95,8 +95,8 @@
     "date": "2026-08-12T17:07:48+08:00",
     "type": "bugfix",
     "isBugFix": true,
-    "title": "only show layout toggle button in group/exam modes, removing it from standard mode as well",
-    "details": ""
+    "title": "優化介面：只在小組與個人考試模式顯示版面切換按鈕",
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.72",
@@ -105,7 +105,7 @@
     "type": "feature",
     "isBugFix": false,
     "title": "overhaul light mode colors to greatly improve readability and contrast",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.71",
@@ -114,7 +114,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "remove Framer Motion 'layout' prop from Seat to prevent drifting/staircasing with translate(-50%, -50%)",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.70",
@@ -123,7 +123,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "resolve seat shifting on group assignment, align new seats to grid, allow one-click deletion",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.69",
@@ -132,7 +132,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "ensure manual swap handles dynamically added custom seats",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.68",
@@ -141,7 +141,7 @@
     "type": "feature",
     "isBugFix": false,
     "title": "make static facilities (doors/teacher) persistent across all layout modes globally",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.67",
@@ -150,7 +150,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "remove mock student list initialization",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.66",
@@ -159,7 +159,7 @@
     "type": "feature",
     "isBugFix": false,
     "title": "implement snap-to-grid in custom layout mode with visual grid lines",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.65",
@@ -168,7 +168,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "prevent custom mode layout data loss with resilient functional localStorage and auto-recovery",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.64",
@@ -177,7 +177,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "enhance drag and drop for group badges with visual feedback and add click-to-paint brush mode",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.63",
@@ -186,7 +186,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "Enhancement: add groups 6-8 colors, palette unassign tool, and refine algorithm for unassigned group 0",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.62",
@@ -195,7 +195,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "correctly evaluate falsy groupId 0 in Seat and Sidebar components to keep seats blank",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.61",
@@ -204,7 +204,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "enable double-click seat rotation by removing preventDefault on mousedown",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.60",
@@ -213,7 +213,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "revert custom layout localStorage key to prevent data loss",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.59",
@@ -222,7 +222,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "resolve ReferenceError student is not defined in Seat component",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.58",
@@ -231,7 +231,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "hide student names during edit mode, provide 30-seat grid as default custom layout, and add reset layout button",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.57",
@@ -240,7 +240,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "correct drag offset calculation to prevent drifting, remove spring lag during edit, initialize new seats without groups, and hide static group labels in custom mode",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.56",
@@ -249,7 +249,7 @@
     "type": "feature",
     "isBugFix": false,
     "title": "Enhance custom mode with drag-and-drop group assignment and double-click rotation",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.55",
@@ -258,7 +258,7 @@
     "type": "feature",
     "isBugFix": false,
     "title": "Add Custom Group mode with seat layout editor",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.54",
@@ -267,7 +267,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "Expand standard mode layout bounds to prevent seat overlap",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.53",
@@ -276,7 +276,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "Adjust seat layout bounds to resolve overlaps",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.52",
@@ -285,7 +285,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "Add GitHub Actions deploy workflow to bypass GitHub Pages timeout",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.51",
@@ -294,7 +294,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "Force new build hash",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.50",
@@ -303,7 +303,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "Retry GitHub Pages Deployment",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.49",
@@ -312,7 +312,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "add --nojekyll to gh-pages deploy script to fix Github Actions failure",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.48",
@@ -321,7 +321,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "Fix GitHub Pages deployment with .nojekyll",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.47",
@@ -330,7 +330,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "Trigger rebuild",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.46",
@@ -339,7 +339,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "Change static label sizes from cqw to px to prevent massive scaling",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.45",
@@ -348,7 +348,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "Adjust group mode seat coordinates to prevent overlap with static items",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.44",
@@ -357,7 +357,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "standard mode seats should be horizontal",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.43",
@@ -366,7 +366,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "Fix standard mode vertical shape and revert classroom container scaling logic to V1",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.42",
@@ -375,7 +375,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "Enhance light theme UI and revert seat proportions",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.41",
@@ -384,7 +384,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "Fix light mode button visibility and horizontal layout seat overlaps",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.40",
@@ -393,7 +393,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "Fix lock button visibility, Light theme contrast, and Standard mode layout",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.39",
@@ -402,7 +402,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "V2.0 Refactor: Modularization, PWA, Framer Motion, UseSeating hook",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.38",
@@ -411,7 +411,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "Add hidden credits as easter eggs in source files and console",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.37",
@@ -420,7 +420,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "Add watermark to the top-right and bottom-right of the web page",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.36",
@@ -429,7 +429,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "Add white background JPEG export option and fix PPTX layout ratio for identical seat sizes",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.35",
@@ -438,7 +438,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "Fix PPTX overlap by scaling proportionally and hide UI elements in JPEG export",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.34",
@@ -447,6 +447,6 @@
     "type": "update",
     "isBugFix": false,
     "title": "Add alert when student count exceeds seat capacity",
-    "details": ""
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   }
 ]

@@ -21,26 +21,38 @@ function generateChangelog() {
     const logCommand = `git log -n ${fetchCount} --pretty=format:"%H${delimiter}%cI${delimiter}%s${delimiter}%b${entrySeparator}" --no-merges`;
     const gitLogOutput = execSync(logCommand, { encoding: 'utf8' });
 
-    const commits = gitLogOutput.split(entrySeparator).filter(line => line.trim().length > 0);
-    const changelog = [];
+    const dataDir = join(process.cwd(), 'src', 'data');
+    const outputPath = join(dataDir, 'changelog.json');
+    
+    // Read existing changelog to preserve manual edits and translations
+    let existingChangelog = [];
+    if (existsSync(outputPath)) {
+      try {
+        const fileContent = fs.readFileSync(outputPath, 'utf8');
+        existingChangelog = JSON.parse(fileContent);
+      } catch (e) {
+        console.warn('Could not parse existing changelog.json, starting fresh.');
+      }
+    }
+    const existingHashes = new Set(existingChangelog.map(entry => entry.hash));
 
+    const commits = gitLogOutput.split(entrySeparator).filter(line => line.trim().length > 0);
+    const newEntries = [];
     commits.forEach((commitStr, index) => {
-      // Remove leading/trailing newlines that might exist between entries
       const cleanedStr = commitStr.trim();
       if (!cleanedStr) return;
       
       const parts = cleanedStr.split(delimiter);
       if (parts.length >= 3) {
         const hash = parts[0];
+        if (existingHashes.has(hash)) return; // Skip if already exists
+
         const date = parts[1];
         const subject = parts[2].trim();
         const body = parts[3] ? parts[3].trim() : '';
-
-        // Determine version number (e.g., v1.0.totalCommits - index)
         const version = `v1.0.${totalCommits - index}`;
 
-        // Determine category based on Conventional Commits or simple prefixes
-        let type = 'update'; // default
+        let type = 'update';
         let cleanSubject = subject;
         let isBugFix = false;
 
@@ -58,15 +70,9 @@ function generateChangelog() {
         } else if (subjectLower.startsWith('refactor:')) {
           type = 'refactor';
           cleanSubject = subject.substring(9).trim();
-        } else if (subjectLower.startsWith('style:')) {
-          type = 'style';
-          cleanSubject = subject.substring(6).trim();
-        } else if (subjectLower.startsWith('docs:')) {
-          type = 'docs';
-          cleanSubject = subject.substring(5).trim();
         }
 
-        changelog.push({
+        newEntries.push({
           version,
           hash,
           date,
@@ -78,15 +84,15 @@ function generateChangelog() {
       }
     });
 
-    const dataDir = join(process.cwd(), 'src', 'data');
     if (!existsSync(dataDir)) {
       mkdirSync(dataDir, { recursive: true });
     }
 
-    const outputPath = join(dataDir, 'changelog.json');
-    writeFileSync(outputPath, JSON.stringify(changelog, null, 2), 'utf8');
+    // Prepend new entries
+    const finalChangelog = [...newEntries, ...existingChangelog];
+    writeFileSync(outputPath, JSON.stringify(finalChangelog, null, 2), 'utf8');
     
-    console.log(`Successfully generated changelog.json with ${changelog.length} entries.`);
+    console.log(`Successfully updated changelog.json. Added ${newEntries.length} new entries.`);
   } catch (error) {
     console.error('Failed to generate changelog:', error.message);
     // Don't fail the build if git log fails (e.g., in a non-git environment)
