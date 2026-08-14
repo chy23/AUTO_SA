@@ -1,0 +1,50 @@
+5e3049b94da5df3e880315a56e948c44c289588d|2026-08-14T14:57:16+08:00|Fix: move modal CSS styles to App.css so ManualAssignModal renders correctly in the center|
+59ea7e015061b363e24cfe34c2559f9ce8030a6f|2026-08-14T14:52:19+08:00|Feat: leave seats empty on student list upload to allow manual pre-assignment before auto-assignment|
+ca405b5cc363bad9dff597df7bb74a5ccf6ed74b|2026-08-14T14:50:22+08:00|Fix: missing onClearEdit prop caused edited rules to remain in edit state, and allow editing from modal rule list|
+f5b5b857eab325b0f4d6d3ccc0f1ca9177787092|2026-08-14T14:47:29+08:00|Fix: syntax error due to missing closing div in RuleBuilderModal|
+8ce99347d90f158e74ea45d1064b20e993ababf7|2026-08-14T14:42:53+08:00|Feat: keep RuleBuilderModal open after saving to allow continuous addition of rules without reopening|
+1be6ea9c6d6d4e90e7b6c8ae3caf5db1c38c2f3e|2026-08-14T14:41:32+08:00|Feat: support editing existing seating rules by clicking on them|
+808e6ac4561ebf55c9f6b3579f5fa963d6da3590|2026-08-14T14:40:08+08:00|Feat: allow clicking any seat to manually assign and lock a student from a searchable list before auto-assignment|
+a152853ca1363f8fd6ba9088d9dfed87ed1c0d05|2026-08-14T14:35:02+08:00|Fix: dark mode text color invisible in RuleBuilderModal student selection grid|
+26460c0cbcf8f4135f63b29bb57428f50a754ee7|2026-08-14T14:30:52+08:00|Fix: adjacency constraints failing in sparse/custom grids by replacing hardcoded threshold with nearest-neighbor detection|
+0525f840dd6770b1775d7ddcbb1aacdad611cdf4|2026-08-12T17:07:48+08:00|Fix: only show layout toggle button in group/exam modes, removing it from standard mode as well|
+f1860ff8e1f4aa874eaebdbed01b6370b137b74b|2026-08-12T17:05:34+08:00|Feat: overhaul light mode colors to greatly improve readability and contrast|
+cd97dad20d14869e0c4c10f365bdff9566ba266f|2026-08-12T17:01:29+08:00|Fix: remove Framer Motion 'layout' prop from Seat to prevent drifting/staircasing with translate(-50%, -50%)|
+5a9ed29b45b4b6912ee37d2b6e95d8e42e4b159c|2026-08-07T18:36:48+08:00|Fix: resolve seat shifting on group assignment, align new seats to grid, allow one-click deletion|
+46de57faa57bb3ffd4c7aaadb7ac984a435a49c5|2026-08-07T18:29:26+08:00|Fix: ensure manual swap handles dynamically added custom seats|
+31eff148e0e6bf1e23b861638791f0052da0d63b|2026-08-07T18:28:47+08:00|Feat: make static facilities (doors/teacher) persistent across all layout modes globally|
+d5d5e6e5a5eb2030f25cbb19468145430939271e|2026-08-07T18:26:31+08:00|Fix: remove mock student list initialization|
+e3afa1f08d0f2c6b21eb711bb259c5177e158a8c|2026-08-07T17:38:53+08:00|Feat: implement snap-to-grid in custom layout mode with visual grid lines|
+6187c0692d55897c7973150a53cfd6676b32dd5e|2026-08-07T17:26:36+08:00|Fix: prevent custom mode layout data loss with resilient functional localStorage and auto-recovery|
+536ed3d07f4ac8f663f5de1888a8fb5b72ad2436|2026-08-07T17:22:56+08:00|Fix: enhance drag and drop for group badges with visual feedback and add click-to-paint brush mode|
+9128524130f79210bdf9104c8b4a94294c9b5472|2026-08-07T17:17:27+08:00|Enhancement: add groups 6-8 colors, palette unassign tool, and refine algorithm for unassigned group 0|
+ce55b7b2f608f4cd07e9cb48c39e643bb376f7f8|2026-08-07T10:47:32+08:00|Fix: correctly evaluate falsy groupId 0 in Seat and Sidebar components to keep seats blank|
+88d6f5739854dca9720a984235710c4ffdf4b898|2026-08-07T10:46:26+08:00|Fix: enable double-click seat rotation by removing preventDefault on mousedown|
+1cf5d68447877ed0830c297d8a7a322e6ea25d91|2026-08-07T10:38:18+08:00|Fix: revert custom layout localStorage key to prevent data loss|
+42b772979e71a300c2997a1061679f0ad72936e5|2026-08-07T10:28:57+08:00|Fix: resolve ReferenceError student is not defined in Seat component|
+780af29b16d14d6c31441d1dcffb3b317d698944|2026-08-07T10:26:42+08:00|Fix: hide student names during edit mode, provide 30-seat grid as default custom layout, and add reset layout button|
+a2f6df073748a7586f8ef1f77cdd11770bed8881|2026-08-07T10:22:32+08:00|Fix: correct drag offset calculation to prevent drifting, remove spring lag during edit, initialize new seats without groups, and hide static group labels in custom mode|
+21ee6409e735f0403189ee0c3a3740b2b2aaa31b|2026-08-07T10:18:02+08:00|Feat: Enhance custom mode with drag-and-drop group assignment and double-click rotation|
+61a12caab2b57452806654f8046e05c5cabc5418|2026-08-07T10:12:39+08:00|Feat: Add Custom Group mode with seat layout editor|
+67dff0929968fa693b6ce848acea7ad12cdbe1d8|2026-08-07T10:01:22+08:00|Fix: Expand standard mode layout bounds to prevent seat overlap|
+33d6177feb713aced36fd0b9385862b996afbbd2|2026-08-07T09:57:53+08:00|Fix: Adjust seat layout bounds to resolve overlaps|
+72a0c6d8ee50f62e05db8bc2e15b18798d52d47e|2026-08-07T09:51:57+08:00|Add GitHub Actions deploy workflow to bypass GitHub Pages timeout|
+8657b117631431bd96f9b54dfd69883a5d0e8fb7|2026-08-06T21:01:57+08:00|Force new build hash|
+326e42f3697b0531705738468852c9d1dc083c41|2026-08-06T20:51:21+08:00|Retry GitHub Pages Deployment|
+b9f91c13497c4ffa55cd2a2d3ec97fd2ed8dde6b|2026-08-06T20:35:43+08:00|Fix: add --nojekyll to gh-pages deploy script to fix Github Actions failure|
+b7fab9fd59a13c41a915c4a4043052c7a915b7a6|2026-08-06T20:18:02+08:00|Fix GitHub Pages deployment with .nojekyll|
+8a819c2c4eea1326ee60e4dfb7021b90f8976f0f|2026-08-06T20:09:18+08:00|Trigger rebuild|
+70496885ded6432af56c86d93764d8d5f1b69623|2026-08-06T19:50:04+08:00|Fix: Change static label sizes from cqw to px to prevent massive scaling|
+1a95cda3f593b3e86217b287000091d8c2c7cfa2|2026-08-06T19:39:04+08:00|Fix: Adjust group mode seat coordinates to prevent overlap with static items|
+17900743a246c5913575551a4702a690814baaa5|2026-08-06T10:43:05+08:00|Fix: standard mode seats should be horizontal|
+724559be111a79a87ab1d1a0db1eba1b498a6167|2026-08-06T10:38:31+08:00|Fix standard mode vertical shape and revert classroom container scaling logic to V1|
+663567f24ba0a9b00f395c402de39a3f0df7cc2b|2026-08-06T10:28:29+08:00|Enhance light theme UI and revert seat proportions|
+8eca708e5a63ca3e01f5529e5a08ae2b335a4582|2026-08-06T10:14:10+08:00|Fix light mode button visibility and horizontal layout seat overlaps|
+59d6aba2d6588004bcfdf22fbf38a5d48c4076d1|2026-08-06T09:25:08+08:00|Fix lock button visibility, Light theme contrast, and Standard mode layout|
+93885a7ae775b4c85e409ae6253f56de78297cac|2026-08-05T23:17:39+08:00|V2.0 Refactor: Modularization, PWA, Framer Motion, UseSeating hook|
+24d0fec920942a631b03b4f116f497a4608007dc|2026-08-05T12:57:48+08:00|Add hidden credits as easter eggs in source files and console|
+a23c9ab73ed7b77c45ab1ca38ecf87f3aa1d4bad|2026-08-05T10:57:38+08:00|Add watermark to the top-right and bottom-right of the web page|
+4d32cb2626d3f1b26f76c1d1d54069a267236390|2026-08-01T05:42:12+08:00|Add white background JPEG export option and fix PPTX layout ratio for identical seat sizes|
+84c96f77ae1a7ab34ea3c4354b37e6660ac81597|2026-08-01T05:09:36+08:00|Fix PPTX overlap by scaling proportionally and hide UI elements in JPEG export|
+b3004ec69d424d03c39cc100f51e0ec5c79c0959|2026-08-01T05:07:33+08:00|Add alert when student count exceeds seat capacity|
+54c42a74e15b311b524c3167314de74ee7e79101|2026-08-01T05:05:07+08:00|Fix PPTX overlap and add JPEG export functionality|

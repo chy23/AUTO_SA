@@ -4,6 +4,7 @@ import Sidebar from './components/Sidebar';
 import ClassroomArea from './components/ClassroomArea';
 import RuleBuilderModal from './components/RuleBuilderModal';
 import ManualAssignModal from './components/ManualAssignModal';
+import ChangelogModal from './components/ChangelogModal';
 import { useSeating } from './hooks/useSeating';
 import './App.css';
 
@@ -11,6 +12,7 @@ export default function App() {
   const seating = useSeating();
   const classroomRef = React.useRef(null);
   const [isRuleBuilderOpen, setIsRuleBuilderOpen] = useState(false);
+  const [isChangelogOpen, setIsChangelogOpen] = useState(false);
   const [editingRuleId, setEditingRuleId] = useState(null);
   const [manualAssignSeatId, setManualAssignSeatId] = useState(null);
 
@@ -24,7 +26,8 @@ export default function App() {
       <Header 
         layoutMode={seating.layoutMode} 
         lastGroupMode={seating.lastGroupMode} 
-        setLayoutMode={seating.setLayoutMode} 
+        setLayoutMode={seating.setLayoutMode}
+        onOpenChangelog={() => setIsChangelogOpen(true)}
       />
       
       <main className="app-content">
@@ -60,8 +63,14 @@ export default function App() {
         seatId={manualAssignSeatId}
         onClose={() => setManualAssignSeatId(null)}
         students={seating.students}
+        currentMap={seating.currentMap}
         assignments={seating.assignments}
-        onAssign={seating.assignStudentToSeat}
+        setAssignments={seating.setAssignments}
+      />
+      
+      <ChangelogModal 
+        isOpen={isChangelogOpen}
+        onClose={() => setIsChangelogOpen(false)}
       />
     </div>
   );

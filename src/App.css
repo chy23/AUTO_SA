@@ -527,3 +527,107 @@ select:focus, input:focus {
   margin-bottom: 15px;
 }
 .modal-header h2 { margin: 0; font-size: 1.2rem; }
+
+/* Changelog Modal Styles */
+.changelog-modal {
+  width: 600px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+.changelog-body {
+  overflow-y: auto;
+  padding-right: 10px;
+}
+.timeline {
+  position: relative;
+  padding: 10px 0;
+}
+.timeline-item {
+  display: flex;
+  margin-bottom: 20px;
+  position: relative;
+}
+.timeline-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 15px;
+  min-width: 20px;
+}
+.marker-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-top: 5px;
+  background: var(--text-muted);
+}
+.marker-line {
+  width: 2px;
+  flex-grow: 1;
+  background: rgba(255, 255, 255, 0.1);
+  margin-top: 5px;
+}
+.timeline-content {
+  flex-grow: 1;
+  background: rgba(0, 0, 0, 0.15);
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+.timeline-header {
+  margin-bottom: 10px;
+}
+.timeline-title-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+.timeline-title {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--text-color);
+  line-height: 1.4;
+}
+.timeline-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.timeline-version {
+  font-family: monospace;
+  background: rgba(255,255,255,0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.timeline-details {
+  font-size: 0.95rem;
+  color: #ccc;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  background: rgba(0,0,0,0.2);
+  padding: 10px;
+  border-radius: 6px;
+}
+
+/* Badges */
+.changelog-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  white-space: nowrap;
+}
+.badge-bugfix { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+.marker-dot.badge-bugfix { background: #ef4444; }
+.badge-feature { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+.marker-dot.badge-feature { background: #10b981; }
+.badge-refactor { background: rgba(59, 130, 246, 0.2); color: #3bb2f6; }
+.marker-dot.badge-refactor { background: #3bb2f6; }
+.badge-default { background: rgba(156, 163, 175, 0.2); color: #9ca3af; }
+.marker-dot.badge-default { background: #9ca3af; }

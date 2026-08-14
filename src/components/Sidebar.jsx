@@ -100,7 +100,7 @@ export default function Sidebar({
       <section className="panel rules-panel">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
           <h2 style={{ margin: 0 }}>2. 排座條件</h2>
-          <button className="secondary-btn" onClick={onOpenRuleBuilder} style={{ padding: '4px 8px', fontSize: '12px' }}>
+          <button className="secondary-btn" onClick={() => onOpenRuleBuilder(null)} style={{ padding: '4px 8px', fontSize: '12px' }}>
             + 新增設定
           </button>
         </div>

@@ -1,6 +1,7 @@
 import React from 'react';
+import changelogData from '../data/changelog.json';
 
-export default function Header({ layoutMode, lastGroupMode, setLayoutMode }) {
+export default function Header({ layoutMode, lastGroupMode, setLayoutMode, onOpenChangelog }) {
   // Toggle body theme
   const toggleTheme = () => {
     const isDark = document.body.classList.contains('light-theme');
@@ -13,7 +14,19 @@ export default function Header({ layoutMode, lastGroupMode, setLayoutMode }) {
 
   return (
     <header className="app-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <h1>智慧教室座位分配系統</h1>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+        <h1 style={{ margin: 0 }}>智慧教室座位分配系統</h1>
+        <button 
+          onClick={onOpenChangelog}
+          style={{ 
+            background: 'var(--primary)', color: 'white', border: 'none', borderRadius: '12px', 
+            padding: '2px 8px', fontSize: '12px', fontWeight: 'bold', cursor: 'pointer' 
+          }}
+          title="查看系統更新紀錄"
+        >
+          {changelogData && changelogData.length > 0 ? changelogData[0].version : 'v1.0.0'}
+        </button>
+      </div>
       <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
         <button className="secondary-btn" onClick={toggleTheme} style={{ borderRadius: '50%', padding: '8px', width: '36px', height: '36px' }}>
           💡
