@@ -10,9 +10,9 @@ export default function Sidebar({
 }) {
   const {
     students, setStudents,
-    assignments, setAssignments,
+    assignments, setAssignments, clearSeats,
     rules, setRules,
-    layoutMode, setLayoutMode,
+    layoutMode, changeLayoutMode,
     lastGroupMode, setLastGroupMode,
     standardRows, setStandardRows,
     standardCols, setStandardCols,
@@ -147,7 +147,7 @@ export default function Sidebar({
             className="action-btn outline"
             onClick={() => {
               const nextMode = layoutMode === 'GROUP' ? 'EXAM' : 'GROUP';
-              setLayoutMode(nextMode);
+              changeLayoutMode(nextMode);
               setLastGroupMode(nextMode);
             }}
           >
@@ -357,11 +357,11 @@ export default function Sidebar({
           </button>
           <button 
              className="secondary-btn" 
-             onClick={() => {
+              onClick={() => {
                 if (window.confirm("確定要清空所有已排好的座位嗎？（不會清除左側的學生名單）\n\n提示：如果您有手動鎖定的座位，它們也會一併被清空。")) {
-                  setAssignments([]);
+                  clearSeats();
                 }
-             }} 
+              }} 
              disabled={assignments.length === 0}
              style={{ flex: 1, padding: '0 5px', color: '#ef4444' }} 
              title="清空所有排好的座位"
@@ -373,20 +373,10 @@ export default function Sidebar({
           </button>
         </div>
 
-        {/* 暫存座位表 */}
+        {/* 自動暫存紀錄 */}
         <div style={{ background: 'rgba(0,0,0,0.15)', borderRadius: '8px', padding: '10px', marginTop: '5px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
-            <h3 style={{ fontSize: '14px', margin: 0, color: 'var(--text-color)' }}>暫存座位表</h3>
-            <button 
-              className="action-btn" 
-              onClick={() => {
-                saveSnapshot();
-                alert('已暫存目前畫面！');
-              }}
-              style={{ fontSize: '11px', padding: '4px 8px', background: 'var(--primary)', color: 'white', border: 'none' }}
-            >
-              + 暫存目前畫面
-            </button>
+            <h3 style={{ fontSize: '14px', margin: 0, color: 'var(--text-color)' }}>自動暫存紀錄</h3>
           </div>
           {snapshots.length === 0 ? (
             <div style={{ fontSize: '12px', color: 'var(--text-muted)', textAlign: 'center', padding: '10px 0' }}>
@@ -399,7 +389,7 @@ export default function Sidebar({
                   <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <span style={{ fontSize: '12px', fontWeight: 'bold', color: 'var(--text-color)' }}>{snap.timeString}</span>
                     <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>
-                      {snap.layoutMode === 'STANDARD' ? '一般' : snap.layoutMode === 'CUSTOM' ? '自定義' : snap.layoutMode === 'GROUP' ? 'U型小組' : '考試'}模式
+                      {snap.reason} • {snap.layoutMode === 'STANDARD' ? '一般' : snap.layoutMode === 'CUSTOM' ? '自定義' : snap.layoutMode === 'GROUP' ? 'U型小組' : '考試'}模式
                     </span>
                   </div>
                   <div style={{ display: 'flex', gap: '5px' }}>

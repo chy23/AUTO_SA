@@ -26,7 +26,7 @@ export default function App() {
       <Header 
         layoutMode={seating.layoutMode} 
         lastGroupMode={seating.lastGroupMode} 
-        setLayoutMode={seating.setLayoutMode}
+        setLayoutMode={seating.changeLayoutMode}
         onOpenChangelog={() => setIsChangelogOpen(true)}
       />
       

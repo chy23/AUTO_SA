@@ -151,12 +151,13 @@ export const useSeating = () => {
   }, [assignments.length, students]);
 
   // Snapshot Actions
-  const saveSnapshot = () => {
+  const saveSnapshot = (reason = "系統自動暫存") => {
     const now = new Date();
     const timeString = now.toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
     const newSnapshot = {
       id: Date.now(),
       timeString,
+      reason,
       layoutMode,
       assignments,
       customMap,
@@ -186,6 +187,17 @@ export const useSeating = () => {
     setSnapshots(prev => prev.filter(s => s.id !== id));
   };
 
+  const clearSeats = () => {
+    saveSnapshot("清空座位前自動暫存");
+    setAssignments([]);
+  };
+
+  const changeLayoutMode = (mode) => {
+    if (mode === layoutMode) return;
+    saveSnapshot(`切換至${mode === 'STANDARD' ? '一般' : mode === 'CUSTOM' ? '自定義' : '小組'}模式前自動暫存`);
+    setLayoutMode(mode);
+  };
+
   // Actions
   const handleAssign = () => {
     if (students.length === 0) {
@@ -198,6 +210,8 @@ export const useSeating = () => {
     }
     
     setIsAssigning(true);
+    // Auto save a snapshot before assignment
+    saveSnapshot("自動排座前自動暫存");
     // Push current assignments to history before changing
     setHistory(prev => [...prev, assignments].slice(-20)); // keep last 20
     
@@ -381,6 +395,8 @@ export const useSeating = () => {
     snapshots,
     saveSnapshot,
     loadSnapshot,
-    deleteSnapshot
+    deleteSnapshot,
+    clearSeats,
+    changeLayoutMode
   };
 };
