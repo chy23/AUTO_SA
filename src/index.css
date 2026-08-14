@@ -10,7 +10,9 @@
   --border-color: rgba(255, 255, 255, 0.1);
   
   --classroom-bg: rgba(0, 0, 0, 0.2);
-  --grid-color: rgba(255, 255, 255, 0.08);
+  --grid-color: rgba(255, 255, 255, 0.06);
+  --grid-color-active: rgba(255, 255, 255, 0.2);
+  --grid-color-active-major: rgba(255, 255, 255, 0.4);
   --btn-upload-bg: rgba(255, 255, 255, 0.05);
   --btn-upload-border: rgba(255, 255, 255, 0.2);
   --btn-upload-hover: rgba(255, 255, 255, 0.1);
@@ -44,7 +46,9 @@ body.light-theme {
   
   --classroom-bg: #e4e4e7; /* Zinc 200 to contrast with white seats */
   --grid-color: rgba(0, 0, 0, 0.06);
-  --btn-upload-bg: #f4f4f5;
+  --grid-color-active: rgba(0, 0, 0, 0.2);
+  --grid-color-active-major: rgba(0, 0, 0, 0.4);
+  --btn-upload-bg: #ffffff;
   --btn-upload-border: #a1a1aa; /* Zinc 400 for dashed border */
   --btn-upload-hover: #e4e4e7;
   --item-bg: #f4f4f5;

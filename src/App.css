@@ -229,11 +229,14 @@ select:focus, input:focus {
 
 .classroom.editing-grid {
   background-image: 
-    linear-gradient(var(--grid-color) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-  background-size: 2.5% 2.5%;
-  background-position: 0 0;
+    linear-gradient(var(--grid-color-active-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color-active-major) 1px, transparent 1px),
+    linear-gradient(var(--grid-color-active) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color-active) 1px, transparent 1px);
+  background-size: 10% 10%, 10% 10%, 2.5% 2.5%, 2.5% 2.5%;
+  background-position: 0 0, 0 0, 0 0, 0 0;
   transition: background-color 0.3s ease;
+  box-shadow: inset 0 0 0 2px var(--primary);
 }
 
 .blackboard {

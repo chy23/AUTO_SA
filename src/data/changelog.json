@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.95",
+    "hash": "869fbd870a3e6b202031ec97579ad503be65b739",
+    "date": "2026-08-14T17:26:21+08:00",
+    "type": "update",
+    "isBugFix": false,
+    "title": "Docs: translate recent changelogs to Chinese with full details",
+    "details": ""
+  },
+  {
     "version": "v1.0.94",
     "hash": "b6962aab77e3076f983fe3788cd37aea8e1c9f15",
     "date": "2026-08-14T17:24:22+08:00",
