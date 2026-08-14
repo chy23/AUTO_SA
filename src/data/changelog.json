@@ -1,11 +1,56 @@
 [
   {
+    "version": "v1.0.105",
+    "hash": "df021f1e8e617eb8e872df39fdceafd487a43339",
+    "date": "2026-08-14T18:43:37+08:00",
+    "type": "bugfix",
+    "isBugFix": true,
+    "title": "強化雙擊偵測：重寫底層雙擊邏輯，解決無法旋轉座位的問題",
+    "details": "優化了系統內部穩定性與細節操作體驗。"
+  },
+  {
+    "version": "v1.0.104",
+    "hash": "f6faf4195e1f106e5d5eb8b218c045b3656927ce",
+    "date": "2026-08-14T18:16:48+08:00",
+    "type": "bugfix",
+    "isBugFix": true,
+    "title": "修復點擊衝突：解決雙擊旋轉座位與點擊指定學生視窗的干擾問題",
+    "details": "優化了系統內部穩定性與細節操作體驗。"
+  },
+  {
+    "version": "v1.0.103",
+    "hash": "889611dcc228d3ed4f88116cab265e270b43c4ea",
+    "date": "2026-08-14T18:13:46+08:00",
+    "type": "feature",
+    "isBugFix": false,
+    "title": "升級「自動暫存紀錄」：系統會在排座、清空或切換模式前自動備份",
+    "details": "優化了系統內部穩定性與細節操作體驗。"
+  },
+  {
+    "version": "v1.0.102",
+    "hash": "25d3bbe580017c00808261d235bfc5fcb860f9a3",
+    "date": "2026-08-14T18:09:58+08:00",
+    "type": "update",
+    "isBugFix": false,
+    "title": "更新紀錄維護：補齊所有歷史更新紀錄的中文詳細說明",
+    "details": "優化了系統內部穩定性與細節操作體驗。"
+  },
+  {
+    "version": "v1.0.101",
+    "hash": "6addcb6d409f25cb51628c5d423eb6b96f20b2b9",
+    "date": "2026-08-14T17:52:08+08:00",
+    "type": "update",
+    "isBugFix": false,
+    "title": "更新紀錄維護：將所有近期提交紀錄翻譯為繁體中文",
+    "details": "優化了系統內部穩定性與細節操作體驗。"
+  },
+  {
     "version": "v1.0.100",
     "hash": "ef3cb8e9f0f8c52f7c505fc2db010e5c0ea19958",
     "date": "2026-08-14T17:51:01+08:00",
     "type": "feature",
     "isBugFix": false,
-    "title": "add snapshot system to temporarily save and restore seat arrangements across all layout modes",
+    "title": "新增「暫存座位表」：可隨時手動儲存目前的排版畫面並還原",
     "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
@@ -14,7 +59,7 @@
     "date": "2026-08-14T17:45:00+08:00",
     "type": "bugfix",
     "isBugFix": true,
-    "title": "correctly isolate deleted seats between different layout modes by clearing hidden state on switch",
+    "title": "修復模式隔離：不同版面模式間的座位刪除不再互相干擾",
     "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
@@ -23,7 +68,7 @@
     "date": "2026-08-14T17:40:57+08:00",
     "type": "bugfix",
     "isBugFix": true,
-    "title": "stop mouse down propagation on seat delete button to prevent drag interception",
+    "title": "修復刪除按鈕：解決編輯模式中紅色叉叉無法點擊的問題",
     "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
@@ -258,7 +303,7 @@
     "type": "feature",
     "isBugFix": false,
     "title": "全面重新設計淺色主題的配色方案，大幅提升文字可讀性與對比度",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "針對淺色主題進行了全面的色彩重新設計，運用 Zinc 色系作為基底配色，大幅提升按鈕、文字、輸入框與座位卡片的對比度，讓淺色模式下的閱讀體驗大幅提升。"
   },
   {
     "version": "v1.0.71",
@@ -267,7 +312,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "修復座位位置偏移：移除 Framer Motion 的 layout 屬性，解決座位日積月累的地址位移問題",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "移除了 Framer Motion 的 layout 屬性，該屬性會與座位的 translate(-50%, -50%) CSS 置中過渡產生衝突，導致座位每次重新渲染時都會微微偏移，經過多次操作後座位會呈現階梯狀的漂移。"
   },
   {
     "version": "v1.0.70",
@@ -276,7 +321,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "修復分組時座位位置跳動問題，新座位自動對齊格線，並支援一鍵刪除",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "修復了在自定義模式中點擊分配小組後，座位會突然跳到奇怪位置的問題。同時新增座位時會自動對齊到最近的格線上，並支援點擊紅色叉叉一鍵刪除座位。"
   },
   {
     "version": "v1.0.69",
@@ -285,7 +330,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "修復手動交換座位功能：現在可正確處理動態新增的自定義座位",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "修復了當自定義模式動態新增座位後，拖曳交換學生座位會失效的問題。原因是 assignments 陣列中沒有包含新增座位的索引。"
   },
   {
     "version": "v1.0.68",
@@ -294,7 +339,7 @@
     "type": "feature",
     "isBugFix": false,
     "title": "設施座標全域共用：門、講台等設施的位置現在會在所有模式間共享保存",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "將門、講台等靜態設施的座標統一儲存在同一個 localStorage key 中，這樣在一般模式下拖動了門的位置後，切換到自定義模式也會看到相同的位置。"
   },
   {
     "version": "v1.0.67",
@@ -303,7 +348,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "移除預設的範例學生名單，改為讓使用者自行匯入",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "移除了原本預設內建的範例學生名單（王小明、李小華…），現在網站初始狀態會顯示空白名單，引導使用者自行上傳檔案。"
   },
   {
     "version": "v1.0.66",
@@ -312,7 +357,7 @@
     "type": "feature",
     "isBugFix": false,
     "title": "實作自定義版面的磁吸對齊格線功能，並顯示背景輔助格線",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "在自定義版面的編輯模式中，座位現在會自動吸附到最近的 2.5% 格線交叉點上，同時教室背景會顯示淡色的輔助格線，讓座位對齊變得輕而易舉。"
   },
   {
     "version": "v1.0.65",
@@ -321,7 +366,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "防止自定義版面資料遺失：強化 localStorage 容錯機制與自動救回",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "強化了自定義版面的 localStorage 讀寫機制，增加了資料損壞時的自動救回邏輯，避免老師辛苦排好的自定義座位配置因儲存異常而消失。"
   },
   {
     "version": "v1.0.64",
@@ -330,7 +375,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "升級小組號碼牌拖曳功能：加入視覺回饋並新增「點擊塗色」筆刷模式",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "升級了自定義模式中小組號碼牌的拖曳體驗，現在拖曳時會有明確的視覺回饋（發光效果），並新增了「點擊塗色」筆刷模式：點選一個號碼後，可以連續點擊多個座位快速上色。"
   },
   {
     "version": "v1.0.63",
@@ -339,7 +384,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "擴充分組功能：新增第 6~8 組顏色、「無組別」清除工具，並優化第 0 組的演算法處理",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "將分組數從原本的 5 組擴充到 8 組，每組都有獨特的顏色。同時新增了「無」清除工具，可以將已分配的座位改回無組別狀態，並優化了演算法對於編號 0（無組別）座位的處理邏輯。"
   },
   {
     "version": "v1.0.62",
@@ -357,7 +402,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "修復雙擊旋轉座位功能：移除診止滑鼠事件的預設行為",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "移除了 mousedown 事件中的 preventDefault，解決了座位無法通過雙擊來旋轉方向的問題。"
   },
   {
     "version": "v1.0.60",
@@ -366,7 +411,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "還原自定義版面的儲存金鑰，避免資料遺失",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "將自定義版面的 localStorage key 還原為原本的名稱，避免因金鑰變更導致老師先前的自定義座位配置被視為不存在。"
   },
   {
     "version": "v1.0.59",
@@ -375,7 +420,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "修復座位元件的變數參照錯誤 (ReferenceError)",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "修復了 Seat.jsx 元件中引用了未定義的 student 變數的問題，該錯誤會導致整個教室區域白屏。"
   },
   {
     "version": "v1.0.58",
@@ -384,7 +429,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "編輯模式隱藏學生姓名、預設提供 30 座的方正座位陣列，並新增「重置版面」按鈕",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "編輯模式下會隱藏學生姓名以避免干擾排版，預設的自定義版面提供 30 個座位的方正陣列作為起始點，並新增「重置版面」按鈕讓老師可以快速回到初始狀態。"
   },
   {
     "version": "v1.0.57",
@@ -393,7 +438,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "修正拖曳偏移計算、移除編輯模式的彈簧動畫延遲、新座位預設無組別，並隱藏自定義模式的靜態組別標籤",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "一次修復了四個自定義模式的問題：(1) 拖曳時座位會偏離滑鼠位置；(2) 編輯模式下座位移動有彈簧動畫延遲；(3) 新增的座位被預設分配到第 1 組；(4) 自定義模式下顯示了不相關的靜態組別標籤。"
   },
   {
     "version": "v1.0.56",
@@ -402,7 +447,7 @@
     "type": "feature",
     "isBugFix": false,
     "title": "升級自定義模式：支援拖曳分配小組號與雙擊旋轉座位方向",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "在自定義模式中加入了兩個重要功能：可以將小組號碼牌直接拖曳到座位上來分配組別，以及雙擊座位即可旋轉其方向（橫向/直向）。"
   },
   {
     "version": "v1.0.55",
@@ -411,7 +456,7 @@
     "type": "feature",
     "isBugFix": false,
     "title": "新增自定義分組模式：可自由編輯座位版面配置",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "全新的「自定義分組模式」讓老師可以完全自由地設計教室的座位配置，包括新增、刪除、拖曳移動座位，以及自行定義每個座位所屬的小組。"
   },
   {
     "version": "v1.0.54",
@@ -420,7 +465,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "擴大一般模式的版面範圍，避免座位互相重疊",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "擴大了一般模式中座位的可用範圍，解決當行列數較多時座位會互相重疊的問題。"
   },
   {
     "version": "v1.0.53",
@@ -429,7 +474,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "調整座位版面範圍，解決座位重疊問題",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "微調座位的 X/Y 座標計算公式，解決在特定行列組合下座位會重疊的問題。"
   },
   {
     "version": "v1.0.52",
@@ -438,7 +483,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "新增 GitHub Actions 自動部署流程，解決 GitHub Pages 部署逾時問題",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "建立了完整的 GitHub Actions CI/CD 工作流程，取代原本的手動部署，解決了 GitHub Pages 經常部署逾時失敗的問題。"
   },
   {
     "version": "v1.0.51",
@@ -447,7 +492,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "強制產生新的網頁版本快取",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "強制觸發一次新的建置，确保網頁的網址不會因瀏覽器快取而显示舊版內容。"
   },
   {
     "version": "v1.0.50",
@@ -456,7 +501,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "重試 GitHub Pages 部署",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "重新觸發 GitHub Pages 部署流程。"
   },
   {
     "version": "v1.0.49",
@@ -465,7 +510,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "修正部署腳本：加入 .nojekyll 檔案解決 GitHub Actions 部署失敗",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "在 gh-pages 部署腳本中加入 --nojekyll 參數，解決 GitHub Pages 將專案的底線開頭檔案視為 Jekyll 特殊檔案而忽略的問題。"
   },
   {
     "version": "v1.0.48",
@@ -474,7 +519,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "修復 GitHub Pages 部署：加入 .nojekyll 檔案",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "在專案根目錄加入 .nojekyll 空檔案，告訴 GitHub Pages 不要使用 Jekyll 渲染，解決部署失敗的問題。"
   },
   {
     "version": "v1.0.47",
@@ -483,7 +528,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "觸發重新建置",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "觸發一次新的建置以測試部署流程。"
   },
   {
     "version": "v1.0.46",
@@ -492,7 +537,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "修復設施標籤過大問題：將單位從 cqw 改為 px 避免縮放失控",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "將門、講台等設施標籤的字體大小從 cqw（容器查詢寬度）改為固定的 px 單位，解決了在某些螢幕尺寸下標籤文字會變得巨大的問題。"
   },
   {
     "version": "v1.0.45",
@@ -501,7 +546,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "調整小組模式座位座標，避免與門、講台等設施重疊",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "微調了小組模式的座位座標，避免座位與教室的門、講台等靜態設施發生位置重疊。"
   },
   {
     "version": "v1.0.44",
@@ -510,7 +555,7 @@
     "type": "bugfix",
     "isBugFix": true,
     "title": "修正一般模式座位方向：應為橫向排列",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "修正了一般模式下座位的方向，從錯誤的直向改為橫向，以符合實際教室的座位擺放方式。"
   },
   {
     "version": "v1.0.43",
@@ -519,7 +564,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "修復一般模式座位形狀與教室容器縮放邏輯",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "修復了一般模式的座位形狀顯示異常，並將教室容器的縮放邏輯還原為 V1 版本的穩定方案。"
   },
   {
     "version": "v1.0.42",
@@ -528,7 +573,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "優化淺色主題介面與還原座位比例",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "針對淺色主題調整了按鈕、卡片、背景等的顏色對比度，並將座位的寬高比例還原為更合理的數值。"
   },
   {
     "version": "v1.0.41",
@@ -537,7 +582,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "修復淺色模式按鈕可見度與橫向版面座位重疊問題",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "修復了淺色主題下按鈕文字顏色太淡導致看不見的問題，並解決了橫向版面中座位互相重疊的問題。"
   },
   {
     "version": "v1.0.40",
@@ -546,7 +591,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "修復鎖定按鈕可見度、淺色主題對比度與一般模式版面",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "一次修復了三個介面問題：座位的鎖定按鈕在某些情況下看不見、淺色主題的整體對比度不足、以及一般模式的座位版面異常。"
   },
   {
     "version": "v1.0.39",
@@ -555,7 +600,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "V2.0 架構大重構：模組化設計、PWA 離線支援、Framer Motion 動畫引擎",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "將整個專案從單一檔案全面重構為模組化架構：將狀態管理抽離為 useSeating hook、將介面拆分為 Header/Sidebar/ClassroomArea/Seat 等獨立元件、加入 PWA 支援以實現離線使用、以及導入 Framer Motion 實現座位切換的流暢動畫效果。"
   },
   {
     "version": "v1.0.38",
@@ -564,7 +609,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "在原始碼與主控台加入隱藏版權資訊彩蛋",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "在網頁的原始碼註解與瀏覽器主控台中加入了隱藏的開發者版權資訊與彩蛋。"
   },
   {
     "version": "v1.0.37",
@@ -573,7 +618,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "在網頁右上角與右下角加入版權浮水印",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "在網頁介面的右上角和右下角加入了半透明的版權浮水印文字。"
   },
   {
     "version": "v1.0.36",
@@ -582,7 +627,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "新增白底 JPEG 匯出選項，並修復 PPTX 匯出的座位比例問題",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "新增了「白底圖檔」匯出選項，讓老師可以選擇匯出黑底或白底的 JPEG 圖片。同時修復了 PPTX 匯出時座位大小不一致的問題。"
   },
   {
     "version": "v1.0.35",
@@ -591,7 +636,7 @@
     "type": "update",
     "isBugFix": false,
     "title": "修復 PPTX 座位重疊問題，並在 JPEG 匯出時隱藏多餘的介面元素",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "修復了 PPTX 匯出時座位互相重疊的問題（改用等比例縮放），並在 JPEG 匯出時自動隱藏按鈕、提示文字等介面元素，確保匯出的圖片乾淨專業。"
   },
   {
     "version": "v1.0.34",
@@ -600,6 +645,6 @@
     "type": "update",
     "isBugFix": false,
     "title": "新增警告提示：當學生數超過座位數時自動提醒",
-    "details": "優化了系統內部穩定性與細節操作體驗。"
+    "details": "當使用者上傳的學生數量超過目前版面的座位數量時，系統會彈出明確的警告視窗告知，避免老師以為系統當機。"
   }
 ]

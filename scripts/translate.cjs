@@ -38,13 +38,13 @@ const translations = {
   "UI: set default layout to standard mode and reorder mode buttons with rename to U型小組模式": "優化介面：設定初次載入預設為「一般模式」，並將小組模式移至最後且更名為「U型小組模式」",
   "UI: add step-by-step usage guide for custom mode in sidebar": "新增教學：在自定義模式的側邊欄加入簡單 5 步驟的使用流程引導",
   "UI: change custom mode add seats to use a numeric input field for adding multiple seats at once": "優化介面：自定義模式改為「座位總數」輸入框，支援一口氣新增指定數量的座位",
-  "UI: change custom mode seat input to set total seats instead of adding incrementally": "升級排版功能：自定義模式可直接輸入「座位總數」，系統會自動重新產生方正網格排列",
+  "UI: change custom mode seat input to set total seats instead of adding incrementally": "在自定義模式中，原本新增座位是一顆顆慢慢加，現在改為直接輸入「需要的座位總數」，系統就會自動幫您產生對應數量的方正網格座位，方便老師後續拖曳微調！",
   "automatically exit edit layout mode when switching between layout modes to prevent dragging seats in standard modes": "修復切換模式的錯誤：現在切換版面時會自動退出編輯狀態，避免在一般模式下座位也能被拖曳的問題",
   "UI: dramatically increase visibility of background grid during layout editing to help users align seats": "強化格線：大幅提升自定義模式編輯時的背景格線可見度，新增雙層主副格線系統",
   "UI: remove classroom border shadow and add dynamic full-screen crosshairs when dragging seats to perfectly align them": "新增十字線對齊輔助：拖曳座位時會即時顯示貫穿全教室的藍色十字定位線",
   "Fix: stop mouse down propagation on seat delete button to prevent drag interception": "修復刪除按鈕：解決編輯模式中紅色叉叉無法點擊的問題",
   "Fix: correctly isolate deleted seats between different layout modes by clearing hidden state on switch": "修復模式隔離：不同版面模式間的座位刪除不再互相干擾",
-  "feat: add snapshot system to temporarily save and restore seat arrangements across all layout modes": "新增「暫存座位表」：可隨時儲存目前的排版畫面，之後再載入還原",
+  "feat: add snapshot system to temporarily save and restore seat arrangements across all layout modes": "在側邊欄加入了全新的「暫存座位表」功能。當您好不容易排好版面，或是想嘗試其他排法但又怕回不去時，只要點擊暫存，系統就會把當下包含版面模式、座位座標、學生位置等所有資訊都備份起來，隨時可以一鍵還原！",
   "Docs: translate recent changelogs to Chinese with full details": "更新紀錄維護：將最近所有更新紀錄補上完整的中文翻譯與詳細說明",
   "Docs: translate recent changelog entries to Traditional Chinese with detailed descriptions": "更新紀錄維護：將所有更新紀錄翻譯成繁體中文並加入詳細描述",
   "overhaul light mode colors to greatly improve readability and contrast": "全面重新設計淺色主題的配色方案，大幅提升文字可讀性與對比度",
@@ -85,7 +85,16 @@ const translations = {
   "Add watermark to the top-right and bottom-right of the web page": "在網頁右上角與右下角加入版權浮水印",
   "Add white background JPEG export option and fix PPTX layout ratio for identical seat sizes": "新增白底 JPEG 匯出選項，並修復 PPTX 匯出的座位比例問題",
   "Fix PPTX overlap by scaling proportionally and hide UI elements in JPEG export": "修復 PPTX 座位重疊問題，並在 JPEG 匯出時隱藏多餘的介面元素",
-  "Add alert when student count exceeds seat capacity": "新增警告提示：當學生數超過座位數時自動提醒"
+  "Add alert when student count exceeds seat capacity": "新增警告提示：當學生數超過座位數時自動提醒",
+  "stop mouse down propagation on seat delete button to prevent drag interception": "修復刪除按鈕：解決編輯模式中紅色叉叉無法點擊的問題",
+  "correctly isolate deleted seats between different layout modes by clearing hidden state on switch": "修復模式隔離：不同版面模式間的座位刪除不再互相干擾",
+  "add snapshot system to temporarily save and restore seat arrangements across all layout modes": "新增「暫存座位表」：可隨時手動儲存目前的排版畫面並還原",
+  "Docs: translate all recent commits including grid, crosshairs, delete fix, mode isolation and snapshot feature": "更新紀錄維護：將所有近期提交紀錄翻譯為繁體中文",
+  "Docs: translate remaining changelogs to Chinese with full details": "更新紀錄維護：補齊所有歷史更新紀錄的中文詳細說明",
+  "make snapshot system automatic on major layout and assignment changes": "升級「自動暫存紀錄」：系統會在排座、清空或切換模式前自動備份",
+  "resolve conflict between single-click seat binding and double-click rotation": "修復點擊衝突：解決雙擊旋轉座位與點擊指定學生視窗的干擾問題",
+  "use manual timestamp logic for double click to bypass draggable interference": "強化雙擊偵測：重寫底層雙擊邏輯，解決無法旋轉座位的問題",
+  "allow deleting extra seats in standard layout mode": "一般模式升級：新增「刪除多餘座位」功能，可自由隱藏不需要的座位"
 };
 
 const detailTranslations = {
