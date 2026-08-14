@@ -323,10 +323,24 @@ export default function Sidebar({
                       );
                     })()}
                   </div>
+                  <div style={{ display: 'flex', gap: '5px', marginTop: '8px' }}>
+                    {(() => {
+                      const isActive = activeGroupBrush === 'ROTATE';
+                      return (
+                        <button
+                          onClick={() => setActiveGroupBrush(isActive ? null : 'ROTATE')}
+                          className={`action-btn ${isActive ? 'primary' : 'outline'}`}
+                          style={{ flex: 1, fontSize: '11px', padding: '4px', display: 'flex', justifyContent: 'center', gap: '4px', border: '1px solid var(--border-color)', borderRadius: '4px', color: 'var(--text-color)' }}
+                        >
+                          🔄 旋轉座位
+                        </button>
+                      );
+                    })()}
+                  </div>
 
                   {activeGroupBrush !== null && (
                     <div style={{ marginTop: '8px', padding: '6px 8px', background: 'rgba(59, 130, 246, 0.15)', borderRadius: '4px', border: '1px solid rgba(59, 130, 246, 0.3)', fontSize: '11px', color: '#93c5fd' }}>
-                      🖌️ 筆刷模式中：點擊任意座位立即設為「{activeGroupBrush === 0 ? '無組別' : `第 ${activeGroupBrush} 組`}」
+                      🖌️ 筆刷模式中：點擊任意座位立即執行「{activeGroupBrush === 0 ? '清除組別' : activeGroupBrush === 'ROTATE' ? '旋轉座位' : `設為第 ${activeGroupBrush} 組`}」
                     </div>
                   )}
                 </div>
@@ -344,7 +358,7 @@ export default function Sidebar({
                       />
                     </label>
                     <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
-                      <span style={{color: 'var(--text-muted)', fontSize: '11px'}}>(也可直接從上方拖曳號碼，或雙擊座位旋轉)</span>
+                      <span style={{color: 'var(--text-muted)', fontSize: '11px'}}>(也可直接從上方拖曳號碼，或使用旋轉筆刷)</span>
                     </label>
                     <button 
                       className="icon-btn danger" 

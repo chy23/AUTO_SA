@@ -15,7 +15,7 @@ export default function Seat({
   isSelected,
   onSelect,
   onMouseDown,
-  onDoubleClick,
+  onRotate,
   activeGroupBrush,
   onAssignGroup,
   onSeatClick
@@ -23,49 +23,23 @@ export default function Seat({
   const [isDragOver, setIsDragOver] = useState(false);
   const isLocked = assignment?.isLocked;
   const groupId = seat.groupId ?? 0;
-  const clickTimeout = useRef(null);
-  const lastClickTime = useRef(0);
-
   const handleClick = (e) => {
     e.stopPropagation();
     
-    const currentTime = new Date().getTime();
-    const timeDiff = currentTime - lastClickTime.current;
-    
-    if (timeDiff < 300) {
-      // It's a double click!
-      if (clickTimeout.current !== null) {
-        clearTimeout(clickTimeout.current);
-        clickTimeout.current = null;
+    if (isEditingLayout) {
+      if (activeGroupBrush === 'DELETE') {
+        onDelete(seat.id);
+      } else if (activeGroupBrush === 'ROTATE') {
+        if (onRotate) onRotate(seat.id);
+      } else if (activeGroupBrush !== null && onAssignGroup) {
+        onAssignGroup(seat.id, activeGroupBrush);
+      } else {
+        onSelect(seat.id);
       }
-      if (onDoubleClick) {
-        onDoubleClick(seat.id);
-      }
-      lastClickTime.current = 0; // reset to prevent triple-click bugs
+    } else if (isDeletingSeat) {
+      onDelete(seat.id);
     } else {
-      // It's a single click (for now)
-      lastClickTime.current = currentTime;
-      
-      if (clickTimeout.current !== null) {
-        clearTimeout(clickTimeout.current);
-      }
-      
-      clickTimeout.current = setTimeout(() => {
-        clickTimeout.current = null;
-        if (isEditingLayout) {
-          if (activeGroupBrush === 'DELETE') {
-            onDelete(seat.id);
-          } else if (activeGroupBrush !== null && onAssignGroup) {
-            onAssignGroup(seat.id, activeGroupBrush);
-          } else {
-            onSelect(seat.id);
-          }
-        } else if (isDeletingSeat) {
-          onDelete(seat.id);
-        } else {
-          if (onSeatClick) onSeatClick(seat.id);
-        }
-      }, 300); // 300ms delay
+      if (onSeatClick) onSeatClick(seat.id);
     }
   };
 

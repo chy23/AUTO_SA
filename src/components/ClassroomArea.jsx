@@ -124,8 +124,7 @@ export default function ClassroomArea({ seating, classroomRef, onSeatClick }) {
     }
   };
 
-  const handleSeatDoubleClick = (seatId) => {
-    if (layoutMode !== 'CUSTOM') return;
+  const handleSeatRotate = (seatId) => {
     const seat = currentMap.seats.find(s => s.id === seatId);
     if (seat) {
       updateCustomSeat(seatId, { shape: seat.shape === 'vertical' ? 'horizontal' : 'vertical' });
@@ -200,7 +199,7 @@ export default function ClassroomArea({ seating, classroomRef, onSeatClick }) {
               isSelected={selectedSeatId === seat.id}
               onSelect={setSelectedSeatId}
               onMouseDown={handleSeatMouseDown}
-              onDoubleClick={handleSeatDoubleClick}
+              onRotate={handleSeatRotate}
               onSeatClick={onSeatClick}
               activeGroupBrush={activeGroupBrush}
               onAssignGroup={(id, g) => updateCustomSeat(id, { groupId: g })}
