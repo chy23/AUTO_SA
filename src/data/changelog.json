@@ -1,12 +1,21 @@
 [
   {
+    "version": "v1.0.94",
+    "hash": "b6962aab77e3076f983fe3788cd37aea8e1c9f15",
+    "date": "2026-08-14T17:24:22+08:00",
+    "type": "bugfix",
+    "isBugFix": true,
+    "title": "修復切換模式的錯誤：現在切換版面時會自動退出編輯狀態，避免在一般模式下座位也能被拖曳的問題",
+    "details": "修復了一個系統邏輯錯誤：原本在自定義模式開啟「編輯」後若直接切換到其他模式，編輯狀態並未解除，導致一般模式的座位也能被意外拖曳。現在切換任何模式都會自動退出編輯狀態，確保系統穩定。"
+  },
+  {
     "version": "v1.0.93",
     "hash": "e337168a402e0e7f89be828228529154b112e354",
     "date": "2026-08-14T17:22:55+08:00",
     "type": "update",
     "isBugFix": false,
-    "title": "UI: change custom mode seat input to set total seats instead of adding incrementally",
-    "details": ""
+    "title": "升級排版功能：自定義模式可直接輸入「座位總數」，系統會自動重新產生方正網格排列",
+    "details": "大幅優化自定義模式的座位產生邏輯：現在改為直接輸入「座位總數」，點擊重新產生後，系統會自動將該數量的座位排列成完美的方正網格陣型，大幅減少老師手動把座位排整齊的時間！"
   },
   {
     "version": "v1.0.92",
@@ -14,8 +23,8 @@
     "date": "2026-08-14T17:20:07+08:00",
     "type": "update",
     "isBugFix": false,
-    "title": "UI: change custom mode add seats to use a numeric input field for adding multiple seats at once",
-    "details": ""
+    "title": "優化介面：自定義模式改為「座位總數」輸入框，支援一口氣新增指定數量的座位",
+    "details": "將自定義模式中原本固定的「+1」和「+5」新增座位按鈕，升級為一個可自由輸入數字的輸入框，讓老師可以直接輸入想要的座位數量（例如 30），點擊後即可一次產生對應數量的座位。"
   },
   {
     "version": "v1.0.91",
@@ -23,8 +32,8 @@
     "date": "2026-08-14T17:16:57+08:00",
     "type": "update",
     "isBugFix": false,
-    "title": "UI: add step-by-step usage guide for custom mode in sidebar",
-    "details": ""
+    "title": "新增教學：在自定義模式的側邊欄加入簡單 5 步驟的使用流程引導",
+    "details": "在「自定義模式」的側邊欄最上方新增了一個醒目的「簡單 5 步驟」提示區塊，明確引導使用者如何點擊編輯、新增座位、拖曳排版、使用筆刷分組，最後完成入座的完整流程。"
   },
   {
     "version": "v1.0.90",
@@ -32,8 +41,8 @@
     "date": "2026-08-14T17:14:36+08:00",
     "type": "update",
     "isBugFix": false,
-    "title": "UI: set default layout to standard mode and reorder mode buttons with rename to U型小組模式",
-    "details": ""
+    "title": "優化介面：設定初次載入預設為「一般模式」，並將小組模式移至最後且更名為「U型小組模式」",
+    "details": "將網站初次開啟時的預設版面改為最常用的「一般模式」，並將右上角的版面切換按鈕依序調整為「一般模式、自定義模式、U型小組模式」，同時將小組模式更名，使其更貼近實際排版形狀。"
   },
   {
     "version": "v1.0.89",
@@ -41,8 +50,8 @@
     "date": "2026-08-14T17:11:49+08:00",
     "type": "feature",
     "isBugFix": false,
-    "title": "add clear seats button to allow clearing assignments without removing students",
-    "details": ""
+    "title": "新增「清空座位」功能：支援一鍵清除所有已排好的座位，但保留學生名單",
+    "details": "在側邊欄加入紅色的「清空座位」按鈕，當老師想要重新手動安排或覺得排出來的座位不滿意時，可以直接把所有排好的座位一鍵清空，且不會刪除原本已經匯入的學生名單，省去重新上傳的麻煩。"
   },
   {
     "version": "v1.0.88",
@@ -50,8 +59,8 @@
     "date": "2026-08-14T17:08:20+08:00",
     "type": "bugfix",
     "isBugFix": true,
-    "title": "correct import error in changelog generator that caused manual translations to be overwritten",
-    "details": ""
+    "title": "修復腳本錯誤：解決更新紀錄在雲端部署時意外覆蓋翻譯紀錄的問題",
+    "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {
     "version": "v1.0.87",
@@ -59,7 +68,7 @@
     "date": "2026-08-14T17:07:18+08:00",
     "type": "update",
     "isBugFix": false,
-    "title": "UI: change changelog button text to '更新紀錄'",
+    "title": "優化介面：將標題旁的版本號按鈕文字改為「更新紀錄」",
     "details": "優化了系統內部穩定性與細節操作體驗。"
   },
   {

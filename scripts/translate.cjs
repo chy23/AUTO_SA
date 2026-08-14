@@ -31,14 +31,34 @@ const translations = {
   "implement full layout generation logic for group mode and standard modes": "實作小組模式與一般模式的自動排版邏輯",
   "add UI components for Sidebar, ClassroomArea and modals": "新增側邊欄、教室主要區域與設定對話窗等核心介面元件",
   "add fetch-depth 0 to GitHub Actions checkout to fetch full git history for changelog generation": "修正 GitHub Actions 部署設定，確保更新紀錄能抓取到完整的歷史資料",
-  "dynamically fetch changelog to preserve initial 50 commits and append future updates": "優化更新紀錄抓取邏輯：永久保留最初的 50 筆紀錄並動態疊加未來所有的更新"
+  "dynamically fetch changelog to preserve initial 50 commits and append future updates": "優化更新紀錄抓取邏輯：永久保留最初的 50 筆紀錄並動態疊加未來所有的更新",
+  "correct import error in changelog generator that caused manual translations to be overwritten": "修復腳本錯誤：解決更新紀錄在雲端部署時意外覆蓋翻譯紀錄的問題",
+  "UI: change changelog button text to '更新紀錄'": "優化介面：將標題旁的版本號按鈕文字改為「更新紀錄」",
+  "add clear seats button to allow clearing assignments without removing students": "新增「清空座位」功能：支援一鍵清除所有已排好的座位，但保留學生名單",
+  "UI: set default layout to standard mode and reorder mode buttons with rename to U型小組模式": "優化介面：設定初次載入預設為「一般模式」，並將小組模式移至最後且更名為「U型小組模式」",
+  "UI: add step-by-step usage guide for custom mode in sidebar": "新增教學：在自定義模式的側邊欄加入簡單 5 步驟的使用流程引導",
+  "UI: change custom mode add seats to use a numeric input field for adding multiple seats at once": "優化介面：自定義模式改為「座位總數」輸入框，支援一口氣新增指定數量的座位",
+  "UI: change custom mode seat input to set total seats instead of adding incrementally": "升級排版功能：自定義模式可直接輸入「座位總數」，系統會自動重新產生方正網格排列",
+  "automatically exit edit layout mode when switching between layout modes to prevent dragging seats in standard modes": "修復切換模式的錯誤：現在切換版面時會自動退出編輯狀態，避免在一般模式下座位也能被拖曳的問題"
 };
 
 const detailTranslations = {
   "implement automated changelog modal fetching last 50 commits": "實作自動抓取前 50 次提交紀錄的更新紀錄對話窗，並自動將紀錄透過精美時間軸呈現，系統會在每次部署時自動抓取最新進度。",
   "leave seats empty on student list upload to allow manual pre-assignment before auto-assignment": "為了讓老師能事先把特定學生安排在特殊座位（例如講桌旁），現在匯入名單後不再立刻自動排滿，而是留空讓老師先綁定特定座位後，再執行自動排座。",
   "adjacency constraints failing in sparse/custom grids by replacing hardcoded threshold with nearest-neighbor detection": "過去的演算法使用固定像素距離來判斷是否相鄰，導致在老師自己隨意拉動座位的「自定義版面」中判斷常常失準。現在升級為 Nearest-Neighbor 動態偵測，能精準找出每個座位周遭的鄰居，讓「不能相鄰」與「必須相鄰」的條件在任何畸形版面都能完美生效！",
-  "support grouping in custom mode by automatically dividing students into groups of 4 based on spatial proximity using K-Means clustering": "在自定義版面中，老師排出的形狀可能千奇百怪。為了能自動分配小組號碼，我們導入了 K-Means 機器學習分群演算法，它會分析畫面上所有座位的 X, Y 座標，聰明地將距離相近的座位聚集成 4 人一組的小組！"
+  "support grouping in custom mode by automatically dividing students into groups of 4 based on spatial proximity using K-Means clustering": "在自定義版面中，老師排出的形狀可能千奇百怪。為了能自動分配小組號碼，我們導入了 K-Means 機器學習分群演算法，它會分析畫面上所有座位的 X, Y 座標，聰明地將距離相近的座位聚集成 4 人一組的小組！",
+  "add clear seats button to allow clearing assignments without removing students": "在側邊欄加入紅色的「清空座位」按鈕，當老師想要重新手動安排或覺得排出來的座位不滿意時，可以直接把所有排好的座位一鍵清空，且不會刪除原本已經匯入的學生名單，省去重新上傳的麻煩。",
+  "新增「清空座位」功能：支援一鍵清除所有已排好的座位，但保留學生名單": "在側邊欄加入紅色的「清空座位」按鈕，當老師想要重新手動安排或覺得排出來的座位不滿意時，可以直接把所有排好的座位一鍵清空，且不會刪除原本已經匯入的學生名單，省去重新上傳的麻煩。",
+  "UI: set default layout to standard mode and reorder mode buttons with rename to U型小組模式": "將網站初次開啟時的預設版面改為最常用的「一般模式」，並將右上角的版面切換按鈕依序調整為「一般模式、自定義模式、U型小組模式」，同時將小組模式更名，使其更貼近實際排版形狀。",
+  "優化介面：設定初次載入預設為「一般模式」，並將小組模式移至最後且更名為「U型小組模式」": "將網站初次開啟時的預設版面改為最常用的「一般模式」，並將右上角的版面切換按鈕依序調整為「一般模式、自定義模式、U型小組模式」，同時將小組模式更名，使其更貼近實際排版形狀。",
+  "UI: add step-by-step usage guide for custom mode in sidebar": "在「自定義模式」的側邊欄最上方新增了一個醒目的「簡單 5 步驟」提示區塊，明確引導使用者如何點擊編輯、新增座位、拖曳排版、使用筆刷分組，最後完成入座的完整流程。",
+  "新增教學：在自定義模式的側邊欄加入簡單 5 步驟的使用流程引導": "在「自定義模式」的側邊欄最上方新增了一個醒目的「簡單 5 步驟」提示區塊，明確引導使用者如何點擊編輯、新增座位、拖曳排版、使用筆刷分組，最後完成入座的完整流程。",
+  "UI: change custom mode add seats to use a numeric input field for adding multiple seats at once": "將自定義模式中原本固定的「+1」和「+5」新增座位按鈕，升級為一個可自由輸入數字的輸入框，讓老師可以直接輸入想要的座位數量（例如 30），點擊後即可一次產生對應數量的座位。",
+  "優化介面：自定義模式改為「座位總數」輸入框，支援一口氣新增指定數量的座位": "將自定義模式中原本固定的「+1」和「+5」新增座位按鈕，升級為一個可自由輸入數字的輸入框，讓老師可以直接輸入想要的座位數量（例如 30），點擊後即可一次產生對應數量的座位。",
+  "UI: change custom mode seat input to set total seats instead of adding incrementally": "大幅優化自定義模式的座位產生邏輯：現在改為直接輸入「座位總數」，點擊重新產生後，系統會自動將該數量的座位排列成完美的方正網格陣型，大幅減少老師手動把座位排整齊的時間！",
+  "升級排版功能：自定義模式可直接輸入「座位總數」，系統會自動重新產生方正網格排列": "大幅優化自定義模式的座位產生邏輯：現在改為直接輸入「座位總數」，點擊重新產生後，系統會自動將該數量的座位排列成完美的方正網格陣型，大幅減少老師手動把座位排整齊的時間！",
+  "automatically exit edit layout mode when switching between layout modes to prevent dragging seats in standard modes": "修復了一個系統邏輯錯誤：原本在自定義模式開啟「編輯」後若直接切換到其他模式，編輯狀態並未解除，導致一般模式的座位也能被意外拖曳。現在切換任何模式都會自動退出編輯狀態，確保系統穩定。",
+  "修復切換模式的錯誤：現在切換版面時會自動退出編輯狀態，避免在一般模式下座位也能被拖曳的問題": "修復了一個系統邏輯錯誤：原本在自定義模式開啟「編輯」後若直接切換到其他模式，編輯狀態並未解除，導致一般模式的座位也能被意外拖曳。現在切換任何模式都會自動退出編輯狀態，確保系統穩定。"
 };
 
 changelog.forEach(entry => {
