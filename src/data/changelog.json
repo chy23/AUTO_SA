@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.118",
+    "hash": "2541b151b4ed4fbd284cd9651ec405789f39f305",
+    "date": "2026-08-15T16:30:08+08:00",
+    "type": "update",
+    "isBugFix": false,
+    "title": "style: 提升自動排座位按鈕的視覺顯眼度並固定於底部",
+    "details": ""
+  },
+  {
     "version": "v1.0.117",
     "hash": "6a8ba836bdaedfaab72749a29c715a00ed65e41e",
     "date": "2026-08-15T16:21:13+08:00",

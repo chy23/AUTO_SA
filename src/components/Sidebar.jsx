@@ -429,7 +429,13 @@ export default function Sidebar({
             ) : (
               <ul style={{ listStyle: 'none', margin: 0, padding: 0, maxHeight: '150px', overflowY: 'auto' }}>
                 {snapshots.map(snap => (
-                  <li key={snap.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg-color)', padding: '6px 8px', borderRadius: '4px', marginBottom: '5px', border: '1px solid var(--border-color)' }}>
+                  <li 
+                    key={snap.id} 
+                    onClick={() => { if (window.confirm('確定要載入此暫存嗎？這將會覆蓋目前的畫面與設定！')) loadSnapshot(snap.id); }}
+                    className="snapshot-item"
+                    style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg-color)', padding: '6px 8px', borderRadius: '4px', marginBottom: '5px', border: '1px solid var(--border-color)', cursor: 'pointer', transition: 'all 0.2s' }}
+                    title="點擊載入此暫存紀錄"
+                  >
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                       <span style={{ fontSize: '11px', fontWeight: 'bold', color: 'var(--text-color)' }}>{snap.timeString}</span>
                       <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>
@@ -437,10 +443,13 @@ export default function Sidebar({
                       </span>
                     </div>
                     <div style={{ display: 'flex', gap: '4px' }}>
-                      <button onClick={() => { if (window.confirm('確定要載入此暫存嗎？這將會覆蓋目前的畫面與設定！')) loadSnapshot(snap.id); }} style={{ fontSize: '10px', padding: '2px 6px', background: 'var(--btn-secondary-bg)', color: 'var(--text-main)', border: '1px solid var(--border-color)', borderRadius: '4px', cursor: 'pointer' }}>
-                        載入
-                      </button>
-                      <button onClick={() => deleteSnapshot(snap.id)} style={{ fontSize: '10px', padding: '2px 6px', background: 'none', color: '#ef4444', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: '4px', cursor: 'pointer' }}>
+                      <button 
+                        onClick={(e) => { e.stopPropagation(); deleteSnapshot(snap.id); }} 
+                        style={{ fontSize: '10px', padding: '2px 6px', background: 'none', color: '#ef4444', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: '4px', cursor: 'pointer', transition: 'all 0.2s' }}
+                        onMouseOver={(e) => { e.currentTarget.style.background = 'rgba(239, 68, 68, 0.1)'; }}
+                        onMouseOut={(e) => { e.currentTarget.style.background = 'none'; }}
+                        title="刪除"
+                      >
                         刪除
                       </button>
                     </div>

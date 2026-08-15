@@ -584,6 +584,12 @@ select:focus, input:focus {
   opacity: 0.6;
 }
 
+.snapshot-item:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  transform: translateY(-1px);
+}
+
 /* White Mode Export Styles */
 .classroom.export-white {
   background: #ffffff !important;
