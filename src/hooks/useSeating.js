@@ -161,7 +161,31 @@ export const useSeating = () => {
     setSnapshots(prev => [newSnapshot, ...prev].slice(0, 10));
   };
 
-  const [snapshots, setSnapshots] = useLocalStorage('auto_sa_snapshots', []);
+  const [keepSnapshots, setKeepSnapshots] = useLocalStorage('auto_sa_keep_snapshots', false);
+  
+  const [snapshots, setSnapshots] = useState(() => {
+    try {
+      const keep = window.localStorage.getItem('auto_sa_keep_snapshots');
+      const keepBool = keep ? JSON.parse(keep) : false;
+      if (keepBool) {
+        const item = window.localStorage.getItem('auto_sa_snapshots');
+        return item ? JSON.parse(item) : [];
+      } else {
+        window.localStorage.removeItem('auto_sa_snapshots');
+        return [];
+      }
+    } catch (e) {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    if (keepSnapshots) {
+      window.localStorage.setItem('auto_sa_snapshots', JSON.stringify(snapshots));
+    } else {
+      window.localStorage.removeItem('auto_sa_snapshots');
+    }
+  }, [snapshots, keepSnapshots]);
 
   const loadSnapshot = (id) => {
     const snapshot = snapshots.find(s => s.id === id);
@@ -396,6 +420,7 @@ export const useSeating = () => {
     saveCustomStaticItems,
     resetCustomMap,
     clearAllCustomGroups,
+    keepSnapshots, setKeepSnapshots,
     snapshots,
     saveSnapshot,
     loadSnapshot,

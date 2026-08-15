@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.120",
+    "hash": "e38b5d3be2d94dbaaef06ec99cfdb47b8e6cc314",
+    "date": "2026-08-15T16:39:58+08:00",
+    "type": "feature",
+    "isBugFix": false,
+    "title": "不同模式的暫存紀錄各自獨立，互不干擾",
+    "details": ""
+  },
+  {
     "version": "v1.0.119",
     "hash": "5a7888acfd4912a476d39222b42ddf73003068db",
     "date": "2026-08-15T16:33:58+08:00",

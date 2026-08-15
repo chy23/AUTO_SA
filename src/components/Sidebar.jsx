@@ -31,7 +31,8 @@ export default function Sidebar({
     clearSnapshots,
     isDeletingSeat, setIsDeletingSeat,
     isRotatingSeat, setIsRotatingSeat,
-    rotatedSeatIds, setRotatedSeatIds
+    rotatedSeatIds, setRotatedSeatIds,
+    keepSnapshots, setKeepSnapshots
   } = seating;
 
   const [customSeatCount, setCustomSeatCount] = React.useState(1);
@@ -407,7 +408,18 @@ export default function Sidebar({
 
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-              <h3 style={{ fontSize: '13px', margin: 0, color: 'var(--text-color)' }}>自動暫存紀錄</h3>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <h3 style={{ fontSize: '13px', margin: 0, color: 'var(--text-color)' }}>自動暫存紀錄</h3>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '10px', color: 'var(--text-muted)', cursor: 'pointer' }}>
+                  <input 
+                    type="checkbox" 
+                    checked={keepSnapshots} 
+                    onChange={e => setKeepSnapshots(e.target.checked)} 
+                    style={{ margin: 0 }}
+                  />
+                  保留紀錄
+                </label>
+              </div>
               {filteredSnapshots.length > 0 && (
                 <button 
                   className="icon-btn" 
