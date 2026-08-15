@@ -182,8 +182,12 @@ export const useSeating = () => {
     setSnapshots(prev => prev.filter(s => s.id !== id));
   };
 
-  const clearSnapshots = () => {
-    setSnapshots([]);
+  const clearSnapshots = (modeToClear = null) => {
+    if (modeToClear) {
+      setSnapshots(prev => prev.filter(s => s.layoutMode !== modeToClear));
+    } else {
+      setSnapshots([]);
+    }
   };
 
   const clearSeats = () => {

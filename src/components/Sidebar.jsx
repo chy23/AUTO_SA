@@ -56,6 +56,8 @@ export default function Sidebar({
     setRules(rules.filter(r => r.id !== id));
   };
 
+  const filteredSnapshots = snapshots.filter(s => s.layoutMode === layoutMode);
+
   return (
     <aside className="sidebar">
       {/* 區塊 A: 排版與佈局 */}
@@ -406,29 +408,29 @@ export default function Sidebar({
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
               <h3 style={{ fontSize: '13px', margin: 0, color: 'var(--text-color)' }}>自動暫存紀錄</h3>
-              {snapshots.length > 0 && (
+              {filteredSnapshots.length > 0 && (
                 <button 
                   className="icon-btn" 
                   onClick={() => {
-                    if (window.confirm('確定要清空所有暫存紀錄嗎？此動作無法復原！')) {
-                      clearSnapshots();
+                    if (window.confirm('確定要清空當前模式的所有暫存紀錄嗎？此動作無法復原！')) {
+                      clearSnapshots(layoutMode);
                     }
                   }}
-                  title="清空所有暫存紀錄"
+                  title="清空當前模式的所有暫存紀錄"
                   style={{ padding: '2px', color: 'var(--text-muted)' }}
                 >
                   <Trash2 size={14} />
                 </button>
               )}
             </div>
-            {snapshots.length === 0 ? (
+            {filteredSnapshots.length === 0 ? (
               <div style={{ fontSize: '12px', color: 'var(--text-muted)', textAlign: 'center', padding: '15px 0', background: 'rgba(0,0,0,0.1)', borderRadius: '6px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px' }}>
                 <span style={{ fontSize: '18px', opacity: 0.5 }}>📂</span>
                 尚無暫存紀錄
               </div>
             ) : (
               <ul style={{ listStyle: 'none', margin: 0, padding: 0, maxHeight: '150px', overflowY: 'auto' }}>
-                {snapshots.map(snap => (
+                {filteredSnapshots.map(snap => (
                   <li 
                     key={snap.id} 
                     onClick={() => { if (window.confirm('確定要載入此暫存嗎？這將會覆蓋目前的畫面與設定！')) loadSnapshot(snap.id); }}
