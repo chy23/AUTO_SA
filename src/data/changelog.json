@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.117",
+    "hash": "6a8ba836bdaedfaab72749a29c715a00ed65e41e",
+    "date": "2026-08-15T16:21:13+08:00",
+    "type": "feature",
+    "isBugFix": false,
+    "title": "大幅優化介面體驗 (UI/UX Overhaul)",
+    "details": "- 實作 Sidebar 收合式面板 (Accordion)，將設定分群為：排版與佈局、環境設定、資料與歷史，大幅減少畫面擁擠感\n- 升級視覺風格與微動效，加入毛玻璃效果 (Backdrop Blur)\n- 為所有按鈕加入點擊時的縮放動畫 (:active scale)\n- 美化「指定學生」視窗的搜尋框與學生卡片，加入 Hover 與 Focus 狀態\n- 於「尚無暫存紀錄」等空狀態處補上視覺 Icon 點綴"
+  },
+  {
     "version": "v1.0.116",
     "hash": "1b9d5f73dd70d782092fdf0bbf3b4258ee0a55a1",
     "date": "2026-08-14T19:46:21+08:00",

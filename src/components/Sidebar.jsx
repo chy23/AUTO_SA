@@ -453,7 +453,7 @@ export default function Sidebar({
       </details>
 
       {/* 固定在底部的核心操作區 */}
-      <div className="bottom-actions" style={{ marginTop: 'auto', paddingTop: '10px', borderTop: '1px solid var(--panel-border)' }}>
+      <div className="bottom-actions">
         <div style={{ display: 'flex', gap: '8px', marginBottom: '8px' }}>
           <button 
              className="secondary-btn" 

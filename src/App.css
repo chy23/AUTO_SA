@@ -540,15 +540,40 @@ select:focus, input:focus {
   background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
   color: white;
   border: none;
-  font-weight: 600;
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+  font-weight: 700;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
   transition: all 0.2s ease;
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7); }
+  70% { box-shadow: 0 0 0 12px rgba(139, 92, 246, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+}
+
+.auto-assign-btn:not(:disabled) {
+  animation: pulse-glow 2s infinite;
 }
 
 .auto-assign-btn:hover:not(:disabled) {
   background: linear-gradient(135deg, var(--primary-hover) 0%, #7c3aed 100%);
-  box-shadow: 0 6px 16px rgba(139, 92, 246, 0.5);
-  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(139, 92, 246, 0.6);
+  transform: translateY(-2px);
+}
+
+.bottom-actions {
+  position: sticky;
+  bottom: -1rem; /* Match sidebar padding to stick to the very edge */
+  background: rgba(30, 30, 45, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 1rem 0;
+  margin: auto -1rem -1rem -1rem; /* Negative margins to stretch across sidebar padding */
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-top: 1px solid var(--border-color);
+  z-index: 20;
 }
 
 .auto-assign-btn:disabled {
