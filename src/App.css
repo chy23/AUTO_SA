@@ -23,21 +23,96 @@
 
 /* Sidebar / Panels */
 .sidebar {
-  flex: 0 0 20%;
-  min-width: 250px;
+  width: 320px;
+  background: var(--panel-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-right: 1px solid var(--panel-border);
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  padding: 1rem;
+  gap: 1rem;
   overflow-y: auto;
+  box-shadow: 2px 0 15px rgba(0, 0, 0, 0.2);
 }
 
 .panel {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1rem;
+  backdrop-filter: blur(8px);
+}
+
+/* Accordion Styles */
+details.accordion-panel {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  backdrop-filter: blur(8px);
+  transition: background 0.3s ease;
+}
+
+details.accordion-panel[open] {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+details.accordion-panel summary {
+  padding: 0.8rem 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+}
+
+details.accordion-panel summary::-webkit-details-marker {
+  display: none;
+}
+
+details.accordion-panel summary::after {
+  content: '▼';
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  transition: transform 0.3s ease;
+}
+
+details.accordion-panel[open] summary::after {
+  transform: rotate(-180deg);
+}
+
+details.accordion-panel .accordion-content {
+  padding: 0 1rem 1rem 1rem;
+  animation: fadeInDown 0.2s ease-out;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-content {
   background: var(--panel-bg);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--panel-border);
-  border-radius: 16px;
-  padding: 1.5rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  animation: modalFadeIn 0.2s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 .panel h2 {
@@ -181,6 +256,10 @@ select:focus, input:focus {
 .primary-btn:hover {
   background: var(--primary-hover);
   transform: translateY(-1px);
+}
+
+.primary-btn:active, .secondary-btn:active, .action-btn:active, .icon-btn:active, .upload-btn:active {
+  transform: scale(0.97);
 }
 
 .secondary-btn {
@@ -334,7 +413,30 @@ select:focus, input:focus {
   writing-mode: vertical-rl;
   text-orientation: upright;
   letter-spacing: 2px;
-  margin-top: 4px;
+  margin-top: 10px;
+}
+
+.student-card {
+  padding: 8px 4px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: var(--item-bg);
+  color: var(--text-main);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: normal;
+  font-size: 0.9rem;
+}
+
+.student-card:hover {
+  background: var(--item-hover-bg);
+  border-color: var(--primary);
+}
+
+.student-card.current {
+  border: 2px solid var(--primary);
+  background: rgba(59, 130, 246, 0.15);
+  font-weight: bold;
 }
 
 .seat.horizontal {

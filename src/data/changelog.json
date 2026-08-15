@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.116",
+    "hash": "1b9d5f73dd70d782092fdf0bbf3b4258ee0a55a1",
+    "date": "2026-08-14T19:46:21+08:00",
+    "type": "feature",
+    "isBugFix": false,
+    "title": "add clear all snapshots button next to auto-snapshots section",
+    "details": ""
+  },
+  {
     "version": "v1.0.115",
     "hash": "09cd7e8a55fdd641fc0b8124e75b1f993ef1880b",
     "date": "2026-08-14T19:44:03+08:00",
