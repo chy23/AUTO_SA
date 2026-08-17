@@ -57,6 +57,69 @@ export default function Sidebar({
     setRules(rules.filter(r => r.id !== id));
   };
 
+  const exportSettings = () => {
+    const settingsKeys = [
+      'auto_sa_students', 'auto_sa_rules', 'auto_sa_layout_mode', 'auto_sa_last_group_mode',
+      'auto_sa_std_rows', 'auto_sa_std_cols', 'auto_sa_hidden_seats', 'auto_sa_rotated_seats',
+      'auto_sa_static_vis', 'auto_sa_custom_map', 'auto_sa_global_static_items',
+      'auto_sa_keep_snapshots', 'auto_sa_assignments'
+    ];
+    
+    const settingsData = {};
+    settingsKeys.forEach(key => {
+      const val = localStorage.getItem(key);
+      if (val) {
+        try {
+          settingsData[key] = JSON.parse(val);
+        } catch (e) {
+          console.warn(`Failed to parse ${key}`);
+        }
+      }
+    });
+
+    const blob = new Blob([JSON.stringify(settingsData, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `smart_seating_settings_${new Date().toISOString().slice(0, 10)}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  const importSettings = (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const data = JSON.parse(e.target.result);
+        if (typeof data !== 'object' || data === null) throw new Error("Invalid format");
+        
+        let importedCount = 0;
+        Object.keys(data).forEach(key => {
+          if (key.startsWith('auto_sa_')) {
+            localStorage.setItem(key, JSON.stringify(data[key]));
+            importedCount++;
+          }
+        });
+        
+        if (importedCount > 0) {
+          alert('設定匯入成功！即將重新載入頁面以套用設定。');
+          window.location.reload();
+        } else {
+          alert('檔案中沒有找到有效的設定資料。');
+        }
+      } catch (err) {
+        alert('檔案格式錯誤，匯入失敗。');
+      }
+      event.target.value = ''; // Reset input
+    };
+    reader.readAsText(file);
+  };
+
   const filteredSnapshots = snapshots.filter(s => s.layoutMode === layoutMode);
 
   return (
@@ -403,6 +466,19 @@ export default function Sidebar({
                    <ImageIcon size={14} style={{ marginRight: '4px' }}/> 白底圖檔
                  </button>
                </div>
+            </div>
+          </div>
+
+          <div style={{ marginBottom: '15px' }}>
+            <h3 style={{ fontSize: '13px', margin: '0 0 8px 0', color: 'var(--text-color)' }}>設定檔備份</h3>
+            <div style={{ display: 'flex', gap: '5px' }}>
+              <button className="secondary-btn" onClick={exportSettings} style={{ flex: 1, padding: '6px', fontSize: '12px' }}>
+                <Download size={14} style={{ marginRight: '4px' }}/> 匯出設定
+              </button>
+              <label className="secondary-btn" style={{ flex: 1, padding: '6px', fontSize: '12px', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 0 }}>
+                <Upload size={14} style={{ marginRight: '4px' }}/> 匯入設定
+                <input type="file" accept=".json" style={{ display: 'none' }} onChange={importSettings} />
+              </label>
             </div>
           </div>
 

@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.122",
+    "hash": "40dcd3d02ff102cf3d0e8346ddb5030223026459",
+    "date": "2026-08-17T17:24:29+08:00",
+    "type": "feature",
+    "isBugFix": false,
+    "title": "建立全新的智慧教室座位分配系統專屬 App Icon",
+    "details": ""
+  },
+  {
     "version": "v1.0.121",
     "hash": "a77a18154d764fa91157f9ee8633e86092200267",
     "date": "2026-08-15T16:48:09+08:00",
