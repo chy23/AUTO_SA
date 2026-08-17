@@ -7,7 +7,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg', 'apple-touch-icon.png', 'masked-icon.svg'],
+      includeAssets: ['icon.jpg', 'apple-touch-icon.png'],
       manifest: {
         name: '智慧教室座位分配系統',
         short_name: '座位分配',

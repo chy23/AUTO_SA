@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.121",
+    "hash": "a77a18154d764fa91157f9ee8633e86092200267",
+    "date": "2026-08-15T16:48:09+08:00",
+    "type": "feature",
+    "isBugFix": false,
+    "title": "新增「保留紀錄」設定切換機制，可選擇暫存是否在重整後保留",
+    "details": ""
+  },
+  {
     "version": "v1.0.120",
     "hash": "e38b5d3be2d94dbaaef06ec99cfdb47b8e6cc314",
     "date": "2026-08-15T16:39:58+08:00",
