@@ -150,51 +150,70 @@ export const assignSeats = (students, rules, currentMap, layoutMode, previousAss
     }
   }
 
-  // Initial shuffle among swappable indices
-  for (let i = swappableIndices.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    const idx1 = swappableIndices[i];
-    const idx2 = swappableIndices[j];
-    [currentAssignment[idx1].student, currentAssignment[idx2].student] = 
-    [currentAssignment[idx2].student, currentAssignment[idx1].student];
-  }
+  let globalBestAssignment = [...currentAssignment];
+  let globalBestScore = evaluateAssignment(currentAssignment, rules, currentMap);
 
-  let currentScore = evaluateAssignment(currentAssignment, rules, currentMap);
-  let bestAssignment = [...currentAssignment];
-  let bestScore = currentScore;
+  const RESTART_COUNT = 5;
+  const ITERATIONS = 10000;
 
-  const iterations = 5000;
   if (swappableIndices.length >= 2) {
-    for (let i = 0; i < iterations; i++) {
-      if (bestScore === 0) break;
-      
-      const newAssignment = [...currentAssignment];
-      const r1 = Math.floor(Math.random() * swappableIndices.length);
-      const r2 = Math.floor(Math.random() * swappableIndices.length);
-      const idx1 = swappableIndices[r1];
-      const idx2 = swappableIndices[r2];
-      
-      const temp = newAssignment[idx1].student;
-      newAssignment[idx1].student = newAssignment[idx2].student;
-      newAssignment[idx2].student = temp;
+    for (let restart = 0; restart < RESTART_COUNT; restart++) {
+      if (globalBestScore === 0) break;
 
-      const newScore = evaluateAssignment(newAssignment, rules, currentMap);
+      // Shuffle swappable indices for this restart
+      let currentRestartAssignment = [...currentAssignment];
+      for (let i = swappableIndices.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const idx1 = swappableIndices[i];
+        const idx2 = swappableIndices[j];
+        [currentRestartAssignment[idx1].student, currentRestartAssignment[idx2].student] = 
+        [currentRestartAssignment[idx2].student, currentRestartAssignment[idx1].student];
+      }
 
-      if (newScore < currentScore) {
-        currentAssignment = newAssignment;
-        currentScore = newScore;
-        if (newScore < bestScore) {
-          bestAssignment = [...newAssignment];
-          bestScore = newScore;
-        }
-      } else {
-        const p = Math.exp((currentScore - newScore) / (100 / (i + 1)));
-        if (Math.random() < p) {
-          currentAssignment = newAssignment;
+      let currentScore = evaluateAssignment(currentRestartAssignment, rules, currentMap);
+      let bestRestartAssignment = [...currentRestartAssignment];
+      let bestRestartScore = currentScore;
+
+      for (let i = 0; i < ITERATIONS; i++) {
+        if (bestRestartScore === 0) break;
+        
+        const newAssignment = [...currentRestartAssignment];
+        const r1 = Math.floor(Math.random() * swappableIndices.length);
+        const r2 = Math.floor(Math.random() * swappableIndices.length);
+        if (r1 === r2) continue; // Skip useless swap
+
+        const idx1 = swappableIndices[r1];
+        const idx2 = swappableIndices[r2];
+        
+        const temp = newAssignment[idx1].student;
+        newAssignment[idx1].student = newAssignment[idx2].student;
+        newAssignment[idx2].student = temp;
+
+        const newScore = evaluateAssignment(newAssignment, rules, currentMap);
+
+        if (newScore < currentScore) {
+          currentRestartAssignment = newAssignment;
           currentScore = newScore;
+          if (newScore < bestRestartScore) {
+            bestRestartAssignment = [...newAssignment];
+            bestRestartScore = newScore;
+          }
+        } else {
+          // Temperature schedule: starts at 1000, cools down
+          const T = 1000 / (1 + (i / 100));
+          const p = Math.exp((currentScore - newScore) / T);
+          if (Math.random() < p) {
+            currentRestartAssignment = newAssignment;
+            currentScore = newScore;
+          }
         }
+      }
+
+      if (bestRestartScore < globalBestScore) {
+        globalBestScore = bestRestartScore;
+        globalBestAssignment = [...bestRestartAssignment];
       }
     }
   }
-  return bestAssignment;
+  return globalBestAssignment;
 };

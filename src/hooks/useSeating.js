@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { LAYOUT_HORIZONTAL, LAYOUT_VERTICAL } from '../constants';
-import { assignSeats } from '../utils/algorithm';
+import { assignSeats, evaluateAssignment } from '../utils/algorithm';
 
 // Robust useLocalStorage hook with functional updater support
 function useLocalStorage(key, initialValue) {
@@ -244,6 +244,13 @@ export const useSeating = () => {
     // Slight timeout to allow UI to show assigning state if needed
     setTimeout(() => {
       const result = assignSeats(students, rules, currentMap, layoutMode, assignments);
+      
+      // Check if all rules are satisfied
+      const penalty = evaluateAssignment(result, rules, currentMap);
+      if (penalty > 0) {
+        alert("⚠️ 警告：系統無法找出完全符合所有「排座條件」的座位安排！\n\n這可能是因為條件過於嚴苛或產生衝突。目前已為您提供算出的最佳結果，請您務必手動微調。");
+      }
+
       setAssignments(result);
       setIsAssigning(false);
       saveSnapshot("自動排座位結果", result);
