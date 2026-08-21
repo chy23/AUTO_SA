@@ -97,6 +97,43 @@ export const evaluateAssignment = (assignment, rules, currentMap) => {
   return penalty;
 };
 
+export const getFailedRules = (assignment, rules, currentMap) => {
+  const failedRules = [];
+  const getSeat = id => currentMap.seats.find(s => s.id === id);
+  const adjacencyList = buildAdjacencyList(currentMap.seats);
+  
+  rules.forEach(rule => {
+    if (!rule.students) return;
+    const items = rule.students.map(studentId => 
+      assignment.find(a => a.student?.name === studentId || a.student?.id === studentId)
+    ).filter(Boolean);
+
+    if (items.length < 2) return;
+
+    let isFailed = false;
+    for (let i = 0; i < items.length; i++) {
+      for (let j = i + 1; j < items.length; j++) {
+        const seat1 = getSeat(items[i].seatId);
+        const seat2 = getSeat(items[j].seatId);
+        if (!seat1 || !seat2) continue;
+        
+        const g1 = seat1.groupId || 0;
+        const g2 = seat2.groupId || 0;
+        if (rule.type === 'NOT_SAME_GROUP' && g1 > 0 && g2 > 0 && g1 === g2) isFailed = true;
+        if (rule.type === 'SAME_GROUP' && (g1 === 0 || g2 === 0 || g1 !== g2)) isFailed = true;
+        
+        const isAdjacent = adjacencyList[seat1.id]?.includes(seat2.id);
+        if (rule.type === 'NOT_ADJACENT' && isAdjacent) isFailed = true;
+        if (rule.type === 'ADJACENT' && !isAdjacent) isFailed = true;
+      }
+    }
+    if (isFailed) {
+      failedRules.push(rule);
+    }
+  });
+  return failedRules;
+};
+
 export const assignSeats = (students, rules, currentMap, layoutMode, previousAssignments) => {
   if (students.length === 0) return [];
   

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { LAYOUT_HORIZONTAL, LAYOUT_VERTICAL } from '../constants';
-import { assignSeats, evaluateAssignment } from '../utils/algorithm';
+import { assignSeats, evaluateAssignment, getFailedRules } from '../utils/algorithm';
 
 // Robust useLocalStorage hook with functional updater support
 function useLocalStorage(key, initialValue) {
@@ -248,7 +248,19 @@ export const useSeating = () => {
       // Check if all rules are satisfied
       const penalty = evaluateAssignment(result, rules, currentMap);
       if (penalty > 0) {
-        alert("⚠️ 警告：系統無法找出完全符合所有「排座條件」的座位安排！\n\n這可能是因為條件過於嚴苛或產生衝突。目前已為您提供算出的最佳結果，請您務必手動微調。");
+        const failedRules = getFailedRules(result, rules, currentMap);
+        const ruleNames = failedRules.map(r => {
+          const studentsText = r.students ? r.students.join(', ') : '';
+          let typeText = '';
+          if (r.type === 'NOT_SAME_GROUP') typeText = '不能同組';
+          if (r.type === 'NOT_ADJACENT') typeText = '不能相鄰';
+          if (r.type === 'SAME_GROUP') typeText = '必須同組';
+          if (r.type === 'ADJACENT') typeText = '必須相鄰';
+          return `${studentsText} ${typeText}`;
+        });
+        
+        const ruleListStr = ruleNames.map(name => `• ${name}`).join('\n');
+        alert(`⚠️ 警告：系統無法找出完全符合所有「排座條件」的座位安排！\n\n下列條件未能被滿足（可能條件過於嚴苛或產生衝突）：\n${ruleListStr}\n\n目前已為您提供算出的最佳結果，請您務必手動微調。`);
       }
 
       setAssignments(result);

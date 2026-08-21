@@ -1,5 +1,41 @@
 [
   {
+    "version": "v1.0.126",
+    "hash": "aa0f77e7d12b67674b109d0314b227afd2c2d3c4",
+    "date": "2026-08-21T13:00:30+08:00",
+    "type": "bugfix",
+    "isBugFix": true,
+    "title": "優化排座演算法並新增無法滿足條件時的警告提示",
+    "details": ""
+  },
+  {
+    "version": "v1.0.125",
+    "hash": "49bbbdf4528385dfe7a0b2ea183043fb2c996293",
+    "date": "2026-08-18T06:23:16+08:00",
+    "type": "chore",
+    "isBugFix": false,
+    "title": "重新觸發部署 (嘗試繞過 GitHub Pages 異常)",
+    "details": ""
+  },
+  {
+    "version": "v1.0.124",
+    "hash": "421543694d947dbf54bc7173bc4e839a534157b4",
+    "date": "2026-08-18T01:44:36+08:00",
+    "type": "chore",
+    "isBugFix": false,
+    "title": "重新觸發 GitHub Actions 部署 (修復偶發的 Pages Deploy 失敗)",
+    "details": ""
+  },
+  {
+    "version": "v1.0.123",
+    "hash": "70fefd2f3adea9051e236f08d85e4ddada028bf6",
+    "date": "2026-08-18T01:37:33+08:00",
+    "type": "feature",
+    "isBugFix": false,
+    "title": "新增「設定檔備份」匯出與匯入功能，方便保存或轉移整個班級設定",
+    "details": ""
+  },
+  {
     "version": "v1.0.122",
     "hash": "40dcd3d02ff102cf3d0e8346ddb5030223026459",
     "date": "2026-08-17T17:24:29+08:00",
