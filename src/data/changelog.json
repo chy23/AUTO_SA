@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.133",
+    "hash": "3a0c01c2a68b57b2ed4aaab813c812819f064280",
+    "date": "2026-08-29T20:57:21+08:00",
+    "type": "feature",
+    "isBugFix": false,
+    "title": "支援手動修改「U型小組模式」的小組標籤，並同步支援 PPTX 匯出",
+    "details": ""
+  },
+  {
     "version": "v1.0.132",
     "hash": "52c5662ef1e0ae1d9861f76f2cf818465f0c7082",
     "date": "2026-08-29T20:54:44+08:00",

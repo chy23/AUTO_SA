@@ -352,9 +352,16 @@ select:focus, input:focus {
   align-items: center;
   justify-content: center;
   box-shadow: 0 0 10px rgba(236, 72, 153, 0.3);
-  pointer-events: none;
+  pointer-events: auto;
   z-index: 5;
   transform: translate(-50%, -50%);
+  transition: all 0.2s ease;
+}
+
+.group-label:hover {
+  background: rgba(236, 72, 153, 0.4);
+  transform: translate(-50%, -50%) scale(1.1);
+  box-shadow: 0 0 15px rgba(236, 72, 153, 0.5);
 }
 
 .static-label {
