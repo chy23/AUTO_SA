@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.131",
+    "hash": "e2e1545076add22745dcd9d4f9ba65253be1409c",
+    "date": "2026-08-29T20:41:53+08:00",
+    "type": "bugfix",
+    "isBugFix": true,
+    "title": "修正 PPTX 匯出時顯示座位號碼而非學生座號的問題",
+    "details": ""
+  },
+  {
     "version": "v1.0.130",
     "hash": "301168ef331b88b5c45b99a18e865ce24578951c",
     "date": "2026-08-29T20:37:45+08:00",
