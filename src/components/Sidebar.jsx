@@ -160,7 +160,7 @@ export default function Sidebar({
           {layoutMode === 'CUSTOM' && (
             <div className="custom-mode-settings" style={{ marginBottom: '10px', background: 'rgba(255,255,255,0.05)', padding: '10px', borderRadius: '8px' }}>
               {!seating.isEditingLayout && (
-                <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '12px', lineHeight: '1.6', background: 'rgba(0,0,0,0.2)', padding: '8px', borderRadius: '6px' }}>
+                <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '12px', lineHeight: '1.6', background: 'rgba(0,0,0,0.05)', padding: '8px', borderRadius: '6px' }}>
                   <strong style={{ color: 'var(--text-color)' }}>📌 簡單 5 步驟：</strong>
                   <ol style={{ margin: '5px 0 0 15px', padding: 0 }}>
                     <li>點擊下方「<strong>編輯座位配置</strong>」</li>
@@ -218,7 +218,7 @@ export default function Sidebar({
                     僅清除所有組號
                   </button>
                   
-                  <div style={{ marginTop: '15px', padding: '10px', background: 'rgba(0,0,0,0.15)', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.08)' }}>
+                  <div style={{ marginTop: '15px', padding: '10px', background: 'rgba(0,0,0,0.05)', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
                       <h4 style={{ fontSize: '13px', margin: 0, color: 'var(--text-color)' }}>分配小組號碼牌</h4>
                       {activeGroupBrush !== null && (

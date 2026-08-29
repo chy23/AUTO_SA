@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.129",
+    "hash": "b39e588046fc19e52512427837109eebde340a06",
+    "date": "2026-08-29T20:34:34+08:00",
+    "type": "feature",
+    "isBugFix": false,
+    "title": "增添「動態正向感」的互動體驗 (UI/UX Animations) - 在自動排座位成功時加入 Confetti 慶祝動畫 - 加入排座位時學生卡片的彈跳進場動畫 (Spring Animation)",
+    "details": ""
+  },
+  {
     "version": "v1.0.128",
     "hash": "c6bb24adec8c9b5553ac7a257a0b95a3fa5440c3",
     "date": "2026-08-21T13:21:22+08:00",
