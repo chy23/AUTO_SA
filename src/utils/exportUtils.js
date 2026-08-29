@@ -41,9 +41,14 @@ export const exportToPPTX = (assignments, currentMap, staticItems, staticVisibil
     const px = cx - (w / 2);
     const py = cy - (h / 2);
     
-    let text = `${seat.id}`;
+    let text = '';
     if (ass.student) {
-      text += `\n${ass.student.name}`;
+      if (ass.student.id) {
+        text += `${ass.student.id}\n`;
+      }
+      text += `${ass.student.name}`;
+    } else {
+      text = `${seat.id}\n(空)`;
     }
     
     let fillCol = "ffffff";

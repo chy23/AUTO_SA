@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.130",
+    "hash": "301168ef331b88b5c45b99a18e865ce24578951c",
+    "date": "2026-08-29T20:37:45+08:00",
+    "type": "update",
+    "isBugFix": false,
+    "title": "style: 徹底翻新色彩主題，轉為明亮、溫暖且充滿活力正向感的設計 (Bright & Lively Theme)",
+    "details": ""
+  },
+  {
     "version": "v1.0.129",
     "hash": "b39e588046fc19e52512427837109eebde340a06",
     "date": "2026-08-29T20:34:34+08:00",
