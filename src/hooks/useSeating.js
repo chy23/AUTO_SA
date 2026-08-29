@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import confetti from 'canvas-confetti';
 import { LAYOUT_HORIZONTAL, LAYOUT_VERTICAL } from '../constants';
 import { assignSeats, evaluateAssignment, getFailedRules } from '../utils/algorithm';
 
@@ -266,6 +267,13 @@ export const useSeating = () => {
       setAssignments(result);
       setIsAssigning(false);
       saveSnapshot("自動排座位結果", result);
+      
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#3b82f6', '#8b5cf6', '#10b981', '#f59e0b']
+      });
     }, 50);
   };
 

@@ -152,10 +152,15 @@ export default function Seat({
 
       {/* Normal mode student info */}
       {!isEditingLayout && assignment?.student ? (
-        <div className="student-info" style={{ pointerEvents: 'none' }}>
+        <motion.div 
+          initial={{ scale: 0.5, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+          className="student-info" style={{ pointerEvents: 'none' }}
+        >
           {assignment.student.id && <span className="student-id">{assignment.student.id}</span>}
           <span className="student-name">{assignment.student.name}</span>
-        </div>
+        </motion.div>
       ) : !isEditingLayout ? (
         <div className="empty-seat" style={{ pointerEvents: 'none' }}>空</div>
       ) : null}

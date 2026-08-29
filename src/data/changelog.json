@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.128",
+    "hash": "c6bb24adec8c9b5553ac7a257a0b95a3fa5440c3",
+    "date": "2026-08-21T13:21:22+08:00",
+    "type": "update",
+    "isBugFix": false,
+    "title": "docs: 補上最新演算法與警告視窗的更新紀錄詳細中文說明",
+    "details": ""
+  },
+  {
     "version": "v1.0.127",
     "hash": "9c09909a3f060b7cf6c313b4903e66c4ec54970d",
     "date": "2026-08-21T13:19:44+08:00",
