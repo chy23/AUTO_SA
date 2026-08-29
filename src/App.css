@@ -274,7 +274,9 @@ select:focus, input:focus {
 
 /* Classroom Area */
 .classroom-area {
-  flex: 0 0 78%;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
   background: var(--panel-bg);
   backdrop-filter: blur(12px);
   border: 1px solid var(--panel-border);
@@ -282,28 +284,31 @@ select:focus, input:focus {
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 3.5rem 1.5rem;
+  padding: 2rem 1.5rem;
   align-items: center;
   justify-content: center;
 }
 
 .classroom {
-  width: 100%;
-  min-width: 820px;
   background: var(--classroom-bg);
   border-radius: 12px;
   position: relative;
   margin: 0 auto;
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Doesn't work for divs, but let's constrain width/height */
 }
 
 .classroom.horizontal-layout {
-  max-width: 900px;
   aspect-ratio: 4 / 3;
+  width: auto;
 }
 
 .classroom.vertical-layout {
-  max-width: 700px;
   aspect-ratio: 1 / 1.414; /* A4 Portrait */
+  width: auto;
 }
 
 .classroom.editing-grid {

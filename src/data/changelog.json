@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.134",
+    "hash": "1f16c9ff69fccfe41ea85d65828d54e63e11f218",
+    "date": "2026-08-29T21:00:18+08:00",
+    "type": "bugfix",
+    "isBugFix": true,
+    "title": "解除 group-label 的 pointer-events 限制，使其能被正確點擊修改",
+    "details": ""
+  },
+  {
     "version": "v1.0.133",
     "hash": "3a0c01c2a68b57b2ed4aaab813c812819f064280",
     "date": "2026-08-29T20:57:21+08:00",
