@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.132",
+    "hash": "52c5662ef1e0ae1d9861f76f2cf818465f0c7082",
+    "date": "2026-08-29T20:54:44+08:00",
+    "type": "update",
+    "isBugFix": false,
+    "title": "style: 換回舒適護眼的深色主題，並保留活潑的正向螢光點綴",
+    "details": ""
+  },
+  {
     "version": "v1.0.131",
     "hash": "e2e1545076add22745dcd9d4f9ba65253be1409c",
     "date": "2026-08-29T20:41:53+08:00",

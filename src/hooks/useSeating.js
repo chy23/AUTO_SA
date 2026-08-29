@@ -54,6 +54,7 @@ export const useSeating = () => {
   const [standardCols, setStandardCols] = useLocalStorage('auto_sa_std_cols', 5);
   const [hiddenSeatIds, setHiddenSeatIds] = useLocalStorage('auto_sa_hidden_seats', []);
   const [rotatedSeatIds, setRotatedSeatIds] = useLocalStorage('auto_sa_rotated_seats', []);
+  const [groupLabels, setGroupLabels] = useLocalStorage('auto_sa_group_labels', LAYOUT_HORIZONTAL.labels);
   const [staticVisibility, setStaticVisibility] = useLocalStorage('auto_sa_static_vis', {
     'front-door': true, 'back-corridor': true, 'back-door': true, 'teacher': true, 'restroom': true
   });
@@ -129,7 +130,7 @@ export const useSeating = () => {
     }
   }
 
-  const currentMap = layoutMode === 'GROUP' ? LAYOUT_HORIZONTAL :
+  const currentMap = layoutMode === 'GROUP' ? { ...LAYOUT_HORIZONTAL, labels: groupLabels } :
                      layoutMode === 'EXAM' ? LAYOUT_VERTICAL :
                      layoutMode === 'CUSTOM' ? safeCustomMap :
                      standardMap;
@@ -426,6 +427,7 @@ export const useSeating = () => {
     standardCols, setStandardCols,
     hiddenSeatIds, setHiddenSeatIds,
     rotatedSeatIds, setRotatedSeatIds,
+    groupLabels, setGroupLabels,
     staticItems, setStaticItems,
     staticVisibility, setStaticVisibility,
     currentMap,

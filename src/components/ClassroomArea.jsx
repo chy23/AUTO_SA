@@ -162,7 +162,21 @@ export default function ClassroomArea({ seating, classroomRef, onSeatClick }) {
           <div 
             key={`label-${idx}`} 
             className="group-label"
-            style={{ left: `${label.x}%`, top: `${label.y}%` }}
+            style={{ left: `${label.x}%`, top: `${label.y}%`, cursor: 'pointer' }}
+            title="點擊修改標籤"
+            onClick={(e) => {
+              e.stopPropagation();
+              if (seating.setGroupLabels) {
+                const newText = window.prompt('請輸入新的組號/標籤：', label.text);
+                if (newText !== null && newText.trim() !== '') {
+                  seating.setGroupLabels(prev => {
+                    const next = [...prev];
+                    next[idx] = { ...next[idx], text: newText.trim() };
+                    return next;
+                  });
+                }
+              }
+            }}
           >
             {label.text}
           </div>

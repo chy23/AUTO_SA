@@ -96,6 +96,29 @@ export const exportToPPTX = (assignments, currentMap, staticItems, staticVisibil
     });
   });
 
+  // Group Labels
+  if (currentMap.labels) {
+    currentMap.labels.forEach(label => {
+      const cx = (label.x / 100) * slideW;
+      const cy = (label.y / 100) * slideH;
+      const w = 0.4;
+      const h = 0.4;
+      const px = cx - (w / 2);
+      const py = cy - (h / 2);
+      
+      slide.addShape(pres.ShapeType.rect, {
+        x: px, y: py, w: w, h: h,
+        fill: { color: "333333" },
+        rectRadius: 0.1
+      });
+      
+      slide.addText(label.text, {
+        x: px, y: py, w: w, h: h,
+        color: "FFFFFF", align: "center", bold: true, fontSize: 12
+      });
+    });
+  }
+
   pres.writeFile({ fileName: "座位表.pptx" });
 };
 
