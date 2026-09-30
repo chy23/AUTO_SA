@@ -37,7 +37,7 @@
 }
 
 .panel {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--panel-inner-bg);
   border: 1px solid var(--border-color);
   border-radius: 8px;
   padding: 1rem;
@@ -46,7 +46,7 @@
 
 /* Accordion Styles */
 details.accordion-panel {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--panel-inner-bg);
   border: 1px solid var(--border-color);
   border-radius: 8px;
   margin-bottom: 0.5rem;
@@ -55,7 +55,7 @@ details.accordion-panel {
 }
 
 details.accordion-panel[open] {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(128, 128, 128, 0.05);
 }
 
 details.accordion-panel summary {

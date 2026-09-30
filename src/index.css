@@ -8,6 +8,7 @@
   --primary-hover: #d946ef;
   --accent: #8b5cf6;
   --border-color: rgba(255, 255, 255, 0.15);
+  --panel-inner-bg: rgba(255, 255, 255, 0.03);
   
   --classroom-bg: rgba(0, 0, 0, 0.3);
   --grid-color: rgba(255, 255, 255, 0.08);
@@ -36,13 +37,15 @@
 
 body.light-theme {
   --bg-color: #f4f4f5; /* Zinc 100 for a warm neutral background */
-  --panel-bg: #ffffff; /* Clean white panels */
+  --panel-bg: rgba(255, 255, 255, 0.85); /* Transparent white for liquid glass */
   --panel-border: #d4d4d8; /* Zinc 300 for clearer panel boundaries */
   --text-main: #18181b; /* Zinc 900 for high contrast text */
   --text-muted: #52525b; /* Zinc 600 */
   --primary: #2563eb;
   --primary-hover: #1d4ed8;
+  --accent: #7c3aed; /* Add accent color for light theme */
   --border-color: #d4d4d8;
+  --panel-inner-bg: rgba(0, 0, 0, 0.03); /* Visible on white background */
   
   --classroom-bg: #e4e4e7; /* Zinc 200 to contrast with white seats */
   --grid-color: rgba(0, 0, 0, 0.06);
