@@ -197,42 +197,45 @@ export const assignSeats = (students, rules, currentMap, layoutMode, previousAss
     for (let restart = 0; restart < RESTART_COUNT; restart++) {
       if (globalBestScore === 0) break;
 
+      // Deep copy for this restart
+      let currentRestartAssignment = currentAssignment.map(a => ({...a}));
+      
       // Shuffle swappable indices for this restart
-      let currentRestartAssignment = [...currentAssignment];
       for (let i = swappableIndices.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         const idx1 = swappableIndices[i];
         const idx2 = swappableIndices[j];
-        [currentRestartAssignment[idx1].student, currentRestartAssignment[idx2].student] = 
-        [currentRestartAssignment[idx2].student, currentRestartAssignment[idx1].student];
+        const temp = currentRestartAssignment[idx1].student;
+        currentRestartAssignment[idx1].student = currentRestartAssignment[idx2].student;
+        currentRestartAssignment[idx2].student = temp;
       }
 
       let currentScore = evaluateAssignment(currentRestartAssignment, rules, currentMap);
-      let bestRestartAssignment = [...currentRestartAssignment];
+      let bestRestartAssignment = currentRestartAssignment.map(a => ({...a}));
       let bestRestartScore = currentScore;
 
       for (let i = 0; i < ITERATIONS; i++) {
         if (bestRestartScore === 0) break;
         
-        const newAssignment = [...currentRestartAssignment];
         const r1 = Math.floor(Math.random() * swappableIndices.length);
         const r2 = Math.floor(Math.random() * swappableIndices.length);
-        if (r1 === r2) continue; // Skip useless swap
+        if (r1 === r2) continue;
 
         const idx1 = swappableIndices[r1];
         const idx2 = swappableIndices[r2];
         
-        const temp = newAssignment[idx1].student;
-        newAssignment[idx1].student = newAssignment[idx2].student;
-        newAssignment[idx2].student = temp;
+        // Swap IN-PLACE
+        const temp = currentRestartAssignment[idx1].student;
+        currentRestartAssignment[idx1].student = currentRestartAssignment[idx2].student;
+        currentRestartAssignment[idx2].student = temp;
 
-        const newScore = evaluateAssignment(newAssignment, rules, currentMap);
+        const newScore = evaluateAssignment(currentRestartAssignment, rules, currentMap);
 
+        let accept = false;
         if (newScore < currentScore) {
-          currentRestartAssignment = newAssignment;
-          currentScore = newScore;
+          accept = true;
           if (newScore < bestRestartScore) {
-            bestRestartAssignment = [...newAssignment];
+            bestRestartAssignment = currentRestartAssignment.map(a => ({...a}));
             bestRestartScore = newScore;
           }
         } else {
@@ -240,15 +243,23 @@ export const assignSeats = (students, rules, currentMap, layoutMode, previousAss
           const T = 1000 / (1 + (i / 100));
           const p = Math.exp((currentScore - newScore) / T);
           if (Math.random() < p) {
-            currentRestartAssignment = newAssignment;
-            currentScore = newScore;
+            accept = true;
           }
+        }
+
+        if (accept) {
+          currentScore = newScore;
+        } else {
+          // Revert swap
+          const tempBack = currentRestartAssignment[idx1].student;
+          currentRestartAssignment[idx1].student = currentRestartAssignment[idx2].student;
+          currentRestartAssignment[idx2].student = tempBack;
         }
       }
 
       if (bestRestartScore < globalBestScore) {
         globalBestScore = bestRestartScore;
-        globalBestAssignment = [...bestRestartAssignment];
+        globalBestAssignment = bestRestartAssignment.map(a => ({...a}));
       }
     }
   }

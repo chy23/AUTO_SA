@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.135",
+    "hash": "e0b998036a056d42bf2c4a677beb0510791fc4f6",
+    "date": "2026-08-29T21:04:59+08:00",
+    "type": "update",
+    "isBugFix": false,
+    "title": "style: 修復教室座位區在不同螢幕尺寸下會超出網頁底部的問題 (RWD Aspect Ratio Fix)",
+    "details": ""
+  },
+  {
     "version": "v1.0.134",
     "hash": "1f16c9ff69fccfe41ea85d65828d54e63e11f218",
     "date": "2026-08-29T21:00:18+08:00",
