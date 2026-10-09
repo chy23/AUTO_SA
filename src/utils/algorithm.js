@@ -170,8 +170,8 @@ export const assignSeats = (students, rules, currentMap, layoutMode, previousAss
     }
   });
   
-  // In STANDARD mode, lock the trailing empty seats to the back
-  if (layoutMode === 'STANDARD' && totalSeats > students.length) {
+  // In EXAM mode, lock the trailing empty seats to the back
+  if (layoutMode === 'EXAM' && totalSeats > students.length) {
     const numEmpty = totalSeats - students.length;
     // Remove the last 'numEmpty' unlocked indices from swappable list
     // Wait, since some seats might be locked, we shouldn't just remove from swappableIndices.

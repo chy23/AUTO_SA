@@ -1,5 +1,32 @@
 [
   {
+    "version": "v1.0.138",
+    "hash": "ee478e506c6b2717a518912853e94dfdeba3db46",
+    "date": "2026-10-05T22:51:17+08:00",
+    "type": "bugfix",
+    "isBugFix": true,
+    "title": "修復排座演算法因淺拷貝(Shallow Copy)導致不同組規則失效的嚴重 Bug",
+    "details": ""
+  },
+  {
+    "version": "v1.0.137",
+    "hash": "32c005248202aef3592ebb51941aac217a80df65",
+    "date": "2026-09-30T10:43:31+08:00",
+    "type": "update",
+    "isBugFix": false,
+    "title": "style: 調整座位字體大小下限以符合 Apple HIG 可讀性建議",
+    "details": ""
+  },
+  {
+    "version": "v1.0.136",
+    "hash": "1d3c6402eb943a8adec8eeddf7b1f4b3081038d1",
+    "date": "2026-09-30T10:42:00+08:00",
+    "type": "update",
+    "isBugFix": false,
+    "title": "style: 修復淺色模式下的 Liquid Glass 與對比度失效問題",
+    "details": ""
+  },
+  {
     "version": "v1.0.135",
     "hash": "e0b998036a056d42bf2c4a677beb0510791fc4f6",
     "date": "2026-08-29T21:04:59+08:00",
