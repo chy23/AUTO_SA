@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { X, Search } from 'lucide-react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 
 export default function ManualAssignModal({ isOpen, seatId, onClose, students, assignments, onAssign }) {
   const [searchTerm, setSearchTerm] = useState('');
-
-  if (!isOpen) return null;
+  const shouldReduceMotion = useReducedMotion();
 
   const filteredStudents = students.filter(s => 
     s.name.includes(searchTerm) || s.id.includes(searchTerm)
@@ -13,9 +13,26 @@ export default function ManualAssignModal({ isOpen, seatId, onClose, students, a
   const currentAssignedStudent = assignments.find(a => a.seatId === seatId)?.student;
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={e => e.stopPropagation()} style={{ width: '450px' }}>
-        <div className="modal-header">
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div 
+          className="modal-overlay" 
+          onClick={onClose}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          <motion.div 
+            className="modal-content" 
+            onClick={e => e.stopPropagation()} 
+            style={{ width: '450px' }}
+            initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.95, filter: shouldReduceMotion ? 'blur(0px)' : 'blur(10px)' }}
+            animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.95, filter: shouldReduceMotion ? 'blur(0px)' : 'blur(10px)' }}
+            transition={shouldReduceMotion ? { duration: 0.2 } : { type: 'spring', damping: 25, stiffness: 300 }}
+          >
+            <div className="modal-header">
           <h2>指定學生至座位 {seatId}</h2>
           <button className="icon-btn" onClick={onClose}><X size={20} /></button>
         </div>
@@ -80,7 +97,9 @@ export default function ManualAssignModal({ isOpen, seatId, onClose, students, a
             })}
           </div>
         </div>
-      </div>
-    </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

@@ -1,5 +1,14 @@
 [
   {
+    "version": "v1.0.139",
+    "hash": "90baa66450715836c542636fa2d61a99a2bfc7ab",
+    "date": "2026-10-09T22:47:19+08:00",
+    "type": "bugfix",
+    "isBugFix": true,
+    "title": "將 algorithm.js 中的 STANDARD 修正為 EXAM 以正確啟用一般模式下的空位後置邏輯",
+    "details": ""
+  },
+  {
     "version": "v1.0.138",
     "hash": "ee478e506c6b2717a518912853e94dfdeba3db46",
     "date": "2026-10-05T22:51:17+08:00",

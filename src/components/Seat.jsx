@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { X, Lock, Unlock } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 export default function Seat({ 
   seat, 
@@ -24,6 +24,7 @@ export default function Seat({
   const [isDragOver, setIsDragOver] = useState(false);
   const isLocked = assignment?.isLocked;
   const groupId = seat.groupId ?? 0;
+  const shouldReduceMotion = useReducedMotion();
   const handleClick = (e) => {
     e.stopPropagation();
     
@@ -51,7 +52,7 @@ export default function Seat({
     <motion.div 
       initial={false}
       animate={{ left: `${seat.x}%`, top: `${seat.y}%` }}
-      transition={isEditingLayout ? { duration: 0 } : { type: "spring", stiffness: 300, damping: 30 }}
+      transition={isEditingLayout || shouldReduceMotion ? { duration: 0 } : { type: "spring", stiffness: 300, damping: 30 }}
       className={`seat group-${groupId} ${seat.shape || 'vertical'} ${isLocked ? 'locked' : ''} ${isSelected ? 'selected' : ''}`}
       style={{ 
         position: 'absolute', 
@@ -153,9 +154,9 @@ export default function Seat({
       {/* Normal mode student info */}
       {!isEditingLayout && assignment?.student ? (
         <motion.div 
-          initial={{ scale: 0.5, opacity: 0 }}
+          initial={{ scale: shouldReduceMotion ? 1 : 0.5, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+          transition={shouldReduceMotion ? { duration: 0.2 } : { type: 'spring', stiffness: 400, damping: 25 }}
           className="student-info" style={{ pointerEvents: 'none' }}
         >
           {assignment.student.id && <span className="student-id">{assignment.student.id}</span>}

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { X, UserPlus, Users, Trash2 } from 'lucide-react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 
 export default function RuleBuilderModal({ isOpen, onClose, rules, setRules, students, editingRuleId, onClearEdit, onEditRule }) {
   const [ruleType, setRuleType] = useState('NOT_SAME_GROUP');
   const [selectedStudents, setSelectedStudents] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [showSavedMsg, setShowSavedMsg] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     if (isOpen) {
@@ -22,8 +24,6 @@ export default function RuleBuilderModal({ isOpen, onClose, rules, setRules, stu
       setSearchTerm('');
     }
   }, [isOpen, editingRuleId, rules, students]);
-
-  if (!isOpen) return null;
 
   const handleAddRule = () => {
     if (selectedStudents.length < 2) {
@@ -69,9 +69,25 @@ export default function RuleBuilderModal({ isOpen, onClose, rules, setRules, stu
   );
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <div className="modal-header">
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div 
+          className="modal-overlay" 
+          onClick={onClose}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          <motion.div 
+            className="modal-content" 
+            onClick={e => e.stopPropagation()}
+            initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.95, filter: shouldReduceMotion ? 'blur(0px)' : 'blur(10px)' }}
+            animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.95, filter: shouldReduceMotion ? 'blur(0px)' : 'blur(10px)' }}
+            transition={shouldReduceMotion ? { duration: 0.2 } : { type: 'spring', damping: 25, stiffness: 300 }}
+          >
+            <div className="modal-header">
           <h2>新增排座規則</h2>
           <button className="icon-btn" onClick={onClose}><X size={20} /></button>
         </div>
@@ -184,7 +200,9 @@ export default function RuleBuilderModal({ isOpen, onClose, rules, setRules, stu
             {editingRuleId ? '儲存變更' : '儲存規則'}
           </button>
         </div>
-      </div>
-    </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

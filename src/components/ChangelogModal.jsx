@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { X, GitCommit, Bug, Sparkles, Activity, FileText } from 'lucide-react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import changelogData from '../data/changelog.json';
 
 export default function ChangelogModal({ isOpen, onClose }) {
-  if (!isOpen) return null;
+  const shouldReduceMotion = useReducedMotion();
 
   const getIcon = (type) => {
     switch (type) {
@@ -41,10 +42,26 @@ export default function ChangelogModal({ isOpen, onClose }) {
   };
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content changelog-modal" onClick={e => e.stopPropagation()}>
-        <div className="modal-header">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div 
+          className="modal-overlay" 
+          onClick={onClose}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          <motion.div 
+            className="modal-content changelog-modal" 
+            onClick={e => e.stopPropagation()}
+            initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.95, filter: shouldReduceMotion ? 'blur(0px)' : 'blur(10px)' }}
+            animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.95, filter: shouldReduceMotion ? 'blur(0px)' : 'blur(10px)' }}
+            transition={shouldReduceMotion ? { duration: 0.2 } : { type: 'spring', damping: 25, stiffness: 300 }}
+          >
+            <div className="modal-header">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <GitCommit size={24} style={{ color: 'var(--primary)' }} />
             <h2>系統更新紀錄 (Changelog)</h2>
           </div>
@@ -88,7 +105,9 @@ export default function ChangelogModal({ isOpen, onClose }) {
             </div>
           )}
         </div>
-      </div>
-    </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
